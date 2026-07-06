@@ -180,7 +180,9 @@ The **Access Code** feature in OpenSign adds an extra layer of security to your 
 5. If the signer enters the correct access code, the document opens and they can proceed with reviewing and signing it.
 
 6. If the signer enters an incorrect access code, access to the document is denied. The signer must enter the correct **6-digit numeric access code** provided by the document owner to continue.
-   
+
+[![OpenSign Access Code Tutorial](https://img.youtube.com/vi/9kFg_p7TMF0/maxresdefault.jpg)](https://youtu.be/9kFg_p7TMF0)
+
 ---
 ## Add Widgets for Signers
 ## 1. Add a Signature Widget
@@ -304,6 +306,8 @@ Show TextInput1
 **Result**
 
 The configured **TextInput1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+[![How to Use Conditional Logic in OpenSign](https://img.youtube.com/vi/V8j713iG94A/maxresdefault.jpg)](https://youtu.be/V8j713iG94A)                                                   
 
 ### Related Conditional Logic Guides
 
