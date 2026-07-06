@@ -218,59 +218,8 @@ After placing the Initials widget, you will see the options on the widget such a
       -  All pages : It will copy the initials widget to all pages.
       -  All pages but last: It will copy the initials widget to all pages except the last page.
       -  All pages but first: It will copy the initials widget to all pages except the first page.
-## 4. Name   
-The name widget allows signers to add their name or any other text, functioning like a text field during the signing process. After placing the name widget, you will see the options on the widget such as:
-  - Setting icon: By clicking on the option, you can set the color and font.
-    
-    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-    
-  - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-  - Copy : Clicking on this you can duplicate the name widget.
-## 5. Job title
-The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process. After placing the job title widget, you will see the options on the widget such as:
-  - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-  - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-  - Copy : Clicking on this you can duplicate the job title widget.
-  
-## 6. Company
-The company widget allows signers to add their company or any other text, functioning like a text field during the signing process. After placing the company widget, you will see the options on the widget such as:
-  - Setting icon: By clicking on the option, you can set the color and font.
-       
-       **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-  - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-  - Copy : Clicking on this you can duplicate the Company widget.
-       
-## 7. Date Widget
 
-The **Date widget** allows signers to enter a date while signing the document. Once the widget is placed, you can configure its behavior using the available settings in the **Widget Info** panel.
-
-#### ⚙️ Widget Options
-
-- **Date Format**: Choose the preferred date format (for example, `MM/dd/yyyy`, `dd-mm-yyyy`, or `dd/mm/yyyy`) from the Format dropdown. This determines how the date appears to the signer.
-- **Set Date**: This option allows the user to set a default date, which will be displayed while signing the document.
-- **Signing Date**: When selected, the date on which the signer signs the document will be automatically displayed in the Date widget.
-- **Clear**: Removes the selected date setting.
-
-- **Date Range**
-  - **Min Date**: Sets the earliest date the signer can select.
-  - **Max Date**: Sets the latest date the signer can select.
-  - Use **Clear** to remove the minimum or maximum date restrictions.
-
-- **Required / Optional**  
-  Mark the widget as **Required** if the signer must fill it in before completing the signing, or **Optional** if it is not mandatory.
-
-- **Font Settings**
-  Customize the **font size** and **text color** to match the document’s style.
-
-- **Read Only**
-  Enable this option to display a date that cannot be edited by the signer.
-
-- **Save**
-  Click **Save** to apply all selected settings to the Date widget.
-  
-## 8. Text Input
+## 4. Text Input
 The text input field is used to collect input from the signer. Signers can type their responses directly into this field. After placing the Text Input widget, you will see the options on the widget such as:
   - Setting : The widget settings panel provides additional customization options, including:
       - Choosing a **font color**
@@ -372,7 +321,7 @@ The **Text Input** widget also supports Conditional Logic using the following tr
   
 ---
 
-## 9. Number widget
+## 5. Number widget
 
 The Number widget is used to collect numeric input from the signer. It accepts only numeric values, helping ensure data accuracy and consistency. The Number widget also supports formulas, allowing you to perform automatic calculations using values from other Number widgets. After placing the Number widget, you will see the following options:
 
@@ -524,7 +473,69 @@ The **Number** widget also supports Conditional Logic using the following trigge
 
 ---
 
-## 10. Cells
+## 6. Name   
+The name widget allows signers to add their name or any other text, functioning like a text field during the signing process. After placing the name widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+    
+    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    
+  - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the name widget.
+## 7. Job title
+The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process. After placing the job title widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+      
+      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+  - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the job title widget.
+  
+## 8. Company
+The company widget allows signers to add their company or any other text, functioning like a text field during the signing process. After placing the company widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+       
+       **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+  - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the Company widget.
+## 9. Email
+The email widget is used to enter an email address during the signing process. It only accepts input in a valid email format. If the signer enters invalid text, a validation error will occur, and the document cannot be completed until it's corrected. After placing the email widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+      
+      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+      
+  - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the email widget.
+
+---       
+## 10. Date Widget
+
+The **Date widget** allows signers to enter a date while signing the document. Once the widget is placed, you can configure its behavior using the available settings in the **Widget Info** panel.
+
+#### ⚙️ Widget Options
+
+- **Date Format**: Choose the preferred date format (for example, `MM/dd/yyyy`, `dd-mm-yyyy`, or `dd/mm/yyyy`) from the Format dropdown. This determines how the date appears to the signer.
+- **Set Date**: This option allows the user to set a default date, which will be displayed while signing the document.
+- **Signing Date**: When selected, the date on which the signer signs the document will be automatically displayed in the Date widget.
+- **Clear**: Removes the selected date setting.
+
+- **Date Range**
+  - **Min Date**: Sets the earliest date the signer can select.
+  - **Max Date**: Sets the latest date the signer can select.
+  - Use **Clear** to remove the minimum or maximum date restrictions.
+
+- **Required / Optional**  
+  Mark the widget as **Required** if the signer must fill it in before completing the signing, or **Optional** if it is not mandatory.
+
+- **Font Settings**
+  Customize the **font size** and **text color** to match the document’s style.
+
+- **Read Only**
+  Enable this option to display a date that cannot be edited by the signer.
+
+- **Save**
+  Click **Save** to apply all selected settings to the Date widget.
+  
+
+## 11. Cells
   The **Cells widget** is ideal for documents that require input in a structured, table-like format, allowing the signer to fill in details within individual cells. After dragging and dropping the widget onto the document, you can adjust the number of cells by moving the **blue marker**.
   
 <img width="800" alt="Cells widget" src="https://github.com/user-attachments/assets/2a301776-5275-4daf-b361-fd48af2878fc" />
@@ -555,7 +566,7 @@ The **Number** widget also supports Conditional Logic using the following trigge
 
 ---
 
-## 11. Checkbox
+## 12. Checkbox
 The checkbox widget is used to capture input in the form of a checkbox selection. Once you drop the checkbox widget, a popup will open where you can set the checkbox name and options. Additionally, there are a few options available such as setting the minimum and maximum checks, making the checkbox read-only, and hiding the label.
  
  **Conditional Logic**
@@ -743,7 +754,7 @@ The **Checkbox** widget also supports Conditional Logic using the following trig
       
 ---
 
-## 12. Dropdown
+## 13. Dropdown
 Once you drop the dropdown widget, a popup will open where you can set the dropdown name and options. Additionally, there are a few options available such as setting a default value and marking the dropdown as required or optional.
   
 ### **Conditional Logic**
@@ -884,7 +895,7 @@ The **Dropdown** widget also supports Conditional Logic using the following trig
 
 ---
 
-## 13. Radio button
+## 14. Radio button
 The radio button widget is used to capture input in the form of a radio button selection. Once you drop the radio button widget, a popup will open where you can set the radio button name and options. Additionally, there are a few options available such as setting a default value, making the radio button read-only, and hiding the label.
 
 ### **Conditional Logic**
@@ -1090,25 +1101,14 @@ The **Radio Button** widget also supports Conditional Logic using the following 
   
 ---
 
-## 14. Image 
+## 15. Image 
 The image widget allows signers to upload an image during the signing process. After placing the Image widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
   - Add Signer/Change Signer: Clicking the first icon on the Image widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the image widget.
       
 ---
-
-## 15. Email
-The email widget is used to enter an email address during the signing process. It only accepts input in a valid email format. If the signer enters invalid text, a validation error will occur, and the document cannot be completed until it's corrected. After placing the email widget, you will see the options on the widget such as:
-  - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-      
-  - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-  - Copy : Clicking on this you can duplicate the email widget.
-
----
-      
+    
 ## 16. 📎 Attachment Widget
 The **Attachment Widget** allows signers to upload supporting files directly while completing and signing a document. This is useful when additional documents or evidence are required as part of the signing workflow.
 
