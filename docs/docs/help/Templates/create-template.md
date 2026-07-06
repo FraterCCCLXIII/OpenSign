@@ -173,67 +173,335 @@ The **Access Code** feature in OpenSign adds an extra layer of security to your 
    
 ---
 
-**Assign Widgets to Roles**: Click on each role to highlight it, then drag and drop the widget to assign it to that role.
-  - **[1] Assign signature widget**: The signature widget is used to add a signature to the document. Each role must have at least one signature widget assigned.
-    
+## Assign Widgets to Roles:
+Click on each role to highlight it, then drag and drop the widget to assign it to that role.
+
+## 1. Signature widget
+The signature widget is used to add a signature to the document. Each role must have at least one signature widget assigned.  
 Select the Role from the right side panel, click on the signature widget, and position it where the signature is required. You can place multiple signature widgets for each Role, as required.
 
-  After placing the Signature widget, you will see the options on the widget such as:
-  - **Add Signer/Change Signer**: Clicking the first icon on the signature widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-    
-  After placing the Signature widget, you will see the options on the widget such as:
+After placing the Signature widget, you will see the options on the widget such as:
   - **Add Signer/Change Signer**: Clicking the first icon on the signature widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - **Copy Signature**: Clicking on this option reveals the following choices.
     -  All pages: It will copy the signature widget to all pages.
     -  All pages but last: It will copy the signature widget to all pages except the last page.
     -  All pages but first: It will copy the signature widget to all pages except the first page.
     
-  - **Copy Signature**: Clicking on this option reveals the following choices.
-    -  All pages: It will copy the signature widget to all pages.
-    -  All pages but last: It will copy the signature widget to all pages except the last page.
-    -  All pages but first: It will copy the signature widget to all pages except the first page.
-    
-  - **[2] Add other widgets**: Depending on your needs, you can include additional widgets such as:
-   - **Stamp**: The stamp widget allows signers to add a stamp to the document. Signers can upload their stamp during the signing process.
+### Add other widgets: 
+Depending on your needs, you can include additional widgets such as:
+## 2. Stamp
+The stamp widget allows signers to add a stamp to the document. Signers can upload their stamp during the signing process.
 After placing the Stamp widget, you will see the options on the widget such as:
-        - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
-        - Add Signer/Change Signer: Clicking the second option on the stamp widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-        - Copy Stamp: Clicking on this option reveals the following choices.
-          -  All pages : It will copy the stamp widget to all pages.
-          -  All pages but last: It will copy the stamp widget to all pages except the last page.
-          -  All pages but first: It will copy the stamp widget to all pages except the first page.
-   - **Initials**: The initials widget allows signers to add their initials to the document. During the signing process, signers can draw, upload, or type their initials. After placing the Initials widget, you will see the options on the widget such as:
-        - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
-        - Add Signer/Change Signer: Clicking the first icon on the Initials widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-        - Copy Initials: Clicking on this option reveals the following choices.
-          -  All pages : It will copy the initials widget to all pages.
-          -  All pages but last: It will copy the initials widget to all pages except the last page.
-          -  All pages but first: It will copy the initials widget to all pages except the first page.
- - **Name**: The name widget allows signers to add their name or any other text, functioning like a text field during the signing process.
-After placing the name widget, you will see the options on the widget such as:
-    - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-      
-    - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-    - Copy : Clicking on this you can duplicate the name widget.
- - **Job title**: The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process.
-After placing the job title widget, you will see the options on the widget such as:
-    - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-    - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-    - Copy : Clicking on this you can duplicate the job title widget.
+  - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
+  - Add Signer/Change Signer: Clicking the second option on the stamp widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy Stamp: Clicking on this option reveals the following choices.
+    -  All pages : It will copy the stamp widget to all pages.
+    -  All pages but last: It will copy the stamp widget to all pages except the last page.
+    -  All pages but first: It will copy the stamp widget to all pages except the first page.
+          
+## 3. Initials
+The initials widget allows signers to add their initials to the document. During the signing process, signers can draw, upload, or type their initials.
+
+After placing the Initials widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
+  - Add Signer/Change Signer: Clicking the first icon on the Initials widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+        
+  - Copy Initials: Clicking on this option reveals the following choices.
+    -  All pages : It will copy the initials widget to all pages.
+    -  All pages but last: It will copy the initials widget to all pages except the last page.
+    -  All pages but first: It will copy the initials widget to all pages except the first page.
+
+---
+## 4. Text Input 
+The text input field is used to collect input from the signer. Signers can type their responses directly into this field.
+After placing the Text Input widget, you will see the options on the widget such as:
+  - Setting icon: The widget settings panel provides additional customization options, including:
+    - Choosing a **font color**
+    - Setting the **font size**
+    - Marking the field as **required** or **optional**
+    - Providing a **default value**
+    - Making the field **read-only**
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - Adding a **hint**, which will be displayed on the widget for better clarity
+    - **Custom Validations** are also supported, including:
+    - Predefined formats like **SSN**, **email**, or **numeric values**
+    - Custom JavaScript validations using regular expressions
+      For example:
+      - `^\d+$` – allows only digits  
+      - `^[A-Z]+$` – allows only uppercase letters  
+
+  You can enter your regex pattern in the **Validations** field of the widget.  
+  *(Optional reference: [JavaScript RegExp guide](https://www.w3schools.com/jsref/jsref_obj_regexp.asp))*
   
- - **Company**: The company widget allows signers to add their company or any other text, functioning like a text field during the signing process.
+  <img width="800" alt="Cells widget" src="https://github.com/user-attachments/assets/ce0c335b-b2bf-4d30-968c-c4c957f46014" />
+  
+  **Conditional Logic**:
+  
+The Text Input widget also supports **Conditional Logic**, allowing you to dynamically show, hide, make required, or make optional the field based on values entered or selected in other widgets.
+Conditional Logic enables the Text Input widget to respond dynamically based on values from other widgets.
+
+Depending on the configured rule, the Text Input field can:
+    - Show the field
+    - Hide the field
+    - Make the field Required
+    - Make the field Optional
+    
+<img width="1897" alt="conditional logic textinput" src="" />
+
+## Supported Conditions
+The **Text Input** widget supports conditional logic based on the values of other widgets. 
+The available conditions depend on the selected trigger widget.
+
+### Text Input 
+
+Supported operators: 
+- **Equals**
+- **Does Not Equal**
+  
+**Example** If the value entered in **TextInput1** is equal to **HR**, then **TextInput2** is displayed.
+
+```
+text Condition: TextInput1 = HR  
+Action: Show TextInput2
+ ``` 
+### Number
+Supported operators:
+- Equals
+- Does Not Equal
+  
+Example
+If ``` number_widget1 = 5 ```
+Then ``` Show TextInput1 ```
+
+### Any Condition (OR) 
+
+When **Any Condition (OR)** is selected, the configured action is performed if **at least one** of the specified conditions is satisfied.
+
+**Example** 
+
+text Condition 1: Number Field = 10 OR Condition 2: Checkbox = Checked
+
+Action:
+
+Show TextInput1
+
+ **TextInput1** is displayed if either the Number field equals **10** or the Checkbox is checked.
+
+## Example
+
+| Property | Value |
+|----------|-------|
+| **Trigger Widget** | Number |
+| **Condition** | Equals |
+| **Condition Value** | 5 |
+| **Condition 2 checkbox** | checked |
+| **Action** | Show TextInput1 |
+
+**Result**
+
+The configured **TextInput1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+### Related Conditional Logic Guides
+
+The **Text Input** widget also supports Conditional Logic using the following trigger widgets:
+- **Number Widget** - [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#number-widget-as-the-trigger)
+- **Dropdown Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-widget-as-the-trigger)
+- **Checkbox Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#checkbox-widget-as-the-trigger)
+- **Radio Button Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-as-the-trigger)
+
+### Additional Widget Options
+
+  - Add Signer/Change Signer: Clicking the first icon on the Text Input widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  -  Copy : Clicking on this you can duplicate the Text Input widget.
+---
+## 5. Number widget
+
+The Number widget is used to collect numeric input from the signer. It accepts only numeric values, helping ensure data accuracy and consistency. The Number widget also supports formulas, allowing you to perform automatic calculations using values from other Number widgets. After placing the Number widget, you will see the following options:
+
+  - **Settings**: The widget settings panel provides additional customization options, including:
+    - Choosing a **font color**
+    - Setting the **font size**
+    - Marking the field as **required** or **optional**
+    - Providing a **default value**
+    - Making the field **read-only**
+    - Adding a **placeholder** to guide the signer on the expected input
+    - Assigning a unique **Name** to the widget. This name is used when referencing the widget in formulas.
+      - Example:
+        - `number-1`
+        - `subtotal`
+        - `tax`
+        - `grand_total`
+    - Defining a **Formula** to automatically calculate values using other Number widgets.
+      - Example:
+        ```text
+        {{quantity}} * {{price}}
+        ```
+      - Supported mathematical operators include:
+        - `+` Addition
+        - `-` Subtraction
+        - `*` Multiplication
+        - `/` Division
+        - `%` Modulus (Remainder)
+        - `()` Parentheses for grouping operations
+
+---
+
+### **Conditional Logic**
+
+The Number widget also supports **Conditional Logic**, allowing you to dynamically show, hide, make required, or make optional the field based on values entered or selected in other widgets.
+
+Conditional Logic enables the Number widget to respond dynamically based on values from other widgets.
+
+Depending on the configured rule, the Number widget can:
+
+- Show the field
+- Hide the field
+- Make the field **Required**
+- Make the field **Optional**
+
+---
+
+## Supported Conditions
+
+The **Number** widget supports Conditional Logic based on the values of other widgets.
+
+The available conditions depend on the selected trigger widget.
+
+### Text Input
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the value entered in **TextInput1** is equal to **HR**, then **Number1** is displayed.
+
+```text
+Condition: TextInput1 = HR
+Action: Show Number1
+```
+
+---
+
+### Number
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If **Number1** equals **10**, then **Number2** is displayed.
+
+```text
+Condition: Number1 = 10
+Action: Show Number2
+```
+
+---
+
+### Any Condition (OR)
+
+When **Any Condition (OR)** is selected, the configured action is performed when **at least one** of the configured conditions is satisfied.
+
+#### Example
+
+**Conditions**
+
+- Number Field = **10**
+- **OR**
+- Checkbox = **Checked**
+
+**Action**
+
+Show **Number1**
+
+**Result**
+
+The configured **Number1** widget is displayed when either of the following conditions is met:
+
+- The signer enters **10** in the Number field.
+- The signer checks the Checkbox.
+
+---
+
+## Configuration Example
+
+| Property | Value |
+|----------|-------|
+| **Condition Type** | Any Condition (OR) |
+| **Trigger Widget 1** | Number |
+| **Condition** | Equals |
+| **Condition Value** | 10 |
+| **Trigger Widget 2** | Checkbox |
+| **Condition** | Is Checked |
+| **Action** | Show Number1 |
+
+**Result**
+
+The configured **Number1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+### Related Conditional Logic Guides
+
+The **Number** widget also supports Conditional Logic using the following trigger widgets:
+
+- **Text Input** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#number-widget-triggered-by-a-text-input)
+  
+- **Dropdown Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#number-widget-triggered-by-a-dropdown)
+
+- **Checkbox Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#number-widget-triggered-by-a-checkbox)
+
+- **Radio Button Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#supported-operators-6)
+  
+- **Number Widget Triggered by Another Number Widget** - [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#number-widget-triggered-by-another-number-widget)
+  
+### Additional Widget Options
+
+  - **Add Signer / Change Signer**: Click the first icon on the Number widget to assign the widget to a different signer. You can choose an existing signer or add a new recipient.
+
+  - **Copy**: Click the **Copy** icon to duplicate the Number widget.
+---
+## 6. Name
+The name widget allows signers to add their name or any other text, functioning like a text field during the signing process.
+After placing the name widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+      
+    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+      
+  - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the name widget.
+ ---   
+## 7. Job title
+The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process.
+After placing the job title widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+      
+      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+  - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the job title widget.
+---
+## 8. Company
+The company widget allows signers to add their company or any other text, functioning like a text field during the signing process.
 After placing the company widget, you will see the options on the widget such as:
-     - Setting icon: By clicking on the option, you can set the color and font.
+  - Setting icon: By clicking on the option, you can set the color and font.
        
-       **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.   
-     - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-     - Copy : Clicking on this you can duplicate the Company widget.
-       
-- **Date Widget**
+    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+  - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the Company widget.
+--- 
+## 9. Email
+The email widget is used to enter an email address during the signing process. It only accepts input in a valid email format. If the signer enters invalid text, a validation error will occur, and the document cannot be completed until it's corrected. 
+After placing the email widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can set the color and font.
+      
+    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+  - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the email widget.
+---
+## 10. Date Widget
 
 The **Date widget** allows signers to enter a date while signing the document. Once the widget is placed, you can configure its behavior using the available settings in the **Widget Info** panel.
 
@@ -260,52 +528,27 @@ The **Date widget** allows signers to enter a date while signing the document. O
 
 - **Save**
   Click **Save** to apply all selected settings to the Date widget.
-  
- - **Text Input**: The text input field is used to collect input from the signer. Signers can type their responses directly into this field.
-After placing the Text Input widget, you will see the options on the widget such as:
-    - Setting icon: The widget settings panel provides additional customization options, including:
-       - Choosing a **font color**
-       - Setting the **font size**
-       - Marking the field as **required** or **optional**
-       - Providing a **default value**
-       - Making the field **read-only**
-       - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-       - Adding a **hint**, which will be displayed on the widget for better clarity
-       - **Custom Validations** are also supported, including:
-       - Predefined formats like **SSN**, **email**, or **numeric values**
-          - Custom JavaScript validations using regular expressions
-            For example:
-             - `^\d+$` – allows only digits  
-             - `^[A-Z]+$` – allows only uppercase letters  
-
-  You can enter your regex pattern in the **Validations** field of the widget.  
-  *(Optional reference: [JavaScript RegExp guide](https://www.w3schools.com/jsref/jsref_obj_regexp.asp))*
-  
-  <img width="800" alt="Cells widget" src="https://github.com/user-attachments/assets/ce0c335b-b2bf-4d30-968c-c4c957f46014" />
-  
-  - Add Signer/Change Signer: Clicking the first icon on the Text Input widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-  -  Copy : Clicking on this you can duplicate the Text Input widget.
-    
-  - **Cells**  
+---
+## 11. Cells 
   The **Cells widget** is ideal for documents that require input in a structured, table-like format, allowing the signer to fill in details within individual cells. After dragging and dropping the widget onto the document, you can adjust the number of cells by moving the **blue marker**.
 
 <img width="800" alt="Cells widget" src="https://github.com/user-attachments/assets/20184017-2fa9-4acb-985f-fde18ee53246" />
 
-   - Setting icon: The widget settings panel provides additional customization options, including:
-        - Manually entering the **number of cells**
-        - Choosing a **font color**
-        - Setting the **font size**
-        - Marking the field as **required** or **optional**
-        - Providing a **default value**
-        - Making the field **read-only**
-        - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-        - Adding a **hint**, which will be displayed on the widget for better clarity
-        - **Custom Validations** are also supported, including:
-        -  Predefined formats like **SSN**, **email**, or **numeric values**
-        -  Custom JavaScript validations using regular expressions
-            - For example:
-            - `^\d+$` – allows only digits
-            - `^[A-Z]+$` – allows only uppercase letters  
+  - Setting icon: The widget settings panel provides additional customization options, including:
+    - Manually entering the **number of cells**
+    - Choosing a **font color**
+    - Setting the **font size**
+    - Marking the field as **required** or **optional**
+    - Providing a **default value**
+    - Making the field **read-only**
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+      - Adding a **hint**, which will be displayed on the widget for better clarity
+      - **Custom Validations** are also supported, including:
+      -  Predefined formats like **SSN**, **email**, or **numeric values**
+      -  Custom JavaScript validations using regular expressions
+        - For example:
+        - `^\d+$` – allows only digits
+        - `^[A-Z]+$` – allows only uppercase letters  
 
   You can enter your regex pattern in the **Validations** field of the widget.  
   *(Optional reference: [JavaScript RegExp guide](https://www.w3schools.com/jsref/jsref_obj_regexp.asp))*
@@ -314,38 +557,550 @@ After placing the Text Input widget, you will see the options on the widget such
 
  - Add Signer/Change Signer: Clicking the first icon on the Cells widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the cells widget.
-    
- - **Checkbox**: The checkbox widget is used to capture input in the form of a checkbox selection.
+---  
+## 12. Checkbox 
+The checkbox widget is used to capture input in the form of a checkbox selection.
 Once you drop the checkbox widget, a popup will open where you can set the checkbox name and options. Additionally, there are a few options available such as setting the minimum and maximum checks, making the checkbox read-only, and hiding the label.
-     - Add Signer/Change Signer: Clicking the first icon on the CheckBox widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-     - Copy : Clicking on this you can duplicate the dropdown widget.
- - **Dropdown**: Once you drop the dropdown widget, a popup will open where you can set the dropdown name and options. Additionally, there are a few options available such as setting a default value and marking the dropdown as required or optional.
-     - Add Signer/Change Signer: Clicking the first icon on the Dropdown widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-     - Copy : Clicking on this you can duplicate the dropdown widget.
- - **Radio button**: The radio button widget is used to capture input in the form of a radio button selection.
-Once you drop the radio button widget, a popup will open where you can set the radio button name and options. Additionally, there are a few options available such as setting a default value, making the radio button read-only, and hiding the label.
-     - Add Signer/Change Signer: Clicking the first icon on the Radio button widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-     - Copy : Clicking on this you can duplicate the radio button widget.
- - **Image**: The image widget allows signers to upload an image during the signing process.
-After placing the Image widget, you will see the options on the widget such as:
-    - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
-    - Add Signer/Change Signer: Clicking the first icon on the Image widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-    - Copy : Clicking on this you can duplicate the image widget.
- - **Email**: The email widget is used to enter an email address during the signing process. It only accepts input in a valid email format. If the signer enters invalid text, a validation error will occur, and the document cannot be completed until it's corrected. 
-After placing the email widget, you will see the options on the widget such as:
-    - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-    - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-    - Copy : Clicking on this you can duplicate the email widget.
-      
-  - **📎 Attachment Widget**
 
+**Conditional Logic**
+
+The **Checkbox** widget supports **Conditional Logic**, allowing you to dynamically show, hide, make required, or make optional the field based on values entered or selected in other widgets.
+
+Conditional Logic enables the Checkbox widget to respond dynamically based on values from other widgets.
+
+Depending on the configured rule, the Checkbox field can:
+
+- Show the field
+- Hide the field
+- Make the field **Required**
+- Make the field **Optional**
+
+---
+
+## Supported Conditions
+
+The **Checkbox** widget supports Conditional Logic based on the values of other widgets.
+
+The available conditions depend on the selected trigger widget.
+
+### Text Input
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the value entered in **TextInput1** is **HR**, then **Checkbox1** is displayed.
+
+```text
+Condition: TextInput1 = HR
+Action: Show Checkbox1
+```
+
+---
+
+### Number
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If **Number1** equals **10**, then **Checkbox1** is displayed.
+
+```text
+Condition: Number1 = 10
+Action: Show Checkbox1
+```
+
+---
+
+### Dropdown
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the selected value of **Dropdown1** is **Manager**, then **Checkbox1** is displayed.
+
+```text
+Condition: Dropdown1 = Manager
+Action: Show Checkbox1
+```
+
+---
+
+### Checkbox
+
+**Supported operators:**
+
+- **Is Checked**
+- **Is Not Checked**
+
+**Example**
+
+If **Checkbox1** is checked, then **Checkbox2** is displayed.
+
+```text
+Condition: Checkbox1 is Checked
+Action: Show Checkbox2
+```
+
+Another example:
+
+If **Checkbox1** is **not checked**, then **Checkbox2** is displayed.
+
+```text
+Condition: Checkbox1 is Not Checked
+Action: Show Checkbox2
+```
+
+---
+
+### Radio Button
+
+**Supported operators:**
+
+- **Is Checked**
+- **Is Not Checked**
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If **Radio Button1** is checked, then **Checkbox1** is displayed.
+
+```text
+Condition: Radio Button1 is Checked
+Action: Show Checkbox1
+```
+
+---
+
+### Any Condition (OR)
+
+When **Any Condition (OR)** is selected, the configured action is performed when **at least one** of the configured conditions is satisfied.
+
+#### Example
+
+**Conditions**
+
+- Number Field = **10**
+- **OR**
+- Checkbox = **Checked**
+
+**Action**
+
+Show **Checkbox1**
+
+**Result**
+
+The configured **Checkbox1** widget is displayed when **either** of the following conditions is met:
+
+- The signer enters **10** in the Number field.
+- The signer checks the Checkbox.
+
+---
+
+## Configuration Example
+
+| Property | Value |
+|----------|-------|
+| **Condition Type** | Any Condition (OR) |
+| **Trigger Widget 1** | Number |
+| **Condition** | Equals |
+| **Condition Value** | 10 |
+| **Trigger Widget 2** | Checkbox |
+| **Condition** | Is Checked |
+| **Action** | Show Checkbox1 |
+
+**Result**
+
+The configured **Checkbox1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+### Related Conditional Logic Guides
+
+The **Checkbox** widget also supports Conditional Logic using the following trigger widgets:
+
+- **Text Input Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-a-text-input)
+
+- **Number Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#checkbox-triggered-by-a-number-widget)
+
+- **Dropdown Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#checkbox-triggered-by-a-dropdown)
+
+- **Radio Button Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#checkbox-triggered-by-a-radio-button)
+  
+- **Checkbox Triggered by Another Checkbox** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#checkbox-triggered-by-another-checkbox)
+  
+### Additional Widget Options
+  - Add Signer/Change Signer: Clicking the first icon on the CheckBox widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the dropdown widget.
+     
+---     
+## 13. **Dropdown
+Once you drop the dropdown widget, a popup will open where you can set the dropdown name and options. Additionally, there are a few options available such as setting a default value and marking the dropdown as required or optional.
+
+### **Conditional Logic**
+
+The **Dropdown** widget supports **Conditional Logic**, allowing you to dynamically show, hide, make required, or make optional the field based on values entered or selected in other widgets.
+
+Conditional Logic enables the Dropdown widget to respond dynamically based on values from other widgets.
+
+Depending on the configured rule, the Dropdown field can:
+- Show the field
+- Hide the field
+- Make the field **Required**
+- Make the field **Optional**
+
+---
+
+## Supported Conditions
+
+The **Dropdown** widget supports Conditional Logic based on the values of other widgets.
+
+The available conditions depend on the selected trigger widget.
+
+### Text Input
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the value entered in **TextInput1** is equal to **HR**, then **Dropdown1** is displayed.
+
+```text
+Condition: TextInput1 = HR
+Action: Show Dropdown1
+```
+
+---
+
+### Number
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If **Number1** equals **10**, then **Dropdown1** is displayed.
+
+```text
+Condition: Number1 = 10
+Action: Show Dropdown1
+```
+
+---
+
+### Dropdown
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the selected value of **Dropdown1** is **Manager**, then **Dropdown2** is displayed.
+
+```text
+Condition: Dropdown1 = Manager
+Action: Show Dropdown2
+```
+
+---
+
+### Any Condition (OR)
+
+When **Any Condition (OR)** is selected, the configured action is performed when **at least one** of the configured conditions is satisfied.
+
+#### Example
+
+**Conditions**
+
+- Number Field = **10**
+- **OR**
+- Checkbox = **Checked**
+
+**Action**
+
+Show **Dropdown1**
+
+**Result**
+
+The configured **Dropdown1** widget is displayed when **either** of the following conditions is met:
+
+- The signer enters **10** in the Number field.
+- The signer checks the Checkbox.
+
+---
+
+## Configuration Example
+
+| Property | Value |
+|----------|-------|
+| **Condition Type** | Any Condition (OR) |
+| **Trigger Widget 1** | Number |
+| **Condition** | Equals |
+| **Condition Value** | 10 |
+| **Trigger Widget 2** | Checkbox |
+| **Condition** | Is Checked |
+| **Action** | Show Dropdown1 |
+
+**Result**
+
+The configured **Dropdown1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+### Related Conditional Logic Guides
+
+The **Dropdown** widget also supports Conditional Logic using the following trigger widgets:
+
+- **Text input** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-a-text-input)
+  
+- **Number** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-a-number-widget)
+  
+- **Checkbox Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-a-checkbox)
+
+- **Radio Button Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-a-radio-button)
+
+- **Dropdown Triggered by Another Dropdown** [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#dropdown-triggered-by-another-dropdown)
+
+### Additional Widget Options
+  - Add Signer/Change Signer: Clicking the first icon on the Dropdown widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the dropdown widget.
+     
+--- 
+## 14. Radio button
+The radio button widget is used to capture input in the form of a radio button selection.
+Once you drop the radio button widget, a popup will open where you can set the radio button name and options. Additionally, there are a few options available such as setting a default value, making the radio button read-only, and hiding the label.
+
+### **Conditional Logic**
+
+The **Radio Button** widget supports **Conditional Logic**, allowing you to dynamically show, hide, make required, or make optional the field based on values entered or selected in other widgets.
+
+Conditional Logic enables the Radio Button widget to respond dynamically based on values from other widgets.
+
+Depending on the configured rule, the Radio Button field can:
+
+- Show the field
+- Hide the field
+- Make the field **Required**
+- Make the field **Optional**
+
+---
+
+## Supported Conditions
+
+The **Radio Button** widget supports Conditional Logic based on the values of other widgets.
+
+The available conditions depend on the selected trigger widget.
+
+### Text Input
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the value entered in **TextInput1** is **HR**, then **RadioButton1** is displayed.
+
+```text
+Condition: TextInput1 = HR
+Action: Show RadioButton1
+```
+
+---
+
+### Number
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If **Number1** equals **10**, then **RadioButton1** is displayed.
+
+```text
+Condition: Number1 = 10
+Action: Show RadioButton1
+```
+
+---
+
+### Dropdown
+
+**Supported operators:**
+
+- **Equals**
+- **Does Not Equal**
+
+**Example**
+
+If the selected value of **Dropdown1** is **Manager**, then **RadioButton1** is displayed.
+
+```text
+Condition: Dropdown1 = Manager
+Action: Show RadioButton1
+```
+
+---
+
+### Checkbox
+
+**Supported operators:**
+
+- **Is Checked**
+- **Is Not Checked**
+
+**Example**
+
+If **Checkbox1** is checked, then **RadioButton1** is displayed.
+
+```text
+Condition: Checkbox1 is Checked
+Action: Show RadioButton1
+```
+
+Another example:
+
+If **Checkbox1** is **not checked**, then **RadioButton1** is displayed.
+
+```text
+Condition: Checkbox1 is Not Checked
+Action: Show RadioButton1
+```
+
+---
+
+### Radio Button
+
+**Supported operators:**
+
+- **Is Checked**
+- **Is Not Checked**
+- **Equals**
+- **Does Not Equal**
+
+#### Example 1 – Using **Is Checked**
+
+If **RadioButton1** is selected, then **RadioButton2** is displayed.
+
+```text
+Condition: RadioButton1 is Checked
+Action: Show RadioButton2
+```
+
+#### Example 2 – Using **Equals**
+
+If the selected value of **RadioButton1** is **Approved**, then **RadioButton2** is displayed.
+
+```text
+Condition: RadioButton1 = Approved
+Action: Show RadioButton2
+```
+
+#### Example 3 – Using **Does Not Equal**
+
+If the selected value of **RadioButton1** is **not** **Approved**, then **RadioButton2** is displayed.
+
+```text
+Condition: RadioButton1 Does Not Equal Approved
+Action: Show RadioButton2
+```
+
+---
+
+### Any Condition (OR)
+
+When **Any Condition (OR)** is selected, the configured action is performed when **at least one** of the configured conditions is satisfied.
+
+#### Example
+
+**Conditions**
+
+- Number Field = **10**
+- **OR**
+- Checkbox = **Checked**
+
+**Action**
+
+Show **RadioButton1**
+
+**Result**
+
+The configured **RadioButton1** widget is displayed when **either** of the following conditions is met:
+
+- The signer enters **10** in the Number field.
+- The signer checks the Checkbox.
+
+---
+
+## Configuration Example
+
+| Property | Value |
+|----------|-------|
+| **Condition Type** | Any Condition (OR) |
+| **Trigger Widget 1** | Number |
+| **Condition** | Equals |
+| **Condition Value** | 10 |
+| **Trigger Widget 2** | Checkbox |
+| **Condition** | Is Checked |
+| **Action** | Show RadioButton1 |
+
+**Result**
+
+The configured **RadioButton1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+### Related Conditional Logic Guides
+
+The **Radio Button** widget also supports Conditional Logic using the following trigger widgets:
+
+- **Text Input Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-triggered-by-a-text-input)
+
+- **Number Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-triggered-by-a-number-widget)
+
+- **Dropdown Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-triggered-by-a-dropdown)
+
+- **Checkbox Widget** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-triggered-by-a-checkbox)
+  
+- **Radio Button Triggered by Another Radio Button** – [Read more](https://docs.opensignlabs.com/docs/help/New-Document/conditional_logic/#radio-button-triggered-by-another-radio-button)
+
+### Additional Widget Options
+
+  - Add Signer/Change Signer: Clicking the first icon on the Radio button widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the radio button widget.
+     
+ ---    
+## 15. Image
+The image widget allows signers to upload an image during the signing process.
+After placing the Image widget, you will see the options on the widget such as:
+  - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
+  - Add Signer/Change Signer: Clicking the first icon on the Image widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the image widget.
+  
+  ---
+    
+## 16. 📎 Attachment Widget
 The **Attachment Widget** allows signers to upload supporting files directly while completing and signing a document. This is useful when additional documents or evidence are required as part of the signing workflow.
 
-   - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing. Additionally, you can add a hint or instruction to guide signers on what information or file is expected in the widget.
-   - Add Signer/Change Signer: Clicking the first icon on the Image widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-   - Copy : Clicking on this you can duplicate the image widget.
+  - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing. Additionally, you can add a hint or instruction to guide signers on what information or file is expected in the widget.
+  - Add Signer/Change Signer: Clicking the first icon on the Image widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
+  - Copy : Clicking on this you can duplicate the image widget.
      
 <img width="918" alt="image" src="https://github.com/user-attachments/assets/8b52c59f-e684-4326-bade-d9312ecfaf30" />
 
@@ -365,6 +1120,7 @@ The **Attachment Widget** allows signers to upload supporting files directly whi
 
 > **Note:** All uploaded attachments become part of the completed document package, making it easier to store, review, and share the signed document along with its supporting files.
 
+---
  ### 📄 Edit Template
 At the top of the Create Template panel, you’ll find a settings (gear) icon. Clicking this icon opens the Edit Template Details panel, where you can modify various details of your template.
 
