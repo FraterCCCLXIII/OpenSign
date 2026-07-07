@@ -144,7 +144,7 @@ The **Prefill Widgets** feature lets document creators prefill specific fields b
 - **Image** – Insert a default image (e.g., logo or stamp)
 - **Draw** – Allows the user to draw directly in this widget; use it when a prefill drawing is required.
   
-### [1] Define roles and assign widgets:
+## Define roles and assign widgets:
 
 <img width="828" alt="Create Template" src="https://github.com/user-attachments/assets/1248b9c8-db51-4dd3-bd1c-e1630b998ffc" />
 
@@ -169,13 +169,10 @@ The **Access Code** feature in OpenSign adds an extra layer of security to your 
   3. The signer receives an email invitation containing the document signing link. Alternatively, the document owner can share the signing link manually through another secure communication channel, such as SMS, a messaging application, or email.
   4. When the signer opens the document signing link, they are prompted to enter the assigned **6-digit access code** before they can access the document. The signer must obtain this access code directly from the document owner, who should share it using a separate and secure communication channel (such as a phone call, SMS, or messaging application).
   5. If the signer enters the correct access code, the document opens and they can proceed with reviewing and signing it.
-  6. If the signer enters an incorrect access code, access to the document is denied. The signer must enter the correct **6-digit numeric access code** provided by the document owner to continue.
-   
+  6. If the signer enters an incorrect access code, access to the document is denied. The signer must enter the correct **6-digit numeric access code** provided by the document owner to continue.  
 ---
-
 ## Assign Widgets to Roles:
 Click on each role to highlight it, then drag and drop the widget to assign it to that role.
-
 ## 1. Signature widget
 The signature widget is used to add a signature to the document. Each role must have at least one signature widget assigned.  
 Select the Role from the right side panel, click on the signature widget, and position it where the signature is required. You can place multiple signature widgets for each Role, as required.
@@ -204,8 +201,7 @@ The initials widget allows signers to add their initials to the document. During
 
 After placing the Initials widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can specify whether this widget is mandatory or optional during the document signing.
-  - Add Signer/Change Signer: Clicking the first icon on the Initials widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
-        
+  - Add Signer/Change Signer: Clicking the first icon on the Initials widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.       
   - Copy Initials: Clicking on this option reveals the following choices.
     -  All pages : It will copy the initials widget to all pages.
     -  All pages but last: It will copy the initials widget to all pages except the last page.
@@ -468,9 +464,8 @@ The **Number** widget also supports Conditional Logic using the following trigge
 The name widget allows signers to add their name or any other text, functioning like a text field during the signing process.
 After placing the name widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
-      
-    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
-      
+    
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden. 
   - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the name widget.
  ---   
@@ -478,8 +473,8 @@ After placing the name widget, you will see the options on the widget such as:
 The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process.
 After placing the job title widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
-      
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
   - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the job title widget.
 ---
@@ -488,7 +483,7 @@ The company widget allows signers to add their company or any other text, functi
 After placing the company widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
        
-    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
   - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the Company widget.
 --- 
@@ -497,7 +492,7 @@ The email widget is used to enter an email address during the signing process. I
 After placing the email widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
       
-    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
   - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the email widget.
 ---

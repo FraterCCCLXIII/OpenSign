@@ -2,6 +2,7 @@
 sidebar_position: 2
 title: Request signatures
 ---
+import ReactPlayer from 'react-player';
 
 # Request signatures using OpenSign™
 
@@ -180,7 +181,11 @@ The **Access Code** feature in OpenSign adds an extra layer of security to your 
 5. If the signer enters the correct access code, the document opens and they can proceed with reviewing and signing it.
 
 6. If the signer enters an incorrect access code, access to the document is denied. The signer must enter the correct **6-digit numeric access code** provided by the document owner to continue.
-   
+
+<div>
+<ReactPlayer url="https://youtu.be/9kFg_p7TMF0" controls playing={false} />
+</div>
+  
 ---
 ## Add Widgets for Signers
 ## 1. Add a Signature Widget
@@ -304,6 +309,10 @@ Show TextInput1
 **Result**
 
 The configured **TextInput1** widget becomes visible when **either** the Number field equals **10** **or** the Checkbox is checked.
+
+<div>
+<ReactPlayer url="https://youtu.be/V8j713iG94A" controls playing={false} />
+</div>
 
 ### Related Conditional Logic Guides
 
@@ -477,7 +486,7 @@ The **Number** widget also supports Conditional Logic using the following trigge
 The name widget allows signers to add their name or any other text, functioning like a text field during the signing process. After placing the name widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
     
-    **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
     
   - Add Signer/Change Signer: Clicking the first icon on the Name widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the name widget.
@@ -485,7 +494,7 @@ The name widget allows signers to add their name or any other text, functioning 
 The Job title widget allows signers to add their Job title or any other text, functioning like a text field during the signing process. After placing the job title widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
       
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
   - Add Signer/Change Signer: Clicking the first icon on the Job title widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the job title widget.
   
@@ -493,14 +502,14 @@ The Job title widget allows signers to add their Job title or any other text, fu
 The company widget allows signers to add their company or any other text, functioning like a text field during the signing process. After placing the company widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
        
-       **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
   - Add Signer/Change Signer: Clicking the first icon on the Company widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the Company widget.
 ## 9. Email
 The email widget is used to enter an email address during the signing process. It only accepts input in a valid email format. If the signer enters invalid text, a validation error will occur, and the document cannot be completed until it's corrected. After placing the email widget, you will see the options on the widget such as:
   - Setting icon: By clicking on the option, you can set the color and font.
       
-      **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
+    - **Hide text with asterisks**: **"which masks the entered text (*) to protect sensitive information while filling out the document. The final embedded document will also display the text as asterisks, keeping the actual value hidden.
       
   - Add Signer/Change Signer: Clicking the first icon on the Email widget allows you to change the signer. You can choose from existing signers in the dropdown or add a new signer.
   - Copy : Clicking on this you can duplicate the email widget.
