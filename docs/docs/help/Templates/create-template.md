@@ -241,8 +241,8 @@ Depending on the configured rule, the Text Input field can:
     - Hide the field
     - Make the field Required
     - Make the field Optional
-    
-<img width="1897" alt="conditional logic textinput" src="" />
+   
+<img width="1897" alt="conditional logic textinput" src="https://github.com/user-attachments/assets/8bb90066-dda5-4817-b1e3-3497a5ffcb6c" />
 
 ## Supported Conditions
 The **Text Input** widget supports conditional logic based on the values of other widgets. 
@@ -739,7 +739,7 @@ The **Checkbox** widget also supports Conditional Logic using the following trig
   - Copy : Clicking on this you can duplicate the dropdown widget.
      
 ---     
-## 13. **Dropdown
+## 13. Dropdown
 Once you drop the dropdown widget, a popup will open where you can set the dropdown name and options. Additionally, there are a few options available such as setting a default value and marking the dropdown as required or optional.
 
 ### **Conditional Logic**
