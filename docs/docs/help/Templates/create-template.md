@@ -241,8 +241,8 @@ Depending on the configured rule, the Text Input field can:
     - Hide the field
     - Make the field Required
     - Make the field Optional
-   
-<img width="1897" alt="conditional logic textinput" src="https://github.com/user-attachments/assets/8bb90066-dda5-4817-b1e3-3497a5ffcb6c" />
+
+<img width="1897" alt="conditional logic textinput" src="https://github.com/user-attachments/assets/9807c154-2b3e-460b-b776-988a1fa23ab8" />
 
 ## Supported Conditions
 The **Text Input** widget supports conditional logic based on the values of other widgets. 
