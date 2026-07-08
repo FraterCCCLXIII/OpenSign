@@ -9,7 +9,7 @@ The **Custom Signing Certificate** page allows you to upload and manage your own
 
 By default, OpenSign uses its **built-in signing certificate** to digitally sign documents.  
 However, if your organization has its own **custom certificate (PFX or P12 format)**, you can upload and activate it here.
-<img width="1722" height="814" alt="pfx cerificate upload" src="https://github.com/user-attachments/assets/a5668f61-332d-49c5-ace2-5f0f92d3b68f" />
+<img width="1722" alt="pfx cerificate upload" src="https://github.com/user-attachments/assets/a5668f61-332d-49c5-ace2-5f0f92d3b68f" />
 
 ---
 

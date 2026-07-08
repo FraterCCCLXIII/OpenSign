@@ -26,7 +26,7 @@ Follow the steps below to navigate to the **Custom File Storage** setup page in 
 2. Click on your **profile menu** (top-right corner) and select **Console**.  
 3. In the **left sidebar**, go to **Storage**.  
 
-<img width="1722" height="814" alt="Custom file storage" src="https://github.com/user-attachments/assets/813f6685-3f36-40e4-aaaf-0d8b86bdc3b7" />
+<img width="1722"  alt="Custom file storage" src="https://github.com/user-attachments/assets/813f6685-3f36-40e4-aaaf-0d8b86bdc3b7" />
 
 You will now be on the **Custom File Storage** setup page where you can configure your own storage provider.
 
