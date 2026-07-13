@@ -21,14 +21,12 @@ The "Enable OTP Verification" feature in OpenSign is designed to add an extra la
 
 3. **Configure Security Settings**:
    - Click the "Advanced Options"
-   - <img width="499" alt="image" src="https://github.com/user-attachments/assets/2f099abb-9421-49fb-b53a-7d9a610a8cfe"/>
-
    - Under **Security Settings**, find the option labeled "Enable OTP Verification."
    - Select **Yes** to activate OTP verification for this document.
-   - <img width="1125" alt="image" src="https://github.com/user-attachments/assets/48d15c53-5eba-407c-8f81-1b17a47f32cb"/>
+     
+<img width="499" alt="image" src="https://github.com/user-attachments/assets/2f099abb-9421-49fb-b53a-7d9a610a8cfe"/>
 
-  
-
+<img width="1125" alt="image" src="https://github.com/user-attachments/assets/48d15c53-5eba-407c-8f81-1b17a47f32cb"/>
 
 4. **Send the Document**:
    - Once all settings are configured, proceed to send the document to the signers.
@@ -61,6 +59,44 @@ Once the document is fully signed by all parties, OpenSign generates a **Complet
 
 This feature makes it clear that the signing process involved OTP verification, adding credibility to the document’s legal standing.
 
+## Impact on the Signing Flow When Email OTP Verification and Allowed Modifications Are Enabled
+
+The widgets available to a signer depend on the **Enable OTP Verification** and **Allowed Modifications** settings configured for the document.
+
+### Enable OTP Verification = Enabled + Allowed Modifications = Enabled
+
+The signer can add the following widgets during the signing process:
+
+<img width="1731" alt="image" src="https://github.com/user-attachments/assets/b06e6575-0ab8-4de0-8755-4c29ee08e17d" />
+
+- Signature
+- Stamp
+- Initials
+- Name
+- Job Title
+- Company
+- Email
+- Text
+- Cells
+
+> **Note:** If the signer has an OpenSign account with previously saved **Signature**, **Initials**, or **Stamp** items, those saved items are automatically displayed and can be used immediately while signing.
+
+---
+
+### Enable OTP Verification = Disabled + Allowed Modifications = Enabled
+
+The signer can add the following widgets during the signing process:
+
+<img width="1731" alt="image" src="https://github.com/user-attachments/assets/c9dd68fd-67e7-47d1-a186-deda8e73f646" />
+
+- Signature
+- Stamp
+- Initials
+- Text
+- Cells
+
+> **Note:** Previously saved **Signature**, **Stamp**, and **Initials** from the signer's OpenSign account are **not** displayed. The signer must create a new signature, stamp, or initials by **drawing**, **typing**, or **uploading** them during the signing process.
+
 ## When to Use OTP Verification
 
 Consider enabling OTP verification in scenarios where:
@@ -68,6 +104,8 @@ Consider enabling OTP verification in scenarios where:
 - **Confidentiality** is critical: You want to ensure that only authorized individuals with access to the signer’s email can view and sign the document.
 - **Authentication** is a priority: OTP adds an extra layer of verification, enhancing the document’s validity and security.
 - **Compliance** is required: Certain regulations or standards may necessitate an additional verification step for document signing.
+
+
 
 ## Disabling OTP Verification
 
