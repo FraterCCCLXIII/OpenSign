@@ -1,3 +1,8 @@
+---
+sidebar_position: 7
+title: Guest signing flow
+---
+
 # Signer Signing Flow
 
 This guide explains how signers complete a document in OpenSign and how features such as **Duplicate Widget Name**, **Auto Sign**, and the **Image Widget** work during the signing process.
