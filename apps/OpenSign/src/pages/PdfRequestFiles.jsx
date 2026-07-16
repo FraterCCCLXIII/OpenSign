@@ -1790,7 +1790,11 @@ function PdfRequestFiles(
           ) : handleError ? (
             <HandleError handleError={handleError} />
           ) : (
-            <div className="h-full min-h-0">
+            <div
+              className={`${
+                isGuestSignFlow ? "h-screen" : "h-full"
+              } min-h-0 overflow-hidden flex flex-col`}
+            >
               {!isAgree &&
                 currentSigner &&
                 !isExpired &&
@@ -1825,7 +1829,7 @@ function PdfRequestFiles(
                       isGuestSignFlow
                       ? "border-base-300 border"
                       : "bg-base-200"
-                } relative h-full overflow-hidden flex flex-col md:flex-row justify-between`}
+                } relative flex-1 min-h-0 overflow-hidden flex flex-col md:flex-row items-stretch`}
               >
                 {isUiLoading && (
                   <div className="absolute h-full w-full flex flex-col justify-center items-center z-[999] bg-[#e6f2f2]/80">
@@ -1931,7 +1935,7 @@ function PdfRequestFiles(
                   signedUrl={pdfDetails?.[0]?.SignedUrl || ""}
                 />
                 {/* pdf render view */}
-                <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
+                <div className="w-full md:w-[57%] flex flex-1 min-h-0 self-stretch overflow-hidden">
                   <PlaceholderCopy
                     isPageCopy={isPageCopy}
                     setIsPageCopy={setIsPageCopy}
@@ -2134,9 +2138,9 @@ function PdfRequestFiles(
                   </div>
                 </div>
 
-                <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar h-full min-h-0 border-l border-base-300">
+                <div className="hidden md:block w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar self-stretch min-h-0 border-l border-base-300">
                   <div>
-                    <div className="w-full hidden md:inline-block">
+                    <div className="w-full">
                       {signedSigners.length > 0 && (
                         <>
                           <div

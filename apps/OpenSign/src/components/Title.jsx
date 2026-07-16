@@ -8,6 +8,7 @@ const TITLE_MAP = {
   // Homelayout
   "/dashboard/35KBoSgoAK": "Dashboard",
   "/create": "create-new.title",
+  "/publicsign": "public-sign.title",
   "/form/sHAnZphf69": "Sign Yourself",
   "/form/8mZzFxbG1z": "Request Signatures",
   "/form/template": "New Template",

@@ -179,7 +179,7 @@ function RenderAllPdfPage(props) {
   return (
     <div
       ref={pageContainer}
-      className="hidden w-[20%] min-w-0 bg-base-100 md:flex md:flex-col md:h-full md:min-h-0 border-r border-base-300"
+      className="hidden w-[20%] min-w-0 bg-base-100 md:flex md:flex-col self-stretch min-h-0 overflow-hidden border-r border-base-300"
     >
       <div className="px-3 py-2.5 text-sm text-base-content font-semibold shrink-0 tracking-tight">
         {t("pages")}

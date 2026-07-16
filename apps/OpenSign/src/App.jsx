@@ -35,6 +35,7 @@ const UpdateExistUserAdmin = lazyWithRetry(
 );
 const Preferences = lazyWithRetry(() => import("./pages/Preferences"));
 const Login = lazyWithRetry(() => import("./pages/Login"));
+const PublicSign = lazyWithRetry(() => import("./pages/PublicSign"));
 const VerifyDocument = lazyWithRetry(() => import("./pages/VerifyDocument"));
 const EmailBuilder = lazyWithRetry(() => import("./pages/EmailBuilder"));
 
@@ -84,6 +85,10 @@ function App() {
             <Route
               path="/login/:base64url"
               element={<Lazy Page={GuestLogin} />}
+            />
+            <Route
+              path="/publicsign"
+              element={<Lazy Page={PublicSign} />}
             />
             <Route path="/debugpdf" element={<Lazy Page={DebugPdf} />} />
               <Route

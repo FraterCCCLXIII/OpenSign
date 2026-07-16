@@ -112,6 +112,7 @@ const TemplatesReport = (props) => {
   const [documentDetails, setDocumentDetails] = useState();
   const [docId, setDocId] = useState();
   const [error, setError] = useState("");
+  const [publicRoleDraft, setPublicRoleDraft] = useState("");
 
   useEffect(() => {
     if (props.isSearchResult) {
@@ -377,8 +378,114 @@ const TemplatesReport = (props) => {
       setIsModal({ [`saveastemplate_${item.objectId}`]: true });
     } else if (act.action === "extendexpiry") {
       setIsModal({ [`extendexpiry_${item.objectId}`]: true });
+    } else if (act.action === "makepublic") {
+      handleOpenMakePublic(item);
+    } else if (act.action === "makeprivate") {
+      handleMakePrivate(item);
+    } else if (act.action === "copypublicurl") {
+      handleCopyPublicUrl(item);
     }
   });
+
+  const getVacantRoles = (item) => {
+    const roles = (item?.Placeholders || [])
+      .map((ph) => ph?.Role)
+      .filter(Boolean);
+    return [...new Set(roles)].filter((role) => {
+      const ph = item.Placeholders.find((p) => p.Role === role);
+      return ph && !ph.signerObjId;
+    });
+  };
+
+  const handleOpenMakePublic = (item) => {
+    if (item?.IsPublic) {
+      showAlert("info", t("template-public-alert-1"));
+      return;
+    }
+    const vacant = getVacantRoles(item);
+    if (vacant.length === 0) {
+      showAlert("danger", t("must-have-at-least-one-vacant-role"));
+      return;
+    }
+    if (item?.SendinOrder && vacant[0] !== item?.Placeholders?.[0]?.Role) {
+      // Prefer the first vacant role; warn if send-in-order and public role isn't first.
+      const firstRole = item?.Placeholders?.[0]?.Role;
+      if (firstRole && !vacant.includes(firstRole)) {
+        showAlert("danger", t("template-public-alert-5"));
+        return;
+      }
+      setPublicRoleDraft(firstRole || vacant[0]);
+    } else {
+      setPublicRoleDraft(vacant[0]);
+    }
+    setIsModal({ [`makepublic_${item.objectId}`]: true });
+  };
+
+  const handleMakePublic = async (item) => {
+    if (!publicRoleDraft) {
+      showAlert("danger", t("template-public-alert-3"));
+      return;
+    }
+    try {
+      const tpl = new Parse.Object("contracts_Template");
+      tpl.id = item.objectId;
+      tpl.set("IsPublic", true);
+      tpl.set("PublicRole", [publicRoleDraft]);
+      await tpl.save();
+      props.setList?.((prev) =>
+        (prev || []).map((x) =>
+          x.objectId === item.objectId
+            ? { ...x, IsPublic: true, PublicRole: [publicRoleDraft] }
+            : x
+        )
+      );
+      setIsModal({});
+      showAlert("success", t("template-public-alert-1"));
+    } catch (err) {
+      console.error("make public", err);
+      showAlert("danger", err?.message || t("something-went-wrong-mssg"));
+    }
+  };
+
+  const handleMakePrivate = async (item) => {
+    if (!item?.IsPublic) {
+      showAlert("info", t("this-template-is-not-public"));
+      return;
+    }
+    try {
+      const tpl = new Parse.Object("contracts_Template");
+      tpl.id = item.objectId;
+      tpl.set("IsPublic", false);
+      tpl.unset("PublicRole");
+      await tpl.save();
+      props.setList?.((prev) =>
+        (prev || []).map((x) =>
+          x.objectId === item.objectId
+            ? { ...x, IsPublic: false, PublicRole: [] }
+            : x
+        )
+      );
+      showAlert("success", t("template-public-alert-2"));
+    } catch (err) {
+      console.error("make private", err);
+      showAlert("danger", err?.message || t("something-went-wrong-mssg"));
+    }
+  };
+
+  const handleCopyPublicUrl = async (item) => {
+    if (!item?.IsPublic) {
+      showAlert("danger", t("public-tour-message"));
+      return;
+    }
+    const url = `${window.location.origin}/publicsign?templateid=${item.objectId}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      showAlert("success", t("public-sign.url-copied"));
+    } catch (err) {
+      console.error("copy url", err);
+      showAlert("danger", url);
+    }
+  };
   // Get current list
   const indexOfLastDoc = currentPage * props.docPerPage;
   const indexOfFirstDoc = indexOfLastDoc - props.docPerPage;
@@ -1627,6 +1734,47 @@ const TemplatesReport = (props) => {
                               onClick={() => handleRenameDoc(item)}
                             >
                               {t("save")}
+                            </button>
+                            <button
+                              className="w-[100px] op-btn op-btn-secondary op-btn-md"
+                              onClick={handleCloseModal}
+                            >
+                              {t("cancel")}
+                            </button>
+                          </div>
+                        </div>
+                      </ModalUi>
+                      <ModalUi
+                        title={t("btnLabel.Make public")}
+                        isOpen={isModal["makepublic_" + item.objectId]}
+                        handleClose={handleCloseModal}
+                      >
+                        <div className="flex flex-col px-4 pb-3 pt-2 gap-3">
+                          <p className="text-sm text-base-content/70">
+                            {t("make-template-public-alert")}
+                          </p>
+                          <div>
+                            <label className="block text-sm font-medium mb-1.5">
+                              {t("public-role")}
+                            </label>
+                            <select
+                              value={publicRoleDraft}
+                              onChange={(e) => setPublicRoleDraft(e.target.value)}
+                              className="op-select op-select-bordered op-select-sm w-full"
+                            >
+                              {getVacantRoles(item).map((role) => (
+                                <option key={role} value={role}>
+                                  {role}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="flex flex-row gap-2 pt-3 mt-1 border-t-[1.5px] border-gray-500">
+                            <button
+                              className="w-[120px] op-btn op-btn-primary op-btn-md"
+                              onClick={() => handleMakePublic(item)}
+                            >
+                              {t("make-public")}
                             </button>
                             <button
                               className="w-[100px] op-btn op-btn-secondary op-btn-md"

@@ -493,6 +493,30 @@ export default function reportJson(id) {
               action: "rename"
             },
             {
+              btnId: "1840",
+              btnLabel: "Make public",
+              hoverLabel: "Make public",
+              btnIcon: "fa-light fa-globe",
+              redirectUrl: "",
+              action: "makepublic"
+            },
+            {
+              btnId: "1841",
+              btnLabel: "Copy public URL",
+              hoverLabel: "Copy public URL",
+              btnIcon: "fa-light fa-link",
+              redirectUrl: "",
+              action: "copypublicurl"
+            },
+            {
+              btnId: "1842",
+              btnLabel: "Make private",
+              hoverLabel: "Make private",
+              btnIcon: "fa-light fa-lock",
+              redirectUrl: "",
+              action: "makeprivate"
+            },
+            {
               btnId: "1834",
               btnLabel: "Delete",
               hoverLabel: "Delete",

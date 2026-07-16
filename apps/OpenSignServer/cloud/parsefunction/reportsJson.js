@@ -221,6 +221,8 @@ export default function reportJson(id, currentUserId) {
           ...commanKeys,
           ...filterKeys,
           'IsPublic',
+          'PublicRole',
+          'Placeholders',
           'SharedWith.Name',
           'SendinOrder',
           'SignatureType',

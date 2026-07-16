@@ -1283,7 +1283,7 @@ function SignYourSelf() {
       ) : handleError ? (
         <HandleError handleError={handleError} />
       ) : (
-        <div className="h-full min-h-0">
+        <div className="h-full min-h-0 overflow-hidden flex flex-col">
           {isCelebration && (
             <div className="relative z-[1000]">
               <Confetti
@@ -1294,7 +1294,7 @@ function SignYourSelf() {
               />
             </div>
           )}
-          <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row justify-between bg-base-300 h-full min-h-0">
+          <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row items-stretch bg-base-300 h-full min-h-0">
             {isUiLoading && (
               <div className="absolute h-full w-full z-[999] flex flex-col justify-center items-center bg-[#e6f2f2]/80">
                 <Loader />
@@ -1345,7 +1345,7 @@ function SignYourSelf() {
               isMergePdfBtn={!pdfDetails?.[0]?.IsCompleted}
               pdfDetails={pdfDetails}
             />
-            <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
+            <div className="w-full md:w-[57%] flex flex-1 min-h-0 self-stretch overflow-hidden">
               <div className="w-full min-h-0 flex flex-col flex-1 overflow-hidden">
                 <ModalUi
                   isOpen={isAlert.isShow}
@@ -1495,7 +1495,7 @@ function SignYourSelf() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar h-full min-h-0 border-l border-base-300">
+            <div className="hidden md:block w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar self-stretch min-h-0 border-l border-base-300">
               <div>
                 {!isCompleted ? (
                   <WidgetComponent

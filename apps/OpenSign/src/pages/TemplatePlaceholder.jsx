@@ -1837,7 +1837,7 @@ const TemplatePlaceholder = () => {
       ) : handleError ? (
         <HandleError handleError={handleError} />
       ) : (
-        <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row justify-between bg-base-300 h-full min-h-0">
+        <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row items-stretch bg-base-300 h-full min-h-0">
           {isUiLoading && (
             <div className="absolute h-full w-full flex flex-col justify-center items-center z-[999] bg-[#e6f2f2]/80">
               <Loader />
@@ -1899,7 +1899,7 @@ const TemplatePlaceholder = () => {
           />
 
           {/* pdf render view */}
-          <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
+          <div className="w-full md:w-[57%] flex flex-1 min-h-0 self-stretch overflow-hidden">
             <div className="w-full min-h-0 flex flex-col flex-1 overflow-hidden">
               <ModalUi
                 isOpen={!IsReceipent}
@@ -2141,7 +2141,7 @@ const TemplatePlaceholder = () => {
               />
             </div>
           ) : (
-            <div className="w-[23%] bg-base-100 h-full min-h-0 overflow-y-auto hide-scrollbar border-l border-base-300">
+            <div className="hidden md:block w-[23%] bg-base-100 self-stretch min-h-0 overflow-y-auto hide-scrollbar border-l border-base-300">
               <div className="max-h-screen">
                 <SignerListPlace
                   signerPos={signerPos}
