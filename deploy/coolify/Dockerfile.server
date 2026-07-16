@@ -1,0 +1,14 @@
+# Custom DocTransit / OpenSign server image
+FROM node:22.14.0
+
+WORKDIR /usr/src/app
+
+COPY apps/OpenSignServer/package*.json ./
+RUN npm install --omit=dev
+
+COPY apps/OpenSignServer/ .
+
+ENV NODE_ENV=production
+EXPOSE 8080
+
+CMD ["npm", "start"]
