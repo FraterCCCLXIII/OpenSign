@@ -1,4 +1,8 @@
 import { setDocumentCount } from '../../utils/CountUtils.js';
+import {
+  checkSendByExternalTenant,
+  isUcpEnabled,
+} from '../../utils/ucpClient.js';
 
 const normalizeEmail = email => email?.toLowerCase()?.trim()?.replace(/\s/g, '');
 
@@ -92,6 +96,23 @@ export default async function startPublicSign(request) {
     }
     if (!template.IsPublic) {
       throw new Parse.Error(Parse.Error.OPERATION_FORBIDDEN, 'Template is not public.');
+    }
+
+    const ownerTenantId =
+      template.ExtUserPtr?.TenantId?.objectId || template.ExtUserPtr?.TenantId?.id;
+    if (ownerTenantId && isUcpEnabled()) {
+      const check = await checkSendByExternalTenant(ownerTenantId, {
+        meter: 'public_sign',
+        quantity: 1,
+      });
+      if (check && check.ok === false) {
+        throw new Parse.Error(
+          Parse.Error.OPERATION_FORBIDDEN,
+          check.reason === 'feature_locked'
+            ? 'Public signing requires a Business plan. Visit www.doctransit.com/pricing'
+            : 'Send quota exceeded for this workspace. Upgrade at www.doctransit.com/account'
+        );
+      }
     }
 
     const placeholders = Array.isArray(template.Placeholders)
@@ -217,7 +238,9 @@ export default async function startPublicSign(request) {
 
     const document = await doc.save(null, { useMasterKey: true });
     if (template.ExtUserPtr?.objectId) {
-      setDocumentCount(template.ExtUserPtr.objectId);
+      setDocumentCount(template.ExtUserPtr.objectId, undefined, {
+        meter: 'public_sign',
+      });
     }
 
     const encoded = Buffer.from(

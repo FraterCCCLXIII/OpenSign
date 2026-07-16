@@ -1,4 +1,6 @@
-export const setDocumentCount = async (extUserId, docsCount) => {
+import { meterSendByExternalTenant } from './ucpClient.js';
+
+export const setDocumentCount = async (extUserId, docsCount, meterOpts = {}) => {
   if (extUserId) {
     try {
       // Update count in contracts_Users class
@@ -15,6 +17,18 @@ export const setDocumentCount = async (extUserId, docsCount) => {
           contractUser.increment('DocumentCount', 1);
         }
         await contractUser.save(null, { useMasterKey: true });
+
+        const tenantId = contractUser.get('TenantId')?.id;
+        if (tenantId) {
+          try {
+            await meterSendByExternalTenant(tenantId, {
+              meter: meterOpts.meter || 'send',
+              quantity: docsCount ? Number(docsCount) : 1,
+            });
+          } catch (ucpErr) {
+            console.log('UCP meter warning:', ucpErr.message);
+          }
+        }
       }
     } catch (error) {
       console.log('Error updating document count in contracts_Users: ' + error.message);

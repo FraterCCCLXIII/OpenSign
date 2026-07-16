@@ -66,6 +66,7 @@ import setWidgetPreferences from './parsefunction/setWidgetPreferences.js';
 import createDocumentFromApp from './parsefunction/createDocumentFromApp.js';
 import getPublicTemplate from './parsefunction/getPublicTemplate.js';
 import startPublicSign from './parsefunction/startPublicSign.js';
+import ucpProvisionTenant from './parsefunction/ucpProvisionTenant.js';
 
 // This afterSave function triggers after an object is added or updated in the specified class, allowing for post-processing logic.
 Parse.Cloud.afterSave('contracts_Document', DocumentAftersave);
@@ -142,3 +143,4 @@ Parse.Cloud.define('setwidgetpreferences', setWidgetPreferences);
 Parse.Cloud.define('createdocumentfromapp', createDocumentFromApp);
 Parse.Cloud.define('getpublictemplate', getPublicTemplate);
 Parse.Cloud.define('startpublicsign', startPublicSign);
+Parse.Cloud.define('ucpProvisionTenant', ucpProvisionTenant);
