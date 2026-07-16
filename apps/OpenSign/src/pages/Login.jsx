@@ -49,6 +49,26 @@ function Login() {
   }, []);
 
   const handleUserExist = async () => {
+    const params = new URLSearchParams(location.search);
+    const sessionToken = params.get("sessionToken");
+    if (sessionToken) {
+      // Clear token from the address bar before consuming it.
+      window.history.replaceState({}, "", "/login");
+      setState((prev) => ({ ...prev, loading: true, thirdpartyLoader: true }));
+      try {
+        await checkUserExt();
+        await thirdpartyLoginfn(sessionToken);
+      } catch (error) {
+        console.error("Auto-login from signup failed", error);
+        showToast("danger", t("something-went-wrong-mssg"));
+        setState((prev) => ({
+          ...prev,
+          loading: false,
+          thirdpartyLoader: false
+        }));
+      }
+      return;
+    }
     checkUserExt();
   };
 

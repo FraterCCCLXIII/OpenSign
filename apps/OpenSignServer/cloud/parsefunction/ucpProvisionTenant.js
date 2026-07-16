@@ -123,6 +123,7 @@ export default async function ucpProvisionTenant(request) {
       tenantId: existingExt.get('TenantId')?.id,
       userId: user.id,
       extUserId: existingExt.id,
+      sessionToken: user.sessionToken,
       alreadyExists: true,
     };
   }
@@ -171,6 +172,7 @@ export default async function ucpProvisionTenant(request) {
     tenantId: tenantRes.id,
     userId: user.id,
     extUserId: extRes.id,
+    sessionToken: user.sessionToken,
     alreadyExists: false,
   };
 }
