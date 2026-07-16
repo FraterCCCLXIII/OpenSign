@@ -2,8 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --border: #e4e4e7;
+  --ring: #18181b;
+  --radius: 0.5rem;
+}
+
+[data-theme="opensigndark"] {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --border: #27272a;
+  --ring: #d4d4d8;
+  --radius: 0.5rem;
+}
+
 body {
-  background-color: white;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 /* Custom CSS to hide scrollbar */
@@ -82,7 +99,7 @@ body {
 * {
   scrollbar-width: thin;
   /* For Firefox */
-  scrollbar-color: gray;
+  scrollbar-color: #a1a1aa transparent;
   /* For Firefox */
 }
 
@@ -96,21 +113,168 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: gray;
+  background-color: #a1a1aa;
   border-radius: 10px;
 }
 
 .op-border-hover {
-  @apply border-gray-300 hover:border-base-content;
+  @apply border-zinc-300 hover:border-base-content;
 }
 
-/* Note: Dark mode styling is now handled via Tailwind utilities in tailwind.config.js */
-/* You can use classes like: icon-improved, icon-muted, icon-disabled, op-btn-vscode-disabled */
+/* -------------------------------------------------------------------------- */
+/* Shadcn-inspired DaisyUI control polish                                     */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  .op-btn {
+    @apply font-medium shadow-none no-animation;
+    border-radius: var(--radius);
+    height: 2.5rem;
+    min-height: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .op-btn-sm {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .op-btn-xs {
+    height: 1.75rem;
+    min-height: 1.75rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Keep icon-only buttons compact (overrides horizontal padding above) */
+  .op-btn-square {
+    width: 2.5rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .op-btn-sm.op-btn-square {
+    width: 2.25rem;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .op-btn-xs.op-btn-square {
+    width: 1.75rem;
+    height: 1.75rem;
+    min-height: 1.75rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .op-btn-primary {
+    @apply border border-primary;
+  }
+
+  .op-btn-primary:hover {
+    @apply brightness-95;
+  }
+
+  .op-btn-outline {
+    @apply bg-transparent border border-base-300 text-base-content shadow-none;
+  }
+
+  .op-btn-outline:hover {
+    @apply bg-base-200 border-base-300 text-base-content;
+  }
+
+  .op-btn-ghost {
+    @apply shadow-none border-transparent;
+  }
+
+  .op-btn-ghost:hover {
+    @apply bg-base-200;
+  }
+
+  .op-btn:focus-visible,
+  .op-input:focus-visible,
+  .op-select:focus-visible,
+  .op-textarea:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  .op-input,
+  .op-select,
+  .op-textarea {
+    @apply bg-base-100 text-base-content shadow-none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    height: 2.5rem;
+    min-height: 2.5rem;
+    font-size: 0.875rem;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .op-input:focus,
+  .op-select:focus,
+  .op-textarea:focus {
+    @apply outline-none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 1px var(--ring);
+  }
+
+  .op-textarea {
+    height: auto;
+    min-height: 5rem;
+  }
+
+  .op-input-sm,
+  .op-select-sm {
+    height: 2.25rem;
+    min-height: 2.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .op-input::placeholder,
+  .op-textarea::placeholder {
+    @apply text-base-content/40;
+  }
+
+  .op-card {
+    @apply bg-base-100 shadow-sm;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .op-modal-box {
+    @apply bg-base-100 shadow-lg;
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) + 0.125rem);
+  }
+
+  .op-menu li > *:not(ul):not(.op-menu-title):not(details):active,
+  .op-menu li > *:not(ul):not(.op-menu-title):not(details).active,
+  .op-menu li > details > summary:active {
+    @apply bg-base-200 text-base-content;
+  }
+}
 
 /* React-tour and ReactTooltip dark mode styling */
 [data-theme="opensigndark"] {
   .op-border-hover {
-    @apply border-gray-700 hover:border-base-content;
+    @apply border-zinc-700 hover:border-base-content;
   }
 
   /* for change calender icon of input date type */
@@ -120,48 +284,47 @@ body {
 
   /* React-tour modal styling */
   .reactour__popover {
-    background-color: #1f2937 !important;
-    color: #e5e7eb !important;
-    border: 1px solid #374151 !important;
+    background-color: #18181b !important;
+    color: #fafafa !important;
+    border: 1px solid #27272a !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
   }
 
   .reactour__close-button {
-    color: #e5e7eb !important;
-    background-color: #374151 !important;
-    border: 1px solid #4b5563 !important;
+    color: #fafafa !important;
+    background-color: #27272a !important;
+    border: 1px solid #3f3f46 !important;
   }
 
   .reactour__close-button:hover {
-    background-color: #4b5563 !important;
+    background-color: #3f3f46 !important;
     color: #ffffff !important;
   }
 
-
   /* ReactTooltip styling */
   .react-tooltip {
-    background-color: #1f2937 !important;
-    color: #e5e7eb !important;
-    border: 1px solid #374151 !important;
+    background-color: #18181b !important;
+    color: #fafafa !important;
+    border: 1px solid #27272a !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
   }
 
   .react-tooltip.type-dark {
-    background-color: #1f2937 !important;
-    color: #e5e7eb !important;
+    background-color: #18181b !important;
+    color: #fafafa !important;
   }
 
   .react-tooltip.place-top:after,
   .react-tooltip.place-bottom:after,
   .react-tooltip.place-left:after,
   .react-tooltip.place-right:after {
-    border-color: #1f2937 !important;
+    border-color: #18181b !important;
   }
 
   /* Tour content improvements */
   .reactour__badge {
-    background-color: #007acc !important;
-    color: #ffffff !important;
+    background-color: #fafafa !important;
+    color: #18181b !important;
   }
 
   .reactour__popover h1,
@@ -174,56 +337,55 @@ body {
   }
 
   .reactour__popover p {
-    color: #e5e7eb !important;
+    color: #a1a1aa !important;
   }
-
 
   /* React-datepicker dark mode styling */
   .react-datepicker {
-    background-color: #1f2937 !important;
-    border: 1px solid #374151 !important;
-    color: #e5e7eb !important;
+    background-color: #18181b !important;
+    border: 1px solid #27272a !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__header {
-    background-color: #374151 !important;
-    border-bottom: 1px solid #4b5563 !important;
-    color: #e5e7eb !important;
+    background-color: #27272a !important;
+    border-bottom: 1px solid #3f3f46 !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__current-month,
   .react-datepicker__day-name {
-    color: #e5e7eb !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__day {
-    color: #e5e7eb !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__day:hover {
-    background-color: #4b5563 !important;
+    background-color: #3f3f46 !important;
     color: #ffffff !important;
   }
 
   .react-datepicker__day--selected {
-    background-color: #007acc !important;
-    color: #ffffff !important;
+    background-color: #fafafa !important;
+    color: #18181b !important;
   }
 
   .react-datepicker__day--keyboard-selected {
-    background-color: #374151 !important;
-    color: #e5e7eb !important;
+    background-color: #27272a !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__day--outside-month {
-    color: #6b7280 !important;
+    color: #52525b !important;
   }
 
   .react-datepicker__navigation {
-    color: #e5e7eb !important;
+    color: #fafafa !important;
   }
 
   .react-datepicker__navigation:hover {
-    background-color: #4b5563 !important;
+    background-color: #3f3f46 !important;
   }
 }

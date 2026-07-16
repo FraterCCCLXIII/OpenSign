@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import dp from "../assets/images/dp.png";
 import FullScreenButton from "./FullScreenButton";
 import ThemeToggle from "./ThemeToggle";
 import { useNavigate } from "react-router";
@@ -20,7 +19,6 @@ const Header = ({ isConsole, setIsLoggingOut }) => {
   const { width } = useWindowSize();
   const dispatch = useDispatch();
   const username = localStorage.getItem("username") || "";
-  const image = localStorage.getItem("profileImg") || dp;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -88,16 +86,18 @@ const Header = ({ isConsole, setIsLoggingOut }) => {
     };
   }, [isOpen]);
 
+  const menuItemClass =
+    "flex w-full items-center gap-2 px-2 py-1.5 text-sm rounded-md text-base-content hover:bg-base-200 focus:bg-base-200 focus:outline-none cursor-pointer";
 
   return (
     <>
-      <div className="op-navbar bg-base-100 shadow touch-none">
+      <div className="op-navbar min-h-14 bg-base-100 border-b-0 touch-none px-1">
         <div className="flex-none">
           <button
-            className="op-btn op-btn-square op-btn-ghost focus:outline-none hover:bg-transparent op-btn-sm no-animation"
+            className="op-btn op-btn-square op-btn-ghost focus:outline-none op-btn-sm"
             onClick={showSidebar}
           >
-            <i className="fa-light fa-bars text-xl text-base-content"></i>
+            <i className="fa-light fa-bars text-lg text-base-content/80"></i>
           </button>
         </div>
         <div className="flex-1 ml-2">
@@ -107,113 +107,134 @@ const Header = ({ isConsole, setIsLoggingOut }) => {
             aria-label="Home"
           />
         </div>
-        <div id="profile-menu" className="flex-none gap-2">
-          <div>
-              <FullScreenButton />
-          </div>
-          {width >= 768 && (
-            <div
-              onClick={toggleDropdown}
-              className="cursor-pointer w-[35px] h-[35px] rounded-full ring-[1px] ring-offset-2 ring-gray-400 overflow-hidden"
-            >
-              <img
-                className="w-[35px] h-[35px] object-contain"
-                src={image}
-                alt="img"
-              />
-            </div>
-          )}
-          {width >= 768 && (
-            <div
-              onClick={toggleDropdown}
-              role="button"
-              tabIndex="0"
-              className="cursor-pointer text-base-content text-sm"
-            >
-              {username && username}
-            </div>
-          )}
-          <div
-            className="op-dropdown op-dropdown-open op-dropdown-end"
-            id="profile-menu"
+        <div id="profile-menu" className="relative flex-none">
+          <button
+            type="button"
+            onClick={toggleDropdown}
+            aria-expanded={isOpen}
+            aria-haspopup="menu"
+            className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-base-content/80 hover:bg-base-200 hover:text-base-content focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
           >
-            <div
-              tabIndex={0}
-              role="button"
-              onClick={toggleDropdown}
-              className="op-btn op-btn-ghost op-btn-xs w-[10px] h-[20px] hover:bg-transparent"
-            >
-              <i className="fa-light fa-angle-down text-base-content"></i>
-            </div>
-            <ul
-              tabIndex={0}
-              className={`mt-4 z-[1] p-2 shadow op-dropdown-open op-menu op-menu-sm op-dropdown-content text-base-content bg-base-100 rounded-box w-56 ${
-                isOpen ? "" : "hidden"
+            {width >= 768 && username ? (
+              <span className="max-w-[10rem] truncate">{username}</span>
+            ) : (
+              <i className="fa-light fa-user text-base-content/70" aria-hidden="true"></i>
+            )}
+            <i
+              className={`fa-light fa-angle-down text-xs text-base-content/50 transition-transform ${
+                isOpen ? "rotate-180" : ""
               }`}
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          {isOpen && (
+            <div
+              role="menu"
+              className="absolute right-0 top-full mt-1.5 z-[600] w-56 overflow-hidden rounded-md border border-base-300 bg-base-100 p-1 shadow-md"
             >
               {!isConsole && (
                 <>
-                    <li
-                      onClick={() =>
-                        openInNewTab("https://docs.opensignlabs.com")
-                      }
-                    >
-                      <span>
-                        <i className="fa-light fa-book"></i> {t("docs")}
-                      </span>
-                    </li>
-                  <li
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={menuItemClass}
                     onClick={() => {
                       setIsOpen(false);
                       navigate("/profile");
                     }}
                   >
-                    <span>
-                      <i className="fa-light fa-user"></i> {t("profile")}
-                    </span>
-                  </li>
-                    <li
-                      onClick={() => {
-                        setIsOpen(false);
-                        navigate("/changepassword");
-                      }}
-                    >
-                      <span>
-                        <i className="fa-light fa-lock"></i>{" "}
-                        {t("change-password")}
-                      </span>
-                    </li>
-                  <li
+                    <i
+                      className="fa-light fa-user w-4 text-center text-base-content/70"
+                      aria-hidden="true"
+                    ></i>
+                    <span>{t("profile")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={menuItemClass}
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate("/changepassword");
+                    }}
+                  >
+                    <i
+                      className="fa-light fa-lock w-4 text-center text-base-content/70"
+                      aria-hidden="true"
+                    ></i>
+                    <span>{t("change-password")}</span>
+                  </button>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={menuItemClass}
                     onClick={() => {
                       setIsOpen(false);
                       navigate("/verify-document");
                     }}
                   >
-                    <span>
-                      <i className="fa-light fa-check-square"></i>{" "}
-                      {t("verify-document")}
-                    </span>
-                  </li>
-                  <li>
-                    <span>
-                      <i className="fa-light fa-moon"></i>
-                      {t("dark-mode")}
-                      <span className="text-[10px] font-semibold bg-base-300 text-base-content px-1 rounded-md">
+                    <i
+                      className="fa-light fa-check-square w-4 text-center text-base-content/70"
+                      aria-hidden="true"
+                    ></i>
+                    <span>{t("verify-document")}</span>
+                  </button>
+
+                  <div className="my-1 h-px bg-base-300" />
+
+                  <FullScreenButton asMenuItem />
+
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className={menuItemClass}
+                    onClick={() =>
+                      openInNewTab("https://docs.opensignlabs.com")
+                    }
+                  >
+                    <i
+                      className="fa-light fa-book w-4 text-center text-base-content/70"
+                      aria-hidden="true"
+                    ></i>
+                    <span>{t("docs")}</span>
+                  </button>
+
+                  <div
+                    role="menuitem"
+                    className={`${menuItemClass} justify-between cursor-default hover:bg-transparent`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="inline-flex items-center gap-2">
+                      <i
+                        className="fa-light fa-moon w-4 text-center text-base-content/70"
+                        aria-hidden="true"
+                      ></i>
+                      <span>{t("dark-mode")}</span>
+                      <span className="text-[10px] font-medium bg-base-200 text-base-content/60 px-1.5 py-0.5 rounded">
                         BETA
                       </span>
-                      <ThemeToggle />
                     </span>
-                  </li>
+                    <ThemeToggle />
+                  </div>
+
+                  <div className="my-1 h-px bg-base-300" />
                 </>
               )}
-              <li onClick={handleLogout}>
-                <span>
-                  <i className="fa-light fa-arrow-right-from-bracket"></i>{" "}
-                  {t("log-out")}
-                </span>
-              </li>
-            </ul>
-          </div>
+              <button
+                type="button"
+                role="menuitem"
+                className={`${menuItemClass} text-error hover:bg-error/10 focus:bg-error/10`}
+                onClick={handleLogout}
+              >
+                <i
+                  className="fa-light fa-arrow-right-from-bracket w-4 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>{t("log-out")}</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

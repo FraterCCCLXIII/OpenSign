@@ -20,6 +20,7 @@ import PageReorderModal from "./PageReorderModal";
 import { useTranslation } from "react-i18next";
 import { PDFDocument } from "pdf-lib";
 import { maxFileSize } from "../../constant/const";
+import { Settings } from "lucide-react";
 
 function Header(props) {
   const { t } = useTranslation();
@@ -42,23 +43,36 @@ function Header(props) {
   };
   const handleDetelePage = async () => {
     props?.setIsUploadPdf && props?.setIsUploadPdf(true);
-    const pdfupdatedData = await deletePdfPage(
-      props?.pdfArrayBuffer,
-      props?.pageNumber
-    );
-    if (pdfupdatedData?.totalPages === 1) {
-      alert(t("delete-alert"));
-    } else {
-      props?.setPdfBase64Url(pdfupdatedData.base64);
-      props?.setPdfArrayBuffer(pdfupdatedData.arrayBuffer);
-      setIsDeletePage(false);
-      handleRemoveWidgets(
-        props?.setSignerPos,
-        props?.signerPos,
+    try {
+      const pdfupdatedData = await deletePdfPage(
+        props?.pdfArrayBuffer,
         props?.pageNumber
       );
+      if (pdfupdatedData?.totalPages === 1) {
+        alert(t("delete-alert"));
+      } else {
+        props?.setPdfBase64Url(pdfupdatedData.base64);
+        props?.setPdfArrayBuffer(pdfupdatedData.arrayBuffer);
+        setIsDeletePage(false);
+        handleRemoveWidgets(
+          props?.setSignerPos,
+          props?.signerPos,
+          props?.pageNumber
+        );
+        props?.setAllPages?.(pdfupdatedData.remainingPages || 1);
+        if (props?.allPages === props?.pageNumber) {
+          props?.setPageNumber?.(props.pageNumber - 1);
+        } else if (props?.allPages > 2) {
+          props?.setPageNumber?.(props.pageNumber);
+        }
+      }
+    } catch (e) {
+      console.error("Delete pdf page error", e);
     }
   };
+
+  const showPdfEditTools =
+    !props?.isDisablePdfEditTools && !!props?.handleRotationFun;
 
   // `removeFile` is used to  remove file if exists
   const removeFile = (e) => {
@@ -187,8 +201,18 @@ function Header(props) {
       await handleDownloadDoc();
     }
   };
+  const toolBtnClass =
+    "op-btn op-btn-ghost op-btn-xs border border-base-300";
+
   return (
-    <div className="flex py-[5px]">
+    <div className="flex shrink-0 py-2 px-2 border-b border-base-300 bg-base-100">
+      <input
+        type="file"
+        className="hidden"
+        accept="application/pdf"
+        ref={mergePdfInputRef}
+        onChange={handleFileUpload}
+      />
       {isMobile && props?.isShowHeader ? (
         <div
           id="navbar"
@@ -330,13 +354,6 @@ function Header(props) {
                         </div>
                       )
                     )}
-                    <input
-                      type="file"
-                      className="hidden"
-                      accept="application/pdf"
-                      ref={mergePdfInputRef}
-                      onChange={handleFileUpload}
-                    />
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <div className="font-[650] text-[18px] px-3  text-base-content no-underline">
@@ -356,11 +373,12 @@ function Header(props) {
                               className="DropdownMenuItem"
                               onClick={() => props?.setIsEditTemplate(true)}
                             >
-                              <div className="flex flex-row">
-                                <i
-                                  className="fa-light fa-gear mr-[3px]"
+                              <div className="flex flex-row items-center gap-1.5">
+                                <Settings
+                                  className="size-3.5 shrink-0 opacity-70"
+                                  strokeWidth={1.75}
                                   aria-hidden="true"
-                                ></i>
+                                />
                                 <span className="font-[500]">{t("Edit")}</span>
                               </div>
                             </DropdownMenu.Item>
@@ -479,29 +497,135 @@ function Header(props) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-wrap justify-between items-center w-full gap-y-1 ml-1">
-          <PrevNext
-            pageNumber={props?.pageNumber}
-            allPages={props?.allPages}
-            changePage={props?.changePage}
-          />
+        <div className="flex flex-wrap justify-between items-center w-full gap-y-1 gap-x-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <PrevNext
+              pageNumber={props?.pageNumber}
+              allPages={props?.allPages}
+              changePage={props?.changePage}
+            />
+            <div
+              data-tut="pdftools"
+              className="hidden md:flex items-center min-w-0"
+            >
+              {showPdfEditTools && (
+                <div className="flex items-center gap-0.5 ml-2 pl-2 border-l border-base-300">
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => mergePdfInputRef.current?.click()}
+                    title={t("add-pages")}
+                    aria-label={t("add-pages")}
+                  >
+                    <i
+                      className="fa-light fa-plus text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => setIsDeletePage(true)}
+                    title={t("delete-page")}
+                    aria-label={t("delete-page")}
+                  >
+                    <i
+                      className="fa-light fa-trash text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => setIsReorderModal(true)}
+                    title={t("reorder-pages")}
+                    aria-label={t("reorder-pages")}
+                  >
+                    <i
+                      className="fa-light fa-list-ol text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => props?.handleRotationFun?.(90)}
+                    title={t("rotate-right")}
+                    aria-label={t("rotate-right")}
+                  >
+                    <i
+                      className="fa-light fa-rotate-right text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => props?.handleRotationFun?.(-90)}
+                    title={t("rotate-left")}
+                    aria-label={t("rotate-left")}
+                  >
+                    <i
+                      className="fa-light fa-rotate-left text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              )}
+              {(props?.clickOnZoomIn || props?.clickOnZoomOut) && (
+                <div className="flex items-center gap-0.5 ml-2 pl-2 border-l border-base-300">
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => props?.clickOnZoomOut?.()}
+                    title={t("zoom-out")}
+                    aria-label={t("zoom-out")}
+                  >
+                    <i
+                      className="fa-light fa-magnifying-glass-minus text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    className={toolBtnClass}
+                    onClick={() => props?.clickOnZoomIn?.()}
+                    title={t("zoom-in")}
+                    aria-label={t("zoom-in")}
+                  >
+                    <i
+                      className="fa-light fa-magnifying-glass-plus text-xs"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
           {props?.isPlaceholder ? (
             <>
               <div className="flex mx-[100px] lg:mx-0 order-last lg:order-none"></div>
-              <div className="flex">
+              <div className="flex gap-1">
                 {props?.setIsEditTemplate && (
                   <button
+                    type="button"
                     onClick={() => props?.setIsEditTemplate(true)}
-                    className="outline-none border-none text-center mr-[3px]"
+                    className="inline-flex items-center justify-center size-8 rounded-md text-base-content/60 hover:text-base-content hover:bg-base-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    aria-label={t("Edit")}
+                    title={t("Edit")}
                   >
-                    <i className="fa-light fa-gear fa-lg text-base-content"></i>
+                    <Settings
+                      className="size-4 shrink-0"
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                    />
                   </button>
                 )}
                 {enabledBackBtn && (
                   <button
                     onClick={() => window.history.go(-2)}
                     type="button"
-                    className="op-btn op-btn-ghost text-base-content op-btn-sm mr-[3px]"
+                    className="op-btn op-btn-ghost text-base-content op-btn-sm"
                   >
                     {t("back")}
                   </button>
@@ -509,7 +633,7 @@ function Header(props) {
                 <button
                   disabled={props?.isMailSend && true}
                   data-tut="headerArea"
-                  className="op-btn op-btn-primary op-btn-sm mr-[3px]"
+                  className="op-btn op-btn-primary op-btn-sm"
                   onClick={() => props?.handleSaveDoc()}
                 >
                   {props?.completeBtnTitle
@@ -522,16 +646,16 @@ function Header(props) {
             </>
           ) : props?.isPdfRequestFiles || props?.isSelfSign ? (
             props?.alreadySign || (props?.isSelfSign && props?.isCompleted) ? (
-              <div className="flex flex-row">
+              <div className="flex flex-row gap-1">
                 <button
                   onClick={(e) =>
                     handleToPrint(e, setIsDownloading, props?.pdfDetails)
                   }
                   type="button"
-                  className="op-btn op-btn-neutral op-btn-sm mr-[3px] shadow"
+                  className="op-btn op-btn-outline op-btn-sm"
                 >
                   <i
-                    className="fa-light fa-print py-[3px]"
+                    className="fa-light fa-print"
                     aria-hidden="true"
                   ></i>
                   <span className="hidden lg:block">{t("print")}</span>
@@ -546,7 +670,7 @@ function Header(props) {
                             setIsDownloading
                           )
                         }
-                        className="op-btn op-btn-secondary op-btn-sm mr-[3px] shadow"
+                        className="op-btn op-btn-outline op-btn-sm"
                       >
                         <i
                           className="fa-light fa-award py-[3px]"
@@ -560,32 +684,32 @@ function Header(props) {
                 }
                 <button
                   type="button"
-                  className="op-btn op-btn-primary op-btn-sm mr-[3px] shadow"
+                  className="op-btn op-btn-primary op-btn-sm"
                   onClick={() => handleDownloadBtn()}
                 >
                   <i
-                    className="fa-light fa-download py-[3px]"
+                    className="fa-light fa-download"
                     aria-hidden="true"
                   ></i>
                   <span className="hidden lg:block">{t("download")}</span>
                 </button>
               </div>
             ) : (
-              <div className="flex" data-tut="reactourFifth">
+              <div className="flex gap-1" data-tut="reactourFifth">
                 {props?.currentSigner && (
                   <>
                     {props?.templateId && (
                       <button
                         onClick={() => handleDownloadDoc()}
                         type="button"
-                        className="op-btn op-btn-ghost text-base-content op-btn-sm mr-[3px]"
+                        className="op-btn op-btn-ghost text-base-content op-btn-sm"
                       >
                         <span className="hidden lg:block">{t("download")}</span>
                       </button>
                     )}
                     {!props?.isSelfSign && !isViewerSigner && (
                       <button
-                        className="op-btn op-btn-secondary op-btn-sm mr-[3px] shadow"
+                        className="op-btn op-btn-outline op-btn-sm text-error hover:bg-error/10"
                         onClick={() => handleDeclinePdfAlert()}
                       >
                         {t("decline")}
@@ -594,7 +718,7 @@ function Header(props) {
                     {!props?.templateId && (
                       <button
                         type="button"
-                        className="op-btn op-btn-ghost text-base-content op-btn-sm mr-[3px]"
+                        className="op-btn op-btn-outline op-btn-sm"
                         onClick={() => handleDownloadDoc()}
                       >
                         <i className="fa-light fa-arrow-down font-semibold lg:hidden"></i>

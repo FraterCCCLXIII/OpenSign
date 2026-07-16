@@ -47,11 +47,11 @@ const Footer = () => {
   };
   return (
     <>
-      <footer className="op-footer op-footer-center py-3 bg-base-300 text-base-content text-center text-[13px]">
+      <footer className="op-footer op-footer-center py-3 bg-base-100 border-t border-base-300 text-base-content/60 text-center text-[13px]">
         <aside>
           <p>
             {t("all-right")} &copy; {new Date().getFullYear()} &nbsp;
-            <span onClick={openUrl} className="hover:underline cursor-pointer">
+            <span onClick={openUrl} className="hover:underline cursor-pointer hover:text-base-content">
               {appName} ( {t("version")}:{" "}
               {version ? version : `${Package.version} `})
             </span>
@@ -61,7 +61,7 @@ const Footer = () => {
       <button
         className={`${
           showButton ? "block" : "hidden"
-        } fixed bottom-4 right-4 px-3 p-2 text-xl op-bg-secondary text-white rounded focus:outline-none`}
+        } fixed bottom-4 right-4 px-3 p-2 text-xl bg-primary text-primary-content rounded-md border border-primary focus:outline-none shadow-sm`}
         onClick={scrollToTop}
       >
         <i className="fa-light fa-angle-up"></i>

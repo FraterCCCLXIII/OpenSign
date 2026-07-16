@@ -320,8 +320,8 @@ const DashboardCard = (props) => {
           : "cursor-default"
       }`}
     >
-      <div className="flex items-center justify-start gap-5 text-white">
-        <span className="rounded-full bg-base-300 bg-opacity-20 w-[60px] h-[60px] self-start flex justify-center items-center">
+      <div className="flex items-center justify-start gap-5">
+        <span className="rounded-full bg-current/20 w-[60px] h-[60px] self-start flex justify-center items-center">
           <i
             className={`${
               props.Icon ? props.Icon : "fa-light fa-info"
@@ -341,7 +341,7 @@ const DashboardCard = (props) => {
       <div className="text-xs absolute top-3 right-2">
         <Tooltip
           id={props.Label}
-          iconColor={"white"}
+          iconColor={"currentColor"}
           message={t(`tour-mssg.${props.Label}`)}
         />
       </div>

@@ -14,7 +14,8 @@ import {
   isMobile,
   textInputWidget,
   textWidget,
-  pendingButtonZoomScrollRef
+  pendingButtonZoomScrollRef,
+  getPdfPageGutterX
 } from "../../constant/Utils";
 import Placeholder from "./Placeholder";
 import Alert from "../../primitives/Alert";
@@ -449,7 +450,10 @@ function RenderPdf(props) {
   // calculate render height of pdf in mobile view
   const handlePageLoadSuccess = (page) => {
     if (isMobile) {
-      const containerWidth = props.divRef.current.offsetWidth; // Get container width
+      // Match page width used for rendering (includes side gutter inset)
+      const containerWidth =
+        props.containerWH?.width ||
+        props.divRef.current.offsetWidth - getPdfPageGutterX() * 2;
       const viewport = page.getViewport({ scale: 1 });
       const scale = containerWidth / viewport.width; // Scale to fit container width
       const scaleHeight = viewport.height * scale;
@@ -853,6 +857,7 @@ function RenderPdf(props) {
   const pdfDataBase64 = `data:application/pdf;base64,${props.pdfBase64Url}`;
 
   const totalPages = allPagesCount || 1;
+  const pageGutterX = getPdfPageGutterX();
 
   return (
     <>
@@ -861,39 +866,43 @@ function RenderPdf(props) {
       )}
       <div
         ref={scrollRef}
+        className="bg-zinc-200 h-full min-h-0"
         style={{
           position: "relative",
-          boxShadow: "rgba(17, 12, 46, 0.15) 0px 48px 100px 0px",
+          // Mobile guest/non-guest keep explicit heights; desktop fills the
+          // flex column under the app header (never window.innerHeight — that
+          // overflows and makes the whole 3-column layout scroll).
           height: isMobile
             ? isGuestSigner
               ? window.innerHeight - 49
               : scaledHeight
-            : `${window.innerHeight}px`,
+            : "100%",
           zIndex: 0,
           overflowY: "auto",
-          overflowX: props.scale === 1 ? "hidden" : "auto",
-          touchAction: isMobile ? "pan-x pan-y" : undefined
+          overflowX: props.scale <= 1 ? "hidden" : "auto",
+          touchAction: isMobile ? "pan-x pan-y" : undefined,
+          paddingTop: isMobile ? 12 : 24,
+          paddingLeft: pageGutterX,
+          paddingRight: pageGutterX
         }}
       >
-        {/* ✅ Spacer — expands to real scaled dimensions so scrollbars work */}
+        {/* Spacer — expands to real scaled dimensions so scrollbars work;
+            horizontally centered on the grey canvas */}
         <div
-          style={
-            isMobile
-              ? {
-                  width: props.containerWH?.width * props.scale,
-                  minHeight: "100%",
-                  position: "relative"
-                }
-              : undefined
-          }
+          style={{
+            width: props.containerWH?.width * (props?.scale || 1),
+            minHeight: "100%",
+            position: "relative",
+            marginLeft: "auto",
+            marginRight: "auto",
+            // In-flow bottom inset (padding-bottom on the scroller is unreliable
+            // with absolutely positioned page content).
+            paddingBottom: isMobile ? 12 : 40
+          }}
         >
           <div
             data-tut={isMobile ? "reactourForth" : undefined}
-            className={
-              isMobile
-                ? `${isGuestSigner ? "30px" : ""} border-[0.1px] border-[#ebe8e8] relative`
-                : "relative"
-            }
+            className="relative"
             data-pdf-transform-target
             style={{
               cursor:
@@ -902,9 +911,9 @@ function RenderPdf(props) {
                 !props.isDragging
                   ? "crosshair"
                   : "default",
-              // ✅ top left so content expands into spacer — scroll handles horizontal
+              // top left so content expands into spacer — scroll handles horizontal
               width: props.containerWH?.width,
-              transform: `scale(${props?.scale || 1})`, // ✅ both platforms
+              transform: `scale(${props?.scale || 1})`,
               transformOrigin: "top left",
               position: "absolute",
               top: 0,
@@ -960,12 +969,13 @@ function RenderPdf(props) {
                     }}
                     data-page-number={pageNum}
                     id={pageNum === props.pageNumber ? "container" : undefined}
-                    className="relative"
-                    style={
-                      pageNum < totalPages
-                        ? { marginBottom: "14px" }
-                        : undefined
-                    }
+                    className={`relative z-0 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.12)]${
+                      isMobile ? " select-none" : ""
+                    }`}
+                    style={{
+                      // Keep grey canvas visible below the last page as well
+                      marginBottom: pageNum < totalPages ? 20 : 40
+                    }}
                   >
                     {renderWidgetsForPage(pageNum)}
                     <Page
@@ -976,7 +986,9 @@ function RenderPdf(props) {
                       width={props.containerWH.width}
                       scale={1}
                       className={
-                        isMobile ? "select-none touch-callout-none" : "-z-[1]"
+                        isMobile
+                          ? "select-none touch-callout-none relative -z-[1]"
+                          : "relative -z-[1]"
                       }
                       pageNumber={pageNum}
                       renderAnnotationLayer={false}

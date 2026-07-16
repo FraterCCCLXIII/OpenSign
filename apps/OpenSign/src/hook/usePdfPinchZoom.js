@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
+import { MIN_PDF_SCALE, MAX_PDF_SCALE } from "../constant/const";
 
-const MIN_SCALE = 1.0;
-const MAX_SCALE = 4.0;
+const MIN_SCALE = MIN_PDF_SCALE;
+const MAX_SCALE = MAX_PDF_SCALE;
 
 // Calculate straight-line distance between two touch points
 function getDistance(t1, t2) {

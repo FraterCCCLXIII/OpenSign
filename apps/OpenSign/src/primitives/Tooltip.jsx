@@ -1,6 +1,20 @@
 import React from "react";
+import { CircleHelp } from "lucide-react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { openInNewTab } from "../constant/Utils";
+
+const HelpIcon = ({ iconColor }) => {
+  const color = iconColor || "currentColor";
+  return (
+    <CircleHelp
+      className="inline-block size-3.5 shrink-0 opacity-70"
+      style={{ color }}
+      strokeWidth={1.75}
+      aria-hidden="true"
+    />
+  );
+};
+
 const Tooltip = ({
   id,
   message,
@@ -11,37 +25,22 @@ const Tooltip = ({
 }) =>
   url || handleOnlickHelp ? (
     <button
+      type="button"
       onClick={() =>
         handleOnlickHelp ? handleOnlickHelp() : openInNewTab(url)
       }
-      className="text-center cursor-pointer focus:outline-none"
+      className="inline-flex items-center text-center cursor-pointer focus:outline-none text-base-content/60 hover:text-base-content"
     >
-      <sup>
-        <i
-          className="fa-light fa-question rounded-full border-[1px] py-[1.5px] px-[4px] text-[13px]"
-          style={{
-            borderColor: iconColor ? iconColor : "#33bbff",
-            color: iconColor ? iconColor : "#33bbff"
-          }}
-        ></i>
-      </sup>
+      <HelpIcon iconColor={iconColor} />
     </button>
   ) : (
     <>
       <a
         data-tooltip-id={id ? id : "my-tooltip"}
         data-tooltip-content={message}
-        className="z-50"
+        className="z-50 inline-flex items-center text-base-content/60 hover:text-base-content cursor-help"
       >
-        <sup>
-          <i
-            className="fa-light fa-question rounded-full border-[1px] py-[1.5px] px-[4px] text-[13px]"
-            style={{
-              borderColor: iconColor ? iconColor : "#33bbff",
-              color: iconColor ? iconColor : "#33bbff"
-            }}
-          ></i>
-        </sup>
+        <HelpIcon iconColor={iconColor} />
       </a>
       <ReactTooltip
         id={id ? id : "my-tooltip"}

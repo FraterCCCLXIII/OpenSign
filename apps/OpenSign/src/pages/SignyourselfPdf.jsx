@@ -50,7 +50,6 @@ import DropdownWidgetOption from "../components/pdf/DropdownWidgetOption";
 import { useDispatch, useSelector } from "react-redux";
 import TextFontSetting from "../components/pdf/TextFontSetting";
 import VerifyEmail from "../components/pdf/VerifyEmail";
-import PdfTools from "../components/pdf/PdfTools";
 import { useTranslation } from "react-i18next";
 import RotateAlert from "../components/RotateAlert";
 import DownloadPdfZip from "../primitives/DownloadPdfZip";
@@ -71,6 +70,7 @@ import {
 import WidgetsValueModal from "../components/pdf/WidgetsValueModal";
 import WidgetNameModal from "../components/pdf/WidgetNameModal";
 import CellsSettingModal from "../components/pdf/CellsSettingModal";
+import usePdfContainerMeasure from "../hook/usePdfContainerMeasure";
 import { useWindowSize } from "../hook/useWindowSize";
 import {
   applyNumberFormulasToPages,
@@ -88,6 +88,7 @@ function SignYourSelf() {
   const appName =
     "OpenSign™";
   const divRef = useRef(null);
+  const { containerRef, containerWH, pdfNewWidth } = usePdfContainerMeasure(divRef);
   const nodeRef = useRef(null);
   const pdfRef = useRef();
   const numPages = 1;
@@ -102,7 +103,6 @@ function SignYourSelf() {
   const [dragKey, setDragKey] = useState();
   const [fontSize, setFontSize] = useState();
   const [fontColor, setFontColor] = useState();
-  const [pdfNewWidth, setPdfNewWidth] = useState();
   const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
   const [successEmail, setSuccessEmail] = useState(false);
   const [isUiLoading, setIsUiLoading] = useState(false);
@@ -117,7 +117,6 @@ function SignYourSelf() {
   const [signerUserId, setSignerUserId] = useState();
   const [tourStatus, setTourStatus] = useState([]);
   const [contractName, setContractName] = useState("");
-  const [containerWH, setContainerWH] = useState({ width: 0, height: 0 });
   const [isPageCopy, setIsPageCopy] = useState(false);
   const [otpLoader, setOtpLoader] = useState(false);
   const [showAlreadySignDoc, setShowAlreadySignDoc] = useState({
@@ -140,7 +139,6 @@ function SignYourSelf() {
   const [isVerifyModal, setIsVerifyModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [zoomPercent, setZoomPercent] = useState(0);
-  const isSidebar = useSelector((state) => state.sidebar.isOpen);
   const [scale, setScale] = useState(1);
   const [pdfBase64Url, setPdfBase64Url] = useState("");
   const [showRotateAlert, setShowRotateAlert] = useState({
@@ -189,24 +187,14 @@ function SignYourSelf() {
 
 
   useEffect(() => {
-    const updateSize = () => {
-      if (divRef.current) {
-        const pdfWidth = divRef.current.offsetWidth;
-        setPdfNewWidth(pdfWidth);
-        setContainerWH({
-          width: divRef.current.offsetWidth,
-          height: divRef.current.offsetHeight
-        });
-        setScale(1);
-        setZoomPercent(0);
-      }
-    };
-
-    // Use setTimeout to wait for the transition to complete
-    const timer = setTimeout(updateSize, 150); // match the transition duration
+    if (!windowSize?.width) return;
+    const timer = setTimeout(() => {
+      setScale(1);
+      setZoomPercent(0);
+    }, 320);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [divRef.current, isSidebar, windowSize?.width]);
+  }, [windowSize?.width]);
+
   //function for get document details for perticular signer with signer'object id
   const getDocumentDetails = async (showComplete) => {
     try {
@@ -1295,7 +1283,7 @@ function SignYourSelf() {
       ) : handleError ? (
         <HandleError handleError={handleError} />
       ) : (
-        <div>
+        <div className="h-full min-h-0">
           {isCelebration && (
             <div className="relative z-[1000]">
               <Confetti
@@ -1306,7 +1294,7 @@ function SignYourSelf() {
               />
             </div>
           )}
-          <div className="relative op-card overflow-hidden flex flex-col md:flex-row justify-between bg-base-300">
+          <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row justify-between bg-base-300 h-full min-h-0">
             {isUiLoading && (
               <div className="absolute h-full w-full z-[999] flex flex-col justify-center items-center bg-[#e6f2f2]/80">
                 <Loader />
@@ -1357,25 +1345,8 @@ function SignYourSelf() {
               isMergePdfBtn={!pdfDetails?.[0]?.IsCompleted}
               pdfDetails={pdfDetails}
             />
-            <div className="w-full md:w-[57%] flex mr-4">
-              <PdfTools
-                clickOnZoomIn={clickOnZoomIn}
-                clickOnZoomOut={clickOnZoomOut}
-                handleRotationFun={handleRotationFun}
-                pdfArrayBuffer={pdfArrayBuffer}
-                pageNumber={pageNumber}
-                setPdfBase64Url={setPdfBase64Url}
-                setPdfArrayBuffer={setPdfArrayBuffer}
-                setIsUploadPdf={setIsUploadPdf}
-                setSignerPos={setXyPosition}
-                signerPos={xyPosition}
-                allPages={allPages}
-                setAllPages={setAllPages}
-                setPageNumber={setPageNumber}
-                isDisableEditTools={isCompleted}
-                pdfDetails={pdfDetails}
-              />
-              <div className="w-full md:w-[95%]">
+            <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
+              <div className="w-full min-h-0 flex flex-col flex-1 overflow-hidden">
                 <ModalUi
                   isOpen={isAlert.isShow}
                   title={isAlert?.header || t("alert")}
@@ -1464,9 +1435,16 @@ function SignYourSelf() {
                   setSignerPos={setXyPosition}
                   signerPos={xyPosition}
                   pdfBase64={pdfBase64Url}
+                  setAllPages={setAllPages}
+                  setPageNumber={setPageNumber}
+                  isDisablePdfEditTools={isCompleted}
                 />
-                <div ref={divRef} data-tut="reactourSecond" className="h-fit">
-                  {containerWH?.width && (
+                <div
+                  ref={containerRef}
+                  data-tut="reactourSecond"
+                  className="flex-1 min-h-0 overflow-hidden"
+                >
+                  {containerWH?.width > 0 && (
                     <RenderPdf
                       pageNumber={pageNumber}
                       setPageNumber={setPageNumber}
@@ -1517,8 +1495,8 @@ function SignYourSelf() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar">
-              <div className="max-h-screen">
+            <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar h-full min-h-0 border-l border-base-300">
+              <div>
                 {!isCompleted ? (
                   <WidgetComponent
                     pdfUrl={pdfUrl}

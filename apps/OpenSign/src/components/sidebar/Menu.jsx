@@ -18,14 +18,18 @@ const Menu = ({ item, isOpen, closeSidebar }) => {
             : `/${item.objectId}`
         }
         className={({ isActive }) =>
-          `${isActive && selectedMenu ? "bg-base-300 text-base-content" : ""} flex gap-x-5 items-center justify-start text-left p-3 text-base-content hover:text-base-content focus:bg-base-300 hover:bg-base-300 hover:no-underline focus:outline-none`
+          `${
+            isActive && selectedMenu
+              ? "bg-base-200 text-base-content font-medium"
+              : "text-base-content/80"
+          } flex gap-x-3 items-center justify-start text-left px-3 py-2 rounded-md hover:text-base-content focus:bg-base-200 hover:bg-base-200 hover:no-underline focus:outline-none`
         }
         onClick={() => closeSidebar(item.title)}
         tabIndex={isOpen ? 0 : -1}
         role="menuitem"
       >
-        <span className="w-[20px] h-[20px] flex justify-center">
-          <i className={`${item.icon} text-[20px]`} aria-hidden="true"></i>
+        <span className="w-4 h-4 flex justify-center items-center shrink-0">
+          <i className={`${item.icon} text-sm`} aria-hidden="true"></i>
         </span>
         <span className="flex items-center mb-0.5">
           {t(`sidebar.${item.title}`, { appName: drivename })}

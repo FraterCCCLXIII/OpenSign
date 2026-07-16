@@ -14,13 +14,13 @@ const Submenu = ({ item, closeSidebar, toggleSubmenu, submenuOpen }) => {
     <li role="none" className="my-0.5">
       <button
         onClick={() => toggleSubmenu(item.title)}
-        className="flex gap-x-5 items-center justify-start text-left p-3 text-base-content hover:text-base-content focus:bg-base-300 hover:bg-base-300 hover:no-underline focus:outline-none"
+        className="flex gap-x-3 items-center justify-start text-left px-3 py-2 rounded-md text-base-content/80 hover:text-base-content focus:bg-base-200 hover:bg-base-200 hover:no-underline focus:outline-none w-full"
         aria-expanded={submenuOpen}
         aria-haspopup="true"
         aria-controls={`submenu-${title}`}
       >
-        <span className="w-[20px] h-[20px] flex justify-center">
-          <i className={`${icon} text-[20px]`}></i>
+        <span className="w-4 h-4 flex justify-center items-center shrink-0">
+          <i className={`${icon} text-sm`}></i>
         </span>
         <div className="flex justify-between items-center w-full">
           <span className="flex items-center mb-0.5">
@@ -47,15 +47,19 @@ const Submenu = ({ item, closeSidebar, toggleSubmenu, submenuOpen }) => {
                     : `/${childItem.objectId}`
                 }
                 className={({ isActive }) =>
-                  `${isActive && selectedMenu ? "bg-base-300 text-base-content" : ""} pl-4 flex items-center gap-x-5 py-2 text-sm cursor-pointer text-base-content hover:text-base-content focus:bg-base-300 hover:bg-base-300 hover:no-underline focus:outline-none`
+                  `${
+                    isActive && selectedMenu
+                      ? "bg-base-200 text-base-content font-medium"
+                      : "text-base-content/80"
+                  } pl-4 flex items-center gap-x-3 py-2 px-3 rounded-md text-sm cursor-pointer hover:text-base-content focus:bg-base-200 hover:bg-base-200 hover:no-underline focus:outline-none`
                 }
                 onClick={() => closeSidebar(childItem.title)}
                 role="menuitem"
                 tabIndex={submenuOpen ? 0 : -1}
               >
-                <span className="w-[18px] h-[18px] flex justify-center">
+                <span className="w-3.5 h-3.5 flex justify-center items-center shrink-0">
                   <i
-                    className={`${childItem.icon} text-[18px]`}
+                    className={`${childItem.icon} text-xs`}
                     aria-hidden="true"
                   ></i>
                 </span>

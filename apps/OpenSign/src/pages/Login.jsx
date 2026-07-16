@@ -399,7 +399,7 @@ function Login() {
   };
 
   return errMsg ? (
-    <div className="h-screen flex justify-center text-center items-center p-4 text-gray-500 text-base">
+    <div className="h-screen flex justify-center text-center items-center p-4 text-base-content/60 text-base">
       {errMsg}
     </div>
   ) : (
@@ -407,7 +407,7 @@ function Login() {
       {state.loading && (
         <div
           aria-live="assertive"
-          className="fixed w-full h-full flex justify-center items-center bg-black bg-opacity-30 z-50"
+          className="fixed w-full h-full flex justify-center items-center bg-black/30 z-50"
         >
           <Loader />
         </div>
@@ -417,93 +417,102 @@ function Login() {
           <div
             aria-labelledby="loginHeading"
             role="region"
-            className="min-h-screen w-full bg-base-100 text-base-content"
+            className="min-h-screen w-full bg-base-200 text-base-content flex flex-col items-center justify-center p-4 md:p-10"
           >
-            <div className="min-h-screen w-full p-4 md:p-10 lg:p-16 flex flex-col">
-              <div className="w-full max-w-md">
-                  <form onSubmit={handleLoginBtn} aria-label="Login Form">
-                    <h1 className="text-[30px] mt-2 md:mt-6">{t("welcome")}</h1>
-                    <fieldset>
-                      <legend className="text-[12px] text-[#878787]">
-                        {t("Login-to-your-account")}
-                      </legend>
-                      <div className="w-full px-6 py-3 my-1 op-card bg-base-100 shadow-md outline outline-1 outline-slate-300/50">
-                        <label className="block text-xs" htmlFor="email">
-                          {t("email")}
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
-                          name="email"
-                          autoComplete="username"
-                          value={state.email}
-                          onChange={handleChange}
-                          required
-                          onInvalid={(e) =>
-                            e.target.setCustomValidity(t("input-required"))
-                          }
-                          onInput={(e) => e.target.setCustomValidity("")}
-                        />
-                        <hr className="my-1 border-none" />
-                            <label className="block text-xs" htmlFor="password">
-                              {t("password")}
-                            </label>
-                            <div className="relative">
-                              <input
-                                id="password"
-                                type={
-                                  state.passwordVisible ? "text" : "password"
-                                }
-                                className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
-                                name="password"
-                                value={state.password}
-                                autoComplete="current-password"
-                                onChange={handleChange}
-                                onInvalid={(e) =>
-                                  e.target.setCustomValidity(
-                                    t("input-required")
-                                  )
-                                }
-                                onInput={(e) => e.target.setCustomValidity("")}
-                                required
-                              />
-                              <span
-                                className="absolute cursor-pointer top-[50%] right-[10px] -translate-y-[50%] text-base-content"
-                                onClick={togglePasswordVisibility}
-                              >
-                                {state.passwordVisible ? (
-                                  <i className="fa-light fa-eye-slash text-xs pb-1" /> // Close eye icon
-                                ) : (
-                                  <i className="fa-light fa-eye text-xs pb-1 " /> // Open eye icon
-                                )}
-                              </span>
-                            </div>
-                          <div className="relative mt-1">
-                            <NavLink
-                              to="/forgetpassword"
-                              className="text-[13px] op-link op-link-primary underline-offset-1 focus:outline-none ml-1"
-                            >
-                              {t("forgot-password")}?
-                            </NavLink>
-                          </div>
-                      </div>
-                    </fieldset>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-center text-xs font-bold mt-2">
-                      <button
-                        type="submit"
-                        className="op-btn op-btn-primary"
-                        disabled={state.loading}
+            <div className="w-full max-w-md flex flex-col items-center gap-4">
+              <form
+                onSubmit={handleLoginBtn}
+                aria-label="Login Form"
+                className="w-full"
+              >
+                <div className="text-center mb-6">
+                  <h1
+                    id="loginHeading"
+                    className="text-3xl font-semibold tracking-tight"
+                  >
+                    {t("Login-to-your-account")}
+                  </h1>
+                </div>
+                <div className="w-full px-6 py-6 op-card space-y-4">
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1.5"
+                      htmlFor="email"
+                    >
+                      {t("email")}
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      className="op-input op-input-bordered w-full"
+                      name="email"
+                      autoComplete="username"
+                      value={state.email}
+                      onChange={handleChange}
+                      required
+                      onInvalid={(e) =>
+                        e.target.setCustomValidity(t("input-required"))
+                      }
+                      onInput={(e) => e.target.setCustomValidity("")}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1.5"
+                      htmlFor="password"
+                    >
+                      {t("password")}
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="password"
+                        type={state.passwordVisible ? "text" : "password"}
+                        className="op-input op-input-bordered w-full pr-10"
+                        name="password"
+                        value={state.password}
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                        onInvalid={(e) =>
+                          e.target.setCustomValidity(t("input-required"))
+                        }
+                        onInput={(e) => e.target.setCustomValidity("")}
+                        required
+                      />
+                      <span
+                        className="absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-base-content/60 hover:text-base-content"
+                        onClick={togglePasswordVisibility}
                       >
-                        {state.loading ? t("loading") : t("login")}
-                      </button>
+                        {state.passwordVisible ? (
+                          <i className="fa-light fa-eye-slash text-sm" />
+                        ) : (
+                          <i className="fa-light fa-eye text-sm" />
+                        )}
+                      </span>
                     </div>
-                  </form>
+                    <div className="mt-3 text-center">
+                      <NavLink
+                        to="/forgetpassword"
+                        className="text-sm text-base-content/70 hover:text-base-content underline-offset-4 hover:underline focus:outline-none"
+                      >
+                        {t("forgot-password")}?
+                      </NavLink>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    className="op-btn op-btn-primary w-full"
+                    disabled={state.loading}
+                  >
+                    {state.loading ? t("loading") : t("login")}
+                  </button>
+                </div>
+              </form>
+              <div className="w-full flex flex-col items-center">
+                <SelectLanguage />
+                {state.alertMsg && (
+                  <Alert type={state.alertType}>{state.alertMsg}</Alert>
+                )}
               </div>
-            <SelectLanguage />
-            {state.alertMsg && (
-              <Alert type={state.alertType}>{state.alertMsg}</Alert>
-            )}
             </div>
           </div>
           <ModalUi
@@ -511,19 +520,18 @@ function Login() {
             title={t("additional-info")}
             showClose={false}
           >
-            <form className="px-4 py-3 text-base-content">
-              <div className="mb-3">
+            <form className="px-4 py-3 text-base-content space-y-4">
+              <div>
                 <label
                   htmlFor="Company"
-                  style={{ display: "flex" }}
-                  className="block text-xs font-semibold"
+                  className="flex text-sm font-medium mb-1.5"
                 >
                   {t("company")}{" "}
-                  <span className="text-[red] text-[13px]">*</span>
+                  <span className="text-error text-sm ml-0.5">*</span>
                 </label>
                 <input
                   type="text"
-                  className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                  className="op-input op-input-bordered w-full"
                   id="Company"
                   value={userDetails.Company}
                   onChange={(e) =>
@@ -539,18 +547,17 @@ function Login() {
                   required
                 />
               </div>
-              <div className="mb-3">
+              <div>
                 <label
                   htmlFor="JobTitle"
-                  style={{ display: "flex" }}
-                  className="block text-xs font-semibold"
+                  className="flex text-sm font-medium mb-1.5"
                 >
                   {t("job-title")}
-                  <span className="text-[red] text-[13px]">*</span>
+                  <span className="text-error text-sm ml-0.5">*</span>
                 </label>
                 <input
                   type="text"
-                  className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                  className="op-input op-input-bordered w-full"
                   id="JobTitle"
                   value={userDetails.Destination}
                   onChange={(e) =>
@@ -566,7 +573,7 @@ function Login() {
                   required
                 />
               </div>
-              <div className="mt-4 gap-2 flex flex-row">
+              <div className="mt-2 gap-2 flex flex-row">
                 <button
                   type="button"
                   className="op-btn op-btn-primary"

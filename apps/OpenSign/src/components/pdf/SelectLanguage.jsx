@@ -24,15 +24,17 @@ function SelectLanguage(props) {
   return (
     <div
       className={`${
-        !props.isProfile && " mt-[9px] pb-2 md:pb-0 "
+        !props.isProfile && "mt-1 pb-2 md:pb-0"
       } flex justify-center items-center text-base-content`}
     >
       <select
         value={lang}
         onChange={handleChangeLang}
         className={`${
-          !props.isProfile ? " md:w-[15%] w-[50%]" : "w-[180px]"
-        } op-select op-select-bordered op-select-sm `}
+          !props.isProfile
+            ? "w-full max-w-[12rem] min-w-[10rem]"
+            : "w-[180px]"
+        } op-select op-select-bordered`}
       >
         <option disabled>select</option>
         {languages.map((item) => {

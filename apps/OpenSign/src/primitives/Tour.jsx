@@ -72,14 +72,16 @@ export default function Tour({
           ...base,
           borderRadius: rounded,
           padding: "18px",
-          fontSize: "13px"
+          fontSize: "13px",
+          // Instant reposition — no slide/fly between tour targets
+          transition: "none"
         }),
         maskArea: (base) => ({ ...base, rx: rounded }),
-        close: (base) => ({ ...base, right: 10, top: 10, outline: "none" })
+        close: (base) => ({ ...base, right: 10, top: 10, outline: "none" }),
+        dot: (base) => ({ ...base, transition: "none" })
       }}
       afterOpen={lockTouchScroll}
       beforeClose={unlockTouchScroll}
-      scrollSmooth
     >
       <TourStateSync isOpen={isOpen} onRequestClose={onRequestClose} />
     </TourProvider>

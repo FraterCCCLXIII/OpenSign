@@ -306,25 +306,29 @@ function GuestLogin() {
       {isLoading.isLoad ? (
         <LoaderWithMsg isLoading={isLoading} />
       ) : (
-        <div className="min-h-screen w-full bg-base-100 text-base-content p-4 md:p-10 lg:p-16">
+        <div className="min-h-screen w-full bg-base-200 text-base-content flex flex-col items-center justify-center p-4 md:p-10">
             {contactId ? (
-              <div className="w-full md:w-[50%] text-base-content">
-                <h1 className="text-2xl md:text-[30px]">{t("welcome")}</h1>
-                <legend className="text-[12px] text-[#878787] mt-2 mb-1">
-                  {t("get-otp-alert")}
-                </legend>
-                <div className="p-[20px] outline outline-1 outline-slate-300/50 my-2 op-card shadow-md">
+              <div className="w-full max-w-md text-base-content">
+                <div className="text-center mb-6">
+                  <h1 className="text-3xl font-semibold tracking-tight">
+                    {t("welcome")}
+                  </h1>
+                  <p className="mt-2 text-sm text-base-content/60">
+                    {t("get-otp-alert")}
+                  </p>
+                </div>
+                <div className="p-5 my-2 op-card">
                   <input
                     type="email"
                     name="email"
                     value={email}
-                    className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full disabled:text-[#5c5c5c] text-xs"
+                    className="op-input op-input-bordered w-full disabled:text-base-content/50"
                     disabled
                   />
                 </div>
                 <div className="mt-3">
                   <button
-                    className="op-btn op-btn-primary flex items-center"
+                    className="op-btn op-btn-primary w-full flex items-center justify-center"
                     onClick={(e) => {
                       e.preventDefault();
                         SendOtp();
@@ -337,29 +341,33 @@ function GuestLogin() {
                 </div>
               </div>
             ) : (
-              <div className="w-full md:w-[50%] text-base-content">
-                <h1 className="text-2xl md:text-[30px]">{t("welcome")}</h1>
-                <legend className="text-[12px] text-[#878787] mt-2">
-                  {t("provide-your-details")}
-                </legend>
+              <div className="w-full max-w-md text-base-content">
+                <div className="text-center mb-6">
+                  <h1 className="text-3xl font-semibold tracking-tight">
+                    {t("welcome")}
+                  </h1>
+                  <p className="mt-2 text-sm text-base-content/60">
+                    {t("provide-your-details")}
+                  </p>
+                </div>
                 <form
-                  className="p-[20px] pt-[15px] outline outline-1 outline-slate-300/50 my-2 op-card shadow-md"
+                  className="p-5 my-2 op-card space-y-3"
                   onSubmit={handleUserData}
                 >
-                  <div className="mb-2">
+                  <div>
                     <label
                       htmlFor="name"
-                      className="block text-xs font-semibold"
+                      className="block text-sm font-medium mb-1.5"
                     >
                       {t("name")}
-                      <span className="text-[red] text-[13px]"> *</span>
+                      <span className="text-error text-sm"> *</span>
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={contact.name}
                       onChange={handleInputChange}
-                      className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                      className="op-input op-input-bordered w-full"
                       disabled={loading}
                       onInvalid={(e) =>
                         e.target.setCustomValidity(t("input-required"))
@@ -369,20 +377,20 @@ function GuestLogin() {
                       required
                     />
                   </div>
-                  <div className="mb-2">
+                  <div>
                     <label
                       htmlFor="email"
-                      className="block text-xs font-semibold"
+                      className="block text-sm font-medium mb-1.5"
                     >
                       {t("email")}
-                      <span className="text-[red] text-[13px]"> *</span>
+                      <span className="text-error text-sm"> *</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={contact.email}
                       onChange={handleInputChange}
-                      className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                      className="op-input op-input-bordered w-full"
                       placeholder={t("enter-email")}
                       required
                       disabled
@@ -390,10 +398,10 @@ function GuestLogin() {
                   </div>
                   {isOptionalDetails && (
                     <>
-                      <div className="mb-2">
+                      <div>
                         <label
                           htmlFor="phone"
-                          className="block text-xs font-semibold"
+                          className="block text-sm font-medium mb-1.5"
                         >
                           {t("phone")}
                         </label>
@@ -402,15 +410,15 @@ function GuestLogin() {
                           name="phone"
                           value={contact.phone}
                           onChange={handleInputChange}
-                          className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                          className="op-input op-input-bordered w-full"
                           disabled={loading}
                           placeholder={t("phone-optional")}
                         />
                       </div>
-                      <div className="mb-2">
+                      <div>
                         <label
                           htmlFor="company"
-                          className="block text-xs font-semibold"
+                          className="block text-sm font-medium mb-1.5"
                         >
                           {t("company")}
                         </label>
@@ -420,15 +428,15 @@ function GuestLogin() {
                           name="company"
                           value={contact.company}
                           onChange={handleInputChange}
-                          className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                          className="op-input op-input-bordered w-full"
                           disabled={loading}
                           placeholder={t("phone-optional")}
                         />
                       </div>
-                      <div className="mb-2">
+                      <div>
                         <label
                           htmlFor="jobTitle"
-                          className="block text-xs font-semibold"
+                          className="block text-sm font-medium mb-1.5"
                         >
                           {t("job-title")}
                         </label>
@@ -438,7 +446,7 @@ function GuestLogin() {
                           name="jobTitle"
                           value={contact.jobTitle}
                           onChange={handleInputChange}
-                          className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
+                          className="op-input op-input-bordered w-full"
                           disabled={loading}
                           placeholder={t("phone-optional")}
                         />
@@ -450,13 +458,13 @@ function GuestLogin() {
                       e.preventDefault();
                       setIsOptionalDetails(!isOptionalDetails);
                     }}
-                    className="text-base-content/60 no-underline hover:underline focus:outline-none max-w-fit text-xs"
+                    className="text-base-content/60 no-underline hover:underline focus:outline-none max-w-fit text-sm"
                   >
                     {isOptionalDetails
                       ? t("hide-optional-details")
                       : t("optional-details")}
                   </button>
-                  <div className="mt-2 flex justify-start">
+                  <div className="pt-1 flex justify-start">
                     <button
                       type="submit"
                       className="op-btn op-btn-primary"
@@ -468,7 +476,9 @@ function GuestLogin() {
                 </form>
               </div>
             )}
-          <SelectLanguage />
+          <div className="mt-4">
+            <SelectLanguage />
+          </div>
         </div>
       )}
     </div>

@@ -410,8 +410,8 @@ const UserList = () => {
                               )}
 
                               {isAdmin && (
-                                <td className="px-3 py-2">
-                                  <div className="text-base-content min-w-max flex flex-row gap-x-2 gap-y-1 justify-start items-center">
+                                <td className="px-2 py-2 w-1 whitespace-nowrap">
+                                  <div className="text-base-content flex flex-row gap-1.5 items-center justify-end">
                                     {usersActions?.length > 0 &&
                                       usersActions?.map((act, index) => (
                                         <React.Fragment key={index}>
@@ -426,9 +426,11 @@ const UserList = () => {
                                                 `btnLabel.${act.hoverLabel}`
                                               )}
                                               className={
-                                                act.action !== "option"
-                                                  ? `${act?.btnColor || ""} op-btn op-btn-sm mr-1 `
-                                                  : "text-base-content focus:outline-none text-lg mr-2 relative"
+                                                act.action === "option"
+                                                  ? "op-btn op-btn-ghost op-btn-sm op-btn-square relative"
+                                                  : act.btnLabel
+                                                    ? `${act?.btnColor || ""} op-btn op-btn-sm`
+                                                    : `${act?.btnColor || ""} op-btn op-btn-sm op-btn-square`
                                               }
                                             >
                                               <i className={act.btnIcon}></i>

@@ -13,27 +13,27 @@ function PrevNext({ pageNumber, allPages, changePage }) {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-1">
       <button
-        className="op-btn op-btn-neutral op-btn-xs md:op-btn-sm font-semibold text-xs"
+        type="button"
+        className="op-btn op-btn-ghost op-btn-xs border border-base-300"
         disabled={pageNumber <= 1}
         onClick={previousPage}
+        aria-label={t("previous")}
       >
-        <span className="block">
-          <i className="fa-light fa-chevron-up" aria-hidden="true"></i>
-        </span>
+        <i className="fa-light fa-chevron-up text-xs" aria-hidden="true"></i>
       </button>
-      <span className="text-xs text-base-content font-medium mx-2 2xl:text-[20px]">
+      <span className="text-xs text-base-content/80 font-medium tabular-nums min-w-[4.5rem] text-center">
         {pageNumber || (allPages ? 1 : "--")} {t("of")} {allPages || "--"}
       </span>
       <button
-        className="op-btn op-btn-neutral op-btn-xs md:op-btn-sm font-semibold text-xs"
+        type="button"
+        className="op-btn op-btn-ghost op-btn-xs border border-base-300"
         disabled={pageNumber >= allPages}
         onClick={nextPage}
+        aria-label={t("next")}
       >
-        <span className="block">
-          <i className="fa-light fa-chevron-down" aria-hidden="true"></i>
-        </span>
+        <i className="fa-light fa-chevron-down text-xs" aria-hidden="true"></i>
       </button>
     </div>
   );

@@ -14,7 +14,7 @@ import { appInfo } from "./appinfo";
 import { saveAs } from "file-saver";
 import printModule from "print-js";
 import fontkit from "@pdf-lib/fontkit";
-import { SCALE_STEPS, themeColor } from "./const";
+import { SCALE_STEPS, MIN_PDF_SCALE, themeColor } from "./const";
 import { format, toZonedTime } from "date-fns-tz";
 import i18n from "../i18n";
 import {
@@ -322,10 +322,13 @@ export const getDrive = async (documentId, skip = 0, limit = 50) => {
   return driveDeatils;
 };
 
+// Horizontal grey-canvas inset around PDF pages (each side)
+export const getPdfPageGutterX = () => (window.innerWidth < 767 ? 12 : 24);
+
 // `pdfNewWidthFun` function is used to calculate pdf width to render in middle container
 export const pdfNewWidthFun = (divRef) => {
-  const pdfWidth = divRef.current.offsetWidth;
-  return pdfWidth;
+  const gutter = getPdfPageGutterX();
+  return Math.max((divRef.current?.offsetWidth || 0) - gutter * 2, 0);
 };
 
 //`contractUsers` function is used to get contract_User details
@@ -3472,7 +3475,7 @@ export const onClickZoomIn = (scale, setScale, scrollContainerRef) => {
 export const onClickZoomOut = (scale, setScale, scrollContainerRef) => {
   // Find last step smaller than current scale
   const prevScale = [...SCALE_STEPS].reverse().find((s) => s < scale);
-  if (!prevScale || prevScale < 1.0) return;
+  if (!prevScale || prevScale < MIN_PDF_SCALE) return;
   captureScrollForButtonZoom(scrollContainerRef, scale, prevScale);
   setScale(prevScale);
 };

@@ -302,82 +302,91 @@ function UserProfile() {
           <Loader />
         </div>
       ) : (
-        <div className="flex justify-center items-center w-full relative">
-          <div className="bg-base-100 text-base-content flex flex-col justify-center shadow-md rounded-box w-[450px]">
-            <div className="flex flex-col justify-center items-center my-4">
-              <div className="w-[200px] h-[200px] overflow-hidden rounded-full">
-                <img
-                  className="object-contain w-full h-full"
-                  src={Image === "" ? dp : Image}
-                  alt="dp"
-                />
-              </div>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-lg op-card bg-base-100 text-base-content">
+            <div className="flex flex-col items-center px-6 pt-8 pb-6 border-b border-base-300">
               {editmode && (
                 <input
                   type="file"
-                  className="op-file-input op-file-input-bordered op-file-input-sm max-w-[270px] mt-4 text-sm"
+                  className="op-file-input op-file-input-bordered op-file-input-sm max-w-[270px] text-sm"
                   accept="image/png, image/gif, image/jpeg"
                   onChange={fileUpload}
                 />
               )}
               {percentage !== 0 && (
-                <div className="flex items-center gap-x-2">
-                  <div className="h-2 rounded-full w-[200px] md:w-[400px] bg-gray-200">
+                <div className="flex items-center gap-x-2 mt-3 w-full max-w-[270px]">
+                  <div className="h-1.5 rounded-full flex-1 bg-base-300">
                     <div
-                      className="h-2 rounded-full bg-blue-500"
+                      className="h-1.5 rounded-full bg-primary"
                       style={{ width: `${percentage}%` }}
                     ></div>
                   </div>
-                  <span className="text-base-contentk text-sm">
+                  <span className="text-base-content/60 text-sm shrink-0">
                     {percentage}%
                   </span>
                 </div>
               )}
-              <div className="text-base font-semibold pt-4">
-                {localStorage.getItem("_user_role")}
+              <div className={`text-center ${editmode || percentage !== 0 ? "mt-4" : ""}`}>
+                <div className="text-lg font-semibold tracking-tight">
+                  {localStorage.getItem("username")}
+                </div>
+                <div className="text-sm text-base-content/60 mt-0.5">
+                  {localStorage.getItem("_user_role")}
+                </div>
               </div>
             </div>
-            <ul className="w-full flex flex-col p-2 text-sm">
-              <li
-                className={`flex justify-between items-center border-y-[1px] border-gray-300 break-all ${
-                  editmode ? "py-1.5" : "py-2"
+
+            <div className="px-6 py-2 divide-y divide-base-300">
+              <div
+                className={`flex justify-between items-center gap-4 break-all ${
+                  editmode ? "py-3" : "py-3.5"
                 }`}
               >
-                <span className="font-semibold">{t("name")}:</span>{" "}
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("name")}
+                </span>
                 {editmode ? (
                   <input
                     type="text"
                     value={name}
-                    className="op-input op-input-bordered op-input-sm w-[180px] focus:outline-none hover:border-base-content text-sm"
+                    className="op-input op-input-bordered w-full max-w-[220px]"
                     onChange={(e) => SetName(e.target.value)}
                   />
                 ) : (
-                  <span>{localStorage.getItem("username")}</span>
+                  <span className="text-sm text-right">
+                    {localStorage.getItem("username")}
+                  </span>
                 )}
-              </li>
-              <li
-                className={`flex justify-between items-center border-b-[1px] border-gray-300 break-all ${
-                  editmode ? "py-1.5" : "py-2"
+              </div>
+
+              <div
+                className={`flex justify-between items-center gap-4 break-all ${
+                  editmode ? "py-3" : "py-3.5"
                 }`}
               >
-                <span className="font-semibold">{t("phone")}:</span>{" "}
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("phone")}
+                </span>
                 {editmode ? (
                   <input
                     type="text"
-                    className="op-input op-input-bordered op-input-sm w-[180px] focus:outline-none hover:border-base-content text-sm"
+                    className="op-input op-input-bordered w-full max-w-[220px]"
                     onChange={(e) => SetPhone(e.target.value)}
                     value={Phone}
                   />
                 ) : (
-                  <span>{UserProfile && UserProfile.phone}</span>
+                  <span className="text-sm text-right">
+                    {UserProfile && UserProfile.phone}
+                  </span>
                 )}
-              </li>
-              <li className="flex justify-between items-center border-b-[1px] border-gray-300 py-2 break-all">
+              </div>
+
+              <div className="flex justify-between items-center gap-4 py-3.5 break-all">
                 <span
                   data-tooltip-id="email-tooltip"
-                  className="font-semibold flex gap-1"
+                  className="text-sm font-medium text-base-content/70 flex gap-1 items-center shrink-0"
                 >
-                  {t("email")} :{" "}
+                  {t("email")}
                   {editmode && (
                     <Tooltip
                       message={t("email-help")}
@@ -385,80 +394,103 @@ function UserProfile() {
                     />
                   )}
                 </span>
-                <span>{UserProfile && UserProfile.email}</span>
-              </li>
-              <li
-                className={`flex justify-between items-center border-b-[1px] border-gray-300 break-all ${
-                  editmode ? "py-1.5" : "py-2"
+                <span className="text-sm text-right">
+                  {UserProfile && UserProfile.email}
+                </span>
+              </div>
+
+              <div
+                className={`flex justify-between items-center gap-4 break-all ${
+                  editmode ? "py-3" : "py-3.5"
                 }`}
               >
-                <span className="font-semibold">{t("company")}:</span>{" "}
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("company")}
+                </span>
                 {editmode ? (
                   <input
                     type="text"
                     value={company}
-                    className="op-input op-input-bordered op-input-sm w-[180px] focus:outline-none hover:border-base-content text-sm"
+                    className="op-input op-input-bordered w-full max-w-[220px]"
                     onChange={(e) => setCompany(e.target.value)}
                   />
                 ) : (
-                  <span>{extendUser?.[0].Company}</span>
+                  <span className="text-sm text-right">
+                    {extendUser?.[0].Company}
+                  </span>
                 )}
-              </li>
-              <li
-                className={`flex justify-between items-center border-b-[1px] border-gray-300 break-all ${
-                  editmode ? "py-1.5" : "py-2"
+              </div>
+
+              <div
+                className={`flex justify-between items-center gap-4 break-all ${
+                  editmode ? "py-3" : "py-3.5"
                 }`}
               >
-                <span className="font-semibold">{t("job-title")}:</span>{" "}
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("job-title")}
+                </span>
                 {editmode ? (
                   <input
                     type="text"
                     value={jobTitle}
-                    className="op-input op-input-bordered op-input-sm w-[180px] focus:outline-none hover:border-base-content text-sm"
+                    className="op-input op-input-bordered w-full max-w-[220px]"
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                 ) : (
-                  <span>{extendUser?.[0]?.JobTitle}</span>
+                  <span className="text-sm text-right">
+                    {extendUser?.[0]?.JobTitle}
+                  </span>
                 )}
-              </li>
-              <li className="flex justify-between items-center border-b-[1px] border-gray-300 py-2 break-all">
-                <span className="font-semibold">{t("is-email-verified")}:</span>{" "}
-                <span>
+              </div>
+
+              <div className="flex justify-between items-center gap-4 py-3.5 break-all">
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("is-email-verified")}
+                </span>
+                <span className="text-sm text-right">
                   {isEmailVerified ? (
-                    t("verified")
+                    <span className="inline-flex items-center rounded-md bg-success/10 text-success px-2 py-0.5 text-xs font-medium">
+                      {t("verified")}
+                    </span>
                   ) : (
-                    <span>
-                      {t("not-verified")} (
-                      <span
+                    <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-flex items-center rounded-md bg-warning/10 text-warning px-2 py-0.5 text-xs font-medium">
+                        {t("not-verified")}
+                      </span>
+                      <button
+                        type="button"
                         onClick={() => handleVerifyBtn()}
-                        className="hover:underline text-blue-600 cursor-pointer"
+                        className="text-sm text-base-content/70 hover:text-base-content underline-offset-4 hover:underline"
                       >
                         {t("verify")}
-                      </span>
-                      )
+                      </button>
                     </span>
                   )}
                 </span>
-              </li>
-              <li
-                className={`flex justify-between items-center border-b-[1px] border-gray-300 break-all ${
-                  editmode ? "py-1.5" : "py-2"
+              </div>
+
+              <div
+                className={`flex justify-between items-center gap-4 break-all ${
+                  editmode ? "py-3" : "py-3.5"
                 }`}
               >
-                <span className="font-semibold">{t("language")}:</span>{" "}
+                <span className="text-sm font-medium text-base-content/70 shrink-0">
+                  {t("language")}
+                </span>
                 <SelectLanguage
                   isProfile={true}
                   updateExtUser={updateExtUser}
                 />
-              </li>
-            </ul>
-            <div className="flex flex-col md:flex-row justify-center gap-2 pt-2 pb-3 md:pt-3 md:pb-4 mx-2 md:mx-0">
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-2 px-6 py-5 border-t border-base-300">
               <button
                 type="button"
                 onClick={(e) => {
-                    editmode ? handleSubmit(e) : setEditMode(true);
+                  editmode ? handleSubmit(e) : setEditMode(true);
                 }}
-                className="op-btn op-btn-primary md:w-[100px]"
+                className="op-btn op-btn-primary w-full sm:w-auto min-w-[120px]"
               >
                 {editmode ? t("save") : t("edit")}
               </button>
@@ -467,20 +499,22 @@ function UserProfile() {
                 onClick={() =>
                   editmode ? handleCancel() : navigate("/changepassword")
                 }
-                className={
-                      `op-btn ${editmode ? "op-btn-ghost w-[100px]" : "op-btn-secondary"}`
-                }
+                className={`op-btn w-full sm:w-auto min-w-[120px] ${
+                  editmode ? "op-btn-ghost" : "op-btn-outline"
+                }`}
               >
                 {editmode ? t("cancel") : t("change-password")}
               </button>
               <button
+                type="button"
                 onClick={() => handleDeleteAccountBtn()}
-                className="op-link op-link-accent text-sm mx-2"
+                className="text-sm text-error/80 hover:text-error underline-offset-4 hover:underline mt-1 sm:mt-0 sm:ml-2"
               >
                 {t("delete-account")}
               </button>
             </div>
           </div>
+
           {isdeleteModal && (
             <ModalUi
               isOpen
@@ -494,23 +528,24 @@ function UserProfile() {
               ) : (
                 <>
                   {deleteUserRes ? (
-                    <div className="h-[100px] p-[20px] flex justify-center items-center text-base-content text-sm md:text-base">
+                    <div className="h-[100px] p-5 flex justify-center items-center text-base-content text-sm md:text-base">
                       {deleteUserRes}
                     </div>
                   ) : (
                     <form onSubmit={(e) => handleDeleteAccount(e)}>
-                      <div className="px-6 py-3 text-base-content text-sm md:text-base">
+                      <div className="px-6 py-4 text-base-content text-sm md:text-base">
                         {t("delete-account-que")}
                       </div>
-                      <div className="px-6 mb-3">
+                      <div className="px-6 mb-4 flex gap-2">
                         <button
                           type="submit"
-                          className="op-btn op-btn-primary w-[100px]"
+                          className="op-btn op-btn-primary min-w-[100px]"
                         >
                           {t("yes")}
                         </button>
                         <button
-                          className="op-btn op-btn-secondary ml-2 w-[100px]"
+                          type="button"
+                          className="op-btn op-btn-outline min-w-[100px]"
                           onClick={handleCloseDeleteModal}
                         >
                           {t("cancel")}
@@ -534,8 +569,10 @@ function UserProfile() {
                 </div>
               ) : (
                 <form onSubmit={(e) => handleVerifyEmail(e)}>
-                  <div className="px-6 py-3 text-base-content">
-                    <label className="mb-2">{t("enter-otp")}</label>
+                  <div className="px-6 py-4 text-base-content space-y-2">
+                    <label className="block text-sm font-medium">
+                      {t("enter-otp")}
+                    </label>
                     <input
                       onInvalid={(e) =>
                         e.target.setCustomValidity(t("input-required"))
@@ -544,18 +581,19 @@ function UserProfile() {
                       required
                       type="tel"
                       pattern="[0-9]{4}"
-                      className="w-full op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content text-xs"
+                      className="w-full op-input op-input-bordered"
                       placeholder={t("otp-placeholder")}
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
                     />
                   </div>
-                  <div className="px-6 mb-3">
+                  <div className="px-6 mb-4 flex gap-2">
                     <button type="submit" className="op-btn op-btn-primary">
                       {t("verify")}
                     </button>
                     <button
-                      className="op-btn op-btn-secondary ml-2"
+                      type="button"
+                      className="op-btn op-btn-outline"
                       onClick={(e) => handleResend(e)}
                     >
                       {t("resend")}

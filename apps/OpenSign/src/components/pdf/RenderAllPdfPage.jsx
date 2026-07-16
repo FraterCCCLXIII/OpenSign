@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Document, Page } from "react-pdf";
-import { useSelector } from "react-redux";
 import { PDFDocument } from "pdf-lib";
 import {
   base64ToArrayBuffer,
@@ -17,11 +16,11 @@ import {
 function RenderAllPdfPage(props) {
   const { t } = useTranslation();
   const pageContainer = useRef();
+  const thumbListRef = useRef(null);
   const mergePdfInputRef = useRef(null);
   const [signPageNumber, setSignPageNumber] = useState([]);
   const [bookmarkColor, setBookmarkColor] = useState("");
-  const isSidebar = useSelector((state) => state.sidebar.isOpen);
-  const [pageWidth, setPageWidth] = useState("");
+  const [pageWidth, setPageWidth] = useState(0);
 
   //set all number of pages after load pdf
   function onDocumentLoad({ numPages }) {
@@ -43,18 +42,22 @@ function RenderAllPdfPage(props) {
     }
   }
 
+  // Keep thumbnail width in sync with the left rail (sidebar / window resize)
   useEffect(() => {
+    const listEl = thumbListRef.current;
+    if (!listEl) return;
+
     const updateSize = () => {
-      if (pageContainer.current) {
-        setPageWidth(pageContainer.current.offsetWidth);
-      }
+      const nextWidth = Math.floor(listEl.clientWidth);
+      setPageWidth((prev) => (prev === nextWidth ? prev : nextWidth));
     };
 
-    // Use setTimeout to wait for the transition to complete
-    const timer = setTimeout(updateSize, 150); // match the transition duration
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(listEl);
 
-    return () => clearTimeout(timer);
-  }, [isSidebar, pageContainer, props?.containerWH]);
+    return () => observer.disconnect();
+  }, [props?.containerWH?.width]);
   //'function `addSignatureBookmark` is used to display the page where the user's signature is located.
   const addSignatureBookmark = (index) => {
     const ispageNumber = signPageNumber.includes(index + 1);
@@ -174,66 +177,68 @@ function RenderAllPdfPage(props) {
     }
   };
   return (
-    <div ref={pageContainer} className="hidden w-[20%] bg-base-100 md:block">
-      <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300">
+    <div
+      ref={pageContainer}
+      className="hidden w-[20%] min-w-0 bg-base-100 md:flex md:flex-col md:h-full md:min-h-0 border-r border-base-300"
+    >
+      <div className="px-3 py-2.5 text-sm text-base-content font-semibold shrink-0 tracking-tight">
         {t("pages")}
       </div>
-      <div
-        className={`flex h-[90%] flex-col items-center m-2  
-         autoSignScroll hide-scrollbar max-h-[100vh] `}
-      >
-        <Document
-          error=""
-          loading={t("loading-doc")}
-          onLoadSuccess={onDocumentLoad}
-          file={pdfDataBase64}
-        >
-          {Array.from(new Array(props?.allPages), (el, index) => (
-            <div
-              key={index}
-              className={`${
-                props?.pageNumber - 1 === index
-                  ? "border-[red]"
-                  : "border-[#878787]"
-              } border-2 m-[10px] flex justify-center items-center relative`}
-              onClick={() => {
-                props?.setPageNumber(index + 1);
-                if (props?.setSignBtnPosition) {
-                  props?.setSignBtnPosition([]);
-                }
-              }}
-            >
-              {props?.signerPos && addSignatureBookmark(index)}
-              <Page
-                key={`page_${index + 1}`}
-                pageNumber={index + 1}
-                width={pageWidth - 60}
-                scale={1}
-                renderAnnotationLayer={false}
-                renderTextLayer={false}
-              />
-            </div>
-          ))}
-        </Document>
-        {props?.isMergePdfBtn && (
-          <button
-            className="mb-2 bg-base-100 px-2 py-2 ring-[0.5px] ring-base-content rounded-box flex gap-1 justify-center items-center"
-            onClick={() => mergePdfInputRef.current.click()}
-            title={t("add-pages")}
+      <div className="flex flex-1 min-h-0 flex-col items-center overflow-y-auto hide-scrollbar p-3">
+        <div ref={thumbListRef} className="w-full min-w-0">
+          <Document
+            error=""
+            loading={t("loading-doc")}
+            onLoadSuccess={onDocumentLoad}
+            file={pdfDataBase64}
           >
-            <input
-              type="file"
-              className="hidden"
-              accept="application/pdf"
-              ref={mergePdfInputRef}
-              onChange={handleFileUpload}
-            />
-            <i className="fa-light fa-plus text-gray-500"></i>
-            <span className="text-xs lg:text-sm text-base-content">
-              {t("add-pages")}
-            </span>
-          </button>
-        )}
+            {pageWidth > 0 &&
+              Array.from(new Array(props?.allPages), (el, index) => (
+                <div
+                  key={index}
+                  className={`${
+                    props?.pageNumber - 1 === index
+                      ? "ring-2 ring-primary border-transparent"
+                      : "border-base-300 hover:border-base-content/40"
+                  } w-full border rounded-md overflow-hidden flex justify-center items-center relative cursor-pointer bg-base-100 shadow-sm transition-colors mb-2.5`}
+                  onClick={() => {
+                    props?.setPageNumber(index + 1);
+                    if (props?.setSignBtnPosition) {
+                      props?.setSignBtnPosition([]);
+                    }
+                  }}
+                >
+                  {props?.signerPos && addSignatureBookmark(index)}
+                  <Page
+                    key={`page_${index + 1}_${pageWidth}`}
+                    pageNumber={index + 1}
+                    width={pageWidth}
+                    scale={1}
+                    renderAnnotationLayer={false}
+                    renderTextLayer={false}
+                    className="max-w-full"
+                  />
+                </div>
+              ))}
+          </Document>
+          {props?.isMergePdfBtn && (
+            <button
+              className="mb-2 w-full op-btn op-btn-outline op-btn-sm"
+              onClick={() => mergePdfInputRef.current.click()}
+              title={t("add-pages")}
+            >
+              <input
+                type="file"
+                className="hidden"
+                accept="application/pdf"
+                ref={mergePdfInputRef}
+                onChange={handleFileUpload}
+              />
+              <i className="fa-light fa-plus text-sm"></i>
+              <span className="text-xs">{t("add-pages")}</span>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

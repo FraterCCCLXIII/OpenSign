@@ -363,8 +363,8 @@ const Contactbook = (props) => {
                     {props.heading.includes("JobTitle") && (
                       <td className="p-2 text-left">{item?.JobTitle ?? "-"}</td>
                     )}
-                    <td className="px-3 py-2">
-                      <div className="text-base-content min-w-max flex flex-row gap-x-2 gap-y-1 justify-start items-center">
+                    <td className="px-2 py-2 w-1 whitespace-nowrap">
+                      <div className="text-base-content flex flex-row gap-1.5 items-center justify-end">
                         {props.actions?.length > 0 &&
                           props.actions.map((act, index) => (
                             <button
@@ -373,7 +373,7 @@ const Contactbook = (props) => {
                               title={t(`btnLabel.${act.hoverLabel}`)}
                               className={`${
                                 act?.btnColor ? act.btnColor : ""
-                              } op-btn op-btn-sm`}
+                              } op-btn op-btn-sm op-btn-square`}
                             >
                               <i className={act.btnIcon}></i>
                             </button>

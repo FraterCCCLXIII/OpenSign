@@ -12,7 +12,7 @@ function Signedby(props) {
   };
   return (
     <div className="hidden md:block w-full h-full bg-base-100">
-      <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300">
+      <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold">
         {props.isSelfSign ? t("user") : t("signed-by")}
       </div>
       <div className="mt-[2px] bg-base-100">

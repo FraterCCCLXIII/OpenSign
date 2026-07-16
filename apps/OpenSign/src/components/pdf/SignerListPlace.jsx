@@ -1,6 +1,6 @@
 import RecipientList from "./RecipientList";
-// import { Tooltip } from "react-tooltip";
 import { useTranslation } from "react-i18next";
+import Tooltip from "../../primitives/Tooltip";
 
 function SignerListPlace(props) {
   const { t } = useTranslation();
@@ -11,38 +11,36 @@ function SignerListPlace(props) {
   };
   return (
     <div>
-      <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300">
-        <span className="relative">
-          {props.title ? props.title : "Recipients"}
-          <sup onClick={() => props.setIsTour && props.setIsTour(true)}>
-            <i className="ml-1 cursor-pointer fa-light fa-question rounded-full border-[1px] border-base-content text-[11px] py-[1px] px-[3px]"></i>
-          </sup>
-        </span>
+      <div className="px-3 py-2.5 text-sm text-base-content font-semibold shrink-0 tracking-tight flex items-center gap-1">
+        <span>{props.title ? props.title : "Recipients"}</span>
+        <Tooltip handleOnlickHelp={() => props.setIsTour && props.setIsTour(true)} />
       </div>
       <div className="overflow-auto hide-scrollbar max-h-[180px]">
         <RecipientList {...props} />
       </div>
-      <div className="mx-1">
+      <div className="px-3 pb-3">
         {props.handleAddSigner ? (
-          <div
-            role="button"
+          <button
+            type="button"
             data-tut="reactourAddbtn"
-            disabled={props?.isMailSend ? true : false}
-            className="op-btn op-btn-accent op-btn-outline w-full mt-[14px]"
+            disabled={props?.isMailSend}
+            className="op-btn op-btn-outline op-btn-sm w-full gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
             onClick={() => props.handleAddSigner()}
           >
-            <i className="fa-light fa-plus"></i> {t("add-role")}
-          </div>
+            <i className="fa-light fa-plus text-xs" aria-hidden="true"></i>
+            {t("add-role")}
+          </button>
         ) : (
-          <div
-            role="button"
+          <button
+            type="button"
             data-tut="addRecipient"
-            className="op-btn op-btn-accent op-btn-outline w-full mt-[14px]"
-            disabled={props?.isMailSend ? true : false}
+            disabled={props?.isMailSend}
+            className="op-btn op-btn-outline op-btn-sm w-full gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
             onClick={handleAddRecipient}
           >
-            <i className="fa-light fa-plus"></i> {t("add-recipients")}
-          </div>
+            <i className="fa-light fa-plus text-xs" aria-hidden="true"></i>
+            {t("add-recipients")}
+          </button>
         )}
       </div>
     </div>

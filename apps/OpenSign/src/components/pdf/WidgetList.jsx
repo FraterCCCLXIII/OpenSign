@@ -7,10 +7,21 @@ function WidgetList(props) {
   const getWidgetList = props.updateWidgets();
   return getWidgetList?.map((item, ind) => {
     return (
-      <div className="2xl:p-1 mb-[5px]" key={ind}>
+      <div
+        key={ind}
+        className={isMobile ? "shrink-0" : "min-w-0"}
+        role="listitem"
+      >
         <div
           data-tut="isSignatureWidget"
-          className="select-none mx-[2px] md:mx-0 cursor-all-scroll"
+          className={`select-none cursor-grab active:cursor-grabbing ${
+            isMobile ? "mx-1" : ""
+          }`}
+          style={
+            isMobile && props.marginLeft
+              ? { marginLeft: props.marginLeft }
+              : undefined
+          }
           onClick={() => {
             props.addPositionOfSignature &&
               props.addPositionOfSignature("onclick", item);

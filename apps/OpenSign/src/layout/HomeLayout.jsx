@@ -3,24 +3,35 @@ import {
   nonPresentMaskCss
 } from "../constant/Utils";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Sidebar from "../components/sidebar/Sidebar";
 import Tour from "../primitives/Tour";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Parse from "parse";
 import {
-  Outlet
+  Outlet,
+  useLocation
 } from "react-router";
 import Loader from "../primitives/Loader";
 import { useTranslation } from "react-i18next";
 import { sessionStatus } from "../redux/reducers/userReducer";
 import SessionExpiredModal from "../primitives/SessionExpiredModal";
 
+const FULL_BLEED_PATHS = [
+  "/signaturePdf",
+  "/placeHolderSign",
+  "/recipientSignPdf",
+  "/template/"
+];
+
+const isFullBleedRoute = (pathname) =>
+  FULL_BLEED_PATHS.some((path) => pathname.startsWith(path));
+
 const HomeLayout = () => {
   const appName =
     "OpenSign™";
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const dispatch = useDispatch();
   const tourArr = useSelector((state) => state.TourSteps);
   const isValidSession = useSelector((state) => state.user.isValidSession);
@@ -31,6 +42,7 @@ const HomeLayout = () => {
   const [tourConfigs, setTourConfigs] = useState([]);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const tenantId = localStorage.getItem("TenantId");
+  const fullBleed = isFullBleedRoute(location.pathname);
 
   useEffect(() => {
     const language = localStorage.getItem("i18nextLng");
@@ -173,9 +185,9 @@ const HomeLayout = () => {
   }
 
   return isValidSession && localStorage.getItem("accesstoken") ? (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden bg-base-200 text-base-content">
       {/* HEADER */}
-      <header className="z-[501]">
+      <header className="z-[501] border-b border-base-300 bg-base-100">
         {!isLoader && <Header setIsLoggingOut={setIsLoggingOut} />}
       </header>
       {isLoader ? (
@@ -190,21 +202,22 @@ const HomeLayout = () => {
             </div>
           )}
           {/* BODY */}
-          <div className="flex flex-1 overflow-hidden">
+          <div className="flex flex-1 min-h-0 overflow-hidden">
             {/* SIDEBAR with width animation */}
             <Sidebar />
-            {/* MAIN (includes both content + footer in one scrollable column) */}
+            {/* MAIN */}
             <main
               id="renderList"
-              className="flex-1 overflow-auto transition-all duration-300 ease-in-out"
+              className="flex-1 min-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-base-200"
             >
-              <div className="flex flex-col min-h-full">
-                {/* your page content */}
-                <div className="p-3">{<Outlet />}</div>
-                {/* sticky-but-scrollable footer */}
-                <div className="mt-auto z-30">
-                  <Footer />
-                </div>
+              <div
+                className={`h-full min-h-0 ${
+                  fullBleed
+                    ? "overflow-hidden"
+                    : "overflow-auto p-4 md:p-6"
+                }`}
+              >
+                <Outlet />
               </div>
             </main>
           </div>

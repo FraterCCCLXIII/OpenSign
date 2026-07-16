@@ -1192,7 +1192,7 @@ const DocumentsReport = (props) => {
                   </th>
                 ))}
                 {props.actions?.length > 0 && (
-                  <th className="p-2 text-transparent pointer-events-none">
+                  <th className="p-2 w-1 whitespace-nowrap text-transparent pointer-events-none">
                     {t("action")}
                   </th>
                 )}
@@ -1224,8 +1224,8 @@ const DocumentsReport = (props) => {
                       />
                     ))}
                     {/* actions */}
-                    <td className="px-2 py-2">
-                      <div className="text-base-content min-w-max flex flex-row gap-x-2 gap-y-1 justify-start items-center">
+                    <td className="px-2 py-2 w-1 whitespace-nowrap">
+                      <div className="text-base-content flex flex-row gap-1.5 items-center justify-end">
                         {props.actions?.length > 0 &&
                           props.actions.map((act, index) => (
                             <React.Fragment key={index}>
@@ -1237,9 +1237,11 @@ const DocumentsReport = (props) => {
                                   onClick={() => handleActionBtn(act, item)}
                                   title={t(`btnLabel.${act.hoverLabel}`)}
                                   className={
-                                    act.action !== "option"
-                                      ? `${act?.btnColor || ""} op-btn op-btn-sm mr-1`
-                                      : "text-base-content focus:outline-none text-lg mr-2 relative"
+                                    act.action === "option"
+                                      ? "op-btn op-btn-ghost op-btn-sm op-btn-square relative"
+                                      : act.btnLabel
+                                        ? `${act?.btnColor || ""} op-btn op-btn-sm`
+                                        : `${act?.btnColor || ""} op-btn op-btn-sm op-btn-square`
                                   }
                                 >
                                   <i className={act.btnIcon}></i>

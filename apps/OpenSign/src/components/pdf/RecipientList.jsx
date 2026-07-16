@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useTranslation } from "react-i18next";
+import { Trash2 } from "lucide-react";
 import {
   color,
   darkenColor,
@@ -102,23 +103,36 @@ const RecipientList = (props) => {
   return (
     <>
       {props?.prefillSigner?.length > 0 &&
-        props?.prefillSigner?.map((obj, ind) => (
-          <div
-            key={ind}
-            data-tut="prefillTour"
-            className={`${
-              props.uniqueId === obj.Id
-                ? "op-bg-primary text-white"
-                : "transparent text-base-content"
-            } cursor-pointer px-2 py-1 m-1 mb-2 border-[1px] gap-1 rounded-xl flex justify-center items-center op-border-primary text-[12px] font-bold whitespace-nowrap text-ellipsis`}
-            onClick={(e) => handleSelectRecipient(e, ind, obj, true)}
-          >
-            <i
-              className={`${props.uniqueId === obj.Id ? "bg-white op-text-primary" : "op-bg-primary text-white"} w-[20px] h-[20px] flex justify-center items-center text-[10px] fa-light fa-signature rounded-full`}
-            ></i>
-            <span>{obj.Name}</span>
-          </div>
-        ))}
+        props?.prefillSigner?.map((obj, ind) => {
+          const isActive = props.uniqueId === obj.Id;
+          return (
+            <button
+              type="button"
+              key={ind}
+              data-tut="prefillTour"
+              className={`${
+                isActive
+                  ? "border-base-content/40 bg-base-200"
+                  : "border-base-300 bg-base-100 hover:bg-base-200 hover:border-base-content/30"
+              } w-[calc(100%-0.5rem)] mx-1 mb-2 cursor-pointer px-2.5 py-2 border rounded-md flex items-center gap-2 text-xs font-medium text-base-content transition-colors text-left`}
+              onClick={(e) => handleSelectRecipient(e, ind, obj, true)}
+            >
+              <i
+                className={`fa-light fa-file-pen text-sm shrink-0 ${
+                  isActive ? "text-base-content" : "text-base-content/70"
+                }`}
+                aria-hidden="true"
+              ></i>
+              <span className="truncate min-w-0 flex-1">{obj.Name}</span>
+              {isActive && (
+                <i
+                  className="fa-light fa-check text-xs text-base-content/60 shrink-0"
+                  aria-hidden="true"
+                ></i>
+              )}
+            </button>
+          );
+        })}
       {props.signersdata.length > 0 &&
         props.signersdata.map((obj, ind) => {
           return (
@@ -253,17 +267,23 @@ const RecipientList = (props) => {
                 </div>
               )}
               {props.handleDeleteUser && obj?.Role !== "prefill" && (
-                <div
+                <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     props.handleDeleteUser(obj.Id);
                   }}
-                  className={`${isSelected(ind) ? "text-[#424242]" : "text-base-content"} cursor-pointer`}
+                  className="inline-flex items-center justify-center size-7 shrink-0 rounded-md text-base-content/55 hover:text-error hover:bg-base-100/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  aria-label={t("delete")}
+                  title={t("delete")}
                 >
-                  <i className="fa-light fa-trash-can 2xl:text-[22px]"></i>
-                </div>
+                  <Trash2
+                    className="size-3.5 shrink-0"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                </button>
               )}
-              <hr />
             </div>
           );
         })}

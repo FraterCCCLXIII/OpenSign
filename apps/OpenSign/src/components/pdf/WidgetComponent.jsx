@@ -13,6 +13,7 @@ import {
 } from "../../constant/Utils";
 import { useTranslation } from "react-i18next";
 import { useWidgetDrag } from "../../hook/useWidgetDrag";
+import Tooltip from "../../primitives/Tooltip";
 
 function WidgetComponent(props) {
   const { t } = useTranslation();
@@ -201,15 +202,14 @@ function WidgetComponent(props) {
 
             <div
               data-tut="addWidgets"
-              className="bg-base-100 border-[2px] border-t-primary"
+              className="bg-base-100 border-t border-base-300"
             >
-              <div className="flex whitespace-nowrap overflow-x-scroll pt-[10px] pb-[5px] pr-[5px]">
+              <div className="flex whitespace-nowrap overflow-x-auto gap-1 px-2 py-2">
                 <WidgetList
                   updateWidgets={handleWidgetType}
                   handleDivClick={props.handleDivClick}
                   handleMouseLeave={props.handleMouseLeave}
                   signRef={signRef}
-                  marginLeft={5}
                   addPositionOfSignature={props.addPositionOfSignature}
                 />
               </div>
@@ -221,20 +221,20 @@ function WidgetComponent(props) {
           data-tut={props.dataTut}
           className={`${
             props.isMailSend ? "bg-opacity-50 pointer-events-none" : ""
-          } hidden md:block h-full bg-base-100`}
+          } hidden md:flex md:flex-col md:h-full md:min-h-0 bg-base-100`}
         >
-          <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300">
-            <span>
-              {t("widgets")}
-              {props?.isSignYourself && (
-                <sup onClick={() => props.setIsTour && props.setIsTour(true)}>
-                  <i className="ml-1 cursor-pointer fa-light fa-question rounded-full border-[1px] border-base-content text-[11px] py-[1px] px-[3px]"></i>
-                </sup>
-              )}
-            </span>
+          <div className="px-3 py-2.5 text-sm text-base-content font-semibold shrink-0 tracking-tight flex items-center gap-1">
+            <span>{t("widgets")}</span>
+            {props?.isSignYourself && (
+              <Tooltip
+                handleOnlickHelp={() =>
+                  props.setIsTour && props.setIsTour(true)
+                }
+              />
+            )}
           </div>
           <div
-            className="p-[12px] grid lg:grid-cols-2 gap-x-2 lg:gap-y-1.5 pt-3"
+            className="px-3 pb-3 min-h-0 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-1.5 content-start overflow-y-auto"
             data-tut="addWidgets"
             role="list"
             aria-label="Add widgets"

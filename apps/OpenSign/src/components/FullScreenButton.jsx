@@ -1,7 +1,7 @@
 // FullScreenButton.js
 import React, { useState, useEffect } from "react";
 
-const FullScreenButton = () => {
+const FullScreenButton = ({ asMenuItem = false, label, exitLabel }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const FullScreenButton = () => {
     setIsFullScreen(!!document.fullscreenElement);
   };
 
-  const toggleFullScreen = () => {
+  const toggleFullScreen = (e) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
     if (isFullScreen) {
       exitFullScreen();
     } else {
@@ -63,11 +65,36 @@ const FullScreenButton = () => {
     }
   };
 
+  if (asMenuItem) {
+    return (
+      <button
+        type="button"
+        role="menuitem"
+        onClick={toggleFullScreen}
+        className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded-md text-base-content hover:bg-base-200 focus:bg-base-200 focus:outline-none"
+      >
+        <i
+          className={`${
+            isFullScreen ? "fa-light fa-compress" : "fa-light fa-maximize"
+          } w-4 text-center text-base-content/70`}
+          aria-hidden="true"
+        ></i>
+        <span>
+          {isFullScreen
+            ? exitLabel || "Exit full screen"
+            : label || "Full screen"}
+        </span>
+      </button>
+    );
+  }
+
   return (
     <div className="flex items-center">
       <button
         onClick={toggleFullScreen}
         className="text-base-content p-2 text-sm focus:outline-none"
+        type="button"
+        aria-label={isFullScreen ? "Exit full screen" : "Full screen"}
       >
         {isFullScreen ? (
           <i className="fa-light fa-compress"></i>

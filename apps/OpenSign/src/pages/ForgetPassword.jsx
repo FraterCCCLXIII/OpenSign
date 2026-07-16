@@ -67,51 +67,53 @@ function ForgotPassword() {
     }
   };
   return (
-    <div className="min-h-screen w-full bg-base-100 text-base-content">
+    <div className="min-h-screen w-full bg-base-200 text-base-content flex flex-col items-center justify-center p-4 md:p-10">
       {isLoading && (
-        <div className="fixed w-full h-full flex justify-center items-center bg-black bg-opacity-30 z-50">
+        <div className="fixed w-full h-full flex justify-center items-center bg-black/30 z-50">
           <Loader />
         </div>
       )}
       {toast?.message && <Alert type={toast.type}>{toast.message}</Alert>}
-      <div className="min-h-screen w-full p-4 md:p-10 lg:p-16">
-        <div className="w-full max-w-md">
-          <form onSubmit={handleSubmit}>
-            <h2 className="text-[30px] mt-2 md:mt-6">{t("welcome")}</h2>
-            <span className="text-[12px] text-[#878787]">
+      <div className="w-full max-w-md">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="text-center mb-2">
+            <h2 className="text-3xl font-semibold tracking-tight">
+              {t("welcome")}
+            </h2>
+            <p className="mt-2 text-sm text-base-content/60">
               {t("reset-password-alert-3")}
-            </span>
-            <div className="w-full my-4 op-card bg-base-100 shadow-md outline outline-1 outline-slate-300/50">
-              <div className="px-6 py-4">
-                <label className="block text-xs">{t("email")}</label>
-                <input
-                  type="email"
-                  name="email"
-                  className="op-input op-input-bordered op-input-sm w-full"
-                  value={state.email}
-                  onChange={handleChange}
-                  onInvalid={(e) =>
-                    e.target.setCustomValidity(t("input-required"))
-                  }
-                  onInput={(e) => e.target.setCustomValidity("")}
-                  required
-                />
-                <hr className="my-2 border-none" />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-center text-xs font-bold">
-              <button type="submit" className="op-btn op-btn-primary">
-                {t("submit")}
-              </button>
-              <button
-                onClick={() => navigate("/", { replace: true })}
-                className="op-btn op-btn-secondary"
-              >
-                {t("login")}
-              </button>
-            </div>
-          </form>
-        </div>
+            </p>
+          </div>
+          <div className="w-full op-card px-6 py-5">
+            <label className="block text-sm font-medium mb-1.5">
+              {t("email")}
+            </label>
+            <input
+              type="email"
+              name="email"
+              className="op-input op-input-bordered w-full"
+              value={state.email}
+              onChange={handleChange}
+              onInvalid={(e) =>
+                e.target.setCustomValidity(t("input-required"))
+              }
+              onInput={(e) => e.target.setCustomValidity("")}
+              required
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <button type="submit" className="op-btn op-btn-primary">
+              {t("submit")}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/", { replace: true })}
+              className="op-btn op-btn-outline"
+            >
+              {t("login")}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -21,7 +21,6 @@ import {
   contractDocument,
   embedWidgetsToDoc,
   embedDocId,
-  pdfNewWidthFun,
   signPdfFun,
   addDefaultSignatureImg,
   replaceMailVaribles,
@@ -55,9 +54,9 @@ import Header from "../components/pdf/PdfHeader";
 import RenderPdf from "../components/pdf/RenderPdf";
 import DefaultSignature from "../components/pdf/DefaultSignature";
 import SignerListComponent from "../components/pdf/SignerListComponent";
-import PdfTools from "../components/pdf/PdfTools";
 import { useTranslation } from "react-i18next";
 import ModalUi from "../primitives/ModalUi";
+import Tooltip from "../primitives/Tooltip";
 import TourContentWithBtn from "../primitives/TourContentWithBtn";
 import HandleError from "../primitives/HandleError";
 import LoaderWithMsg from "../primitives/LoaderWithMsg";
@@ -71,14 +70,13 @@ import PlaceholderCopy from "../components/pdf/PlaceholderCopy";
 import TextFontSetting from "../components/pdf/TextFontSetting";
 import WidgetsValueModal from "../components/pdf/WidgetsValueModal";
 import * as utils from "../utils";
-import { useWindowSize } from "../hook/useWindowSize";
+import usePdfContainerMeasure from "../hook/usePdfContainerMeasure";
 import { useScroll } from "../context/ScrollPdfContext";
 
 function PdfRequestFiles(
 ) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const windowSize = useWindowSize();
   const { scrollRef } = useScroll();
   const prefillImg = useSelector((state) => state.widget.prefillImg);
   const isShowModal = useSelector((state) => state.widget.isShowModal);
@@ -103,7 +101,6 @@ function PdfRequestFiles(
     message: t("loading-mssg")
   });
   const [isDocId, setIsDocId] = useState(false);
-  const [pdfNewWidth, setPdfNewWidth] = useState();
   const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
   const [signerPos, setSignerPos] = useState([]);
   const [signerObjectId, setSignerObjectId] = useState();
@@ -129,7 +126,6 @@ function PdfRequestFiles(
   const [isSigned, setIsSigned] = useState(false);
   const [isExpired, setIsExpired] = useState(false);
   const [alreadySign, setAlreadySign] = useState(false);
-  const [containerWH, setContainerWH] = useState({ width: 0, height: 0 });
   const [widgetsTour, setWidgetsTour] = useState(false);
   const [minRequiredCount, setminRequiredCount] = useState();
   const [sendInOrder, setSendInOrder] = useState(false);
@@ -140,8 +136,8 @@ function PdfRequestFiles(
   const [scale, setScale] = useState(1);
   const [uniqueId, setUniqueId] = useState("");
   const [documentId, setDocumentId] = useState("");
-  const isSidebar = useSelector((state) => state.sidebar.isOpen);
   const divRef = useRef(null);
+  const { containerRef, containerWH, pdfNewWidth } = usePdfContainerMeasure(divRef);
   const [isDownloadModal, setIsDownloadModal] = useState(false);
   const [signatureType, setSignatureType] = useState([]);
   const [pdfBase64Url, setPdfBase64Url] = useState("");
@@ -199,23 +195,7 @@ function PdfRequestFiles(
   }, [
     getDocumentId
   ]);
-  useEffect(() => {
-    const updateSize = () => {
-      if (divRef.current) {
-        const pdfWidth = pdfNewWidthFun(divRef);
-        setPdfNewWidth(pdfWidth);
-        setContainerWH({
-          width: divRef.current.offsetWidth,
-          height: divRef.current.offsetHeight
-        });
-      }
-    };
 
-    // Use setTimeout to wait for the transition to complete
-    const timer = setTimeout(updateSize, 150); // match the transition duration
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [divRef.current, isSidebar, windowSize?.width]);
   const redirectUrl = pdfDetails?.[0]?.RedirectUrl || "";
   useEffect(() => {
     if (isredirectCanceled) return; // Stop the redirect timer if canceled
@@ -1810,7 +1790,7 @@ function PdfRequestFiles(
           ) : handleError ? (
             <HandleError handleError={handleError} />
           ) : (
-            <div>
+            <div className="h-full min-h-0">
               {!isAgree &&
                 currentSigner &&
                 !isExpired &&
@@ -1843,9 +1823,9 @@ function PdfRequestFiles(
                 }}
                 className={`${
                       isGuestSignFlow
-                      ? "border-[0.5px] border-gray-300"
-                      : "op-card"
-                } relative overflow-hidden flex flex-col md:flex-row justify-between bg-base-300`}
+                      ? "border-base-300 border"
+                      : "bg-base-200"
+                } relative h-full overflow-hidden flex flex-col md:flex-row justify-between`}
               >
                 {isUiLoading && (
                   <div className="absolute h-full w-full flex flex-col justify-center items-center z-[999] bg-[#e6f2f2]/80">
@@ -1951,16 +1931,7 @@ function PdfRequestFiles(
                   signedUrl={pdfDetails?.[0]?.SignedUrl || ""}
                 />
                 {/* pdf render view */}
-                <div className="w-full md:w-[57%] flex mr-4">
-                  <PdfTools
-                    clickOnZoomIn={clickOnZoomIn}
-                    clickOnZoomOut={clickOnZoomOut}
-                    isDisableEditTools={true}
-                    allPages={allPages}
-                    setAllPages={setAllPages}
-                    setPageNumber={setPageNumber}
-                    setIsTour={() => setIsReqSignTourDisabled(true)}
-                  />
+                <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
                   <PlaceholderCopy
                     isPageCopy={isPageCopy}
                     setIsPageCopy={setIsPageCopy}
@@ -1974,7 +1945,7 @@ function PdfRequestFiles(
                     setUniqueId={setUniqueId}
                     pdfOriginalWH={pdfOriginalWH}
                   />
-                  <div className=" w-full md:w-[95%] ">
+                  <div className="w-full min-h-0 flex flex-col flex-1 overflow-hidden">
                     {/* this modal is used show this document is already sign */}
                     <ModalUi
                       isOpen={isCompleted.isModal}
@@ -2108,12 +2079,12 @@ function PdfRequestFiles(
                       isGuestSignFlow={isGuestSignFlow}
                     />
                     <div
-                      ref={divRef}
+                      ref={containerRef}
                       data-tut="pdfArea"
-                      className="h-fit"
+                      className="flex-1 min-h-0 overflow-hidden"
                       onClick={() => setIsReqSignTourDisabled(true)}
                     >
-                      {containerWH?.width && (
+                      {containerWH?.width > 0 && (
                         <RenderPdf
                           setIsPageCopy={setIsPageCopy}
                           pageNumber={pageNumber}
@@ -2163,18 +2134,18 @@ function PdfRequestFiles(
                   </div>
                 </div>
 
-                <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar ">
-                  <div className={`max-h-screen`}>
+                <div className="w-full md:w-[23%] bg-base-100 overflow-y-auto hide-scrollbar h-full min-h-0 border-l border-base-300">
+                  <div>
                     <div className="w-full hidden md:inline-block">
                       {signedSigners.length > 0 && (
                         <>
                           <div
                             data-tut="reactourSecond"
-                            className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300"
+                            className="px-3 py-2.5 text-sm text-base-content font-semibold tracking-tight"
                           >
                             <span>{t("signed-by")}</span>
                           </div>
-                          <div className="mt-[2px]">
+                          <div className="py-1">
                             {signedSigners.map((obj, ind) => {
                               return (
                                 <div key={ind}>
@@ -2194,17 +2165,13 @@ function PdfRequestFiles(
                         (() => {
                           return (
                             <>
-                              <div className="mx-2 pr-2 pt-2 pb-1 text-[15px] text-base-content font-semibold border-b-[1px] border-base-300">
-                                <span>
-                                  {t("yet-to-sign")}
-                                  <sup onClick={handleTourHelp}>
-                                    <i className="ml-1 cursor-pointer fa-light fa-question rounded-full border-[1px] border-base-content text-[11px] py-[1px] px-[3px]"></i>
-                                  </sup>
-                                </span>
+                              <div className="px-3 py-2.5 text-sm text-base-content font-semibold tracking-tight flex items-center gap-1">
+                                <span>{t("yet-to-sign")}</span>
+                                <Tooltip handleOnlickHelp={handleTourHelp} />
                               </div>
                               <div
                                 data-tut="reactourFirst"
-                                className="mt-[5px]"
+                                className="py-1"
                               >
                                 {unsignedSigners.map((obj, ind) => (
                                   <div key={ind}>

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import Menu from "./Menu";
 import Submenu from "./SubMenu";
-import SocialMedia from "../SocialMedia";
-import dp from "../../assets/images/dp.png";
 import sidebarList, { subSetting } from "../../json/menuJson";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +18,6 @@ const Sidebar = () => {
   const [menuList, setmenuList] = useState([]);
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const username = localStorage.getItem("username");
-  const image = localStorage.getItem("profileImg") || dp;
   const tenantname = localStorage.getItem("Extand_Class")
     ? JSON.parse(localStorage.getItem("Extand_Class"))?.[0]?.Company
     : "";
@@ -77,31 +74,21 @@ const Sidebar = () => {
   };
   return (
     <aside
-      className={`absolute max-lg:min-h-screen lg:relative bg-base-100 overflow-y-auto transition-all z-[500] shadow-lg hide-scrollbar
+      className={`absolute max-lg:min-h-screen lg:relative bg-base-100 overflow-y-auto transition-all z-[500] border-r border-base-300 hide-scrollbar
      ${isOpen ? "w-full md:w-64" : "w-0"}`}
     >
-      <div className="flex px-2 py-3 gap-2 items-center shadow-md">
-        <div
-          onClick={() => handleProfile()}
-          className="w-[75px] h-[75px] rounded-full ring-[2px] ring-offset-2 ring-gray-400 overflow-hidden cursor-pointer"
-        >
-          <img
-            className="w-full h-full object-contain"
-            src={image}
-            alt="Profile"
-          />
-        </div>
-        <div>
+      <div className="flex px-4 py-4 items-center border-b border-base-300">
+        <div className="min-w-0">
           <p
             onClick={handleProfile}
-            className="text-[14px] font-bold text-base-content cursor-pointer"
+            className="text-sm font-semibold text-base-content cursor-pointer truncate"
           >
             {username}
           </p>
           <p
             onClick={handleProfile}
-            className={`cursor-pointer text-[12px] text-base-content ${
-              tenantname ? "mt-2" : ""
+            className={`cursor-pointer text-xs text-base-content/60 truncate ${
+              tenantname ? "mt-1" : ""
             }`}
           >
             {tenantname}
@@ -109,7 +96,7 @@ const Sidebar = () => {
         </div>
       </div>
       <nav
-        className="op-menu op-menu-sm"
+        className="op-menu op-menu-sm p-2"
         aria-label="OpenSign Sidebar Navigation"
       >
         <ul
@@ -137,9 +124,6 @@ const Sidebar = () => {
           )}
         </ul>
       </nav>
-        <footer className="my-3 flex justify-center items-center text-[25px] text-base-content gap-3">
-          <SocialMedia />
-        </footer>
     </aside>
   );
 };

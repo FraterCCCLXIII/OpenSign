@@ -10,7 +10,6 @@ import Header from "../components/pdf/PdfHeader";
 import WidgetNameModal from "../components/pdf/WidgetNameModal";
 import {
   copytoData,
-  pdfNewWidthFun,
   contractUsers,
   randomId,
   addZIndex,
@@ -52,7 +51,6 @@ import PlaceholderCopy from "../components/pdf/PlaceholderCopy";
 import DropdownWidgetOption from "../components/pdf/DropdownWidgetOption";
 import Parse from "parse";
 import { useDispatch, useSelector } from "react-redux";
-import PdfTools from "../components/pdf/PdfTools";
 import { useTranslation, Trans } from "react-i18next";
 import RotateAlert from "../components/RotateAlert";
 import ModalUi from "../primitives/ModalUi";
@@ -69,6 +67,7 @@ import * as utils from "../utils";
 import CustomizeMail from "../components/pdf/CustomizeMail";
 import { resetWidgetState, setPrefillImg } from "../redux/reducers/widgetSlice";
 import ShareButton from "../primitives/ShareButton";
+import usePdfContainerMeasure from "../hook/usePdfContainerMeasure";
 import { useWindowSize } from "../hook/useWindowSize";
 import { useScroll } from "../context/ScrollPdfContext";
 
@@ -83,7 +82,7 @@ const TemplatePlaceholder = () => {
   const divRef = useRef(null);
   const navigate = useNavigate();
   const numPages = 1;
-  const isSidebar = useSelector((state) => state.sidebar.isOpen);
+  const { containerRef, containerWH, pdfNewWidth } = usePdfContainerMeasure(divRef);
   const isShowModal = useSelector((state) => state.widget.isShowModal);
   const [pdfDetails, setPdfDetails] = useState([]);
   const [allPages, setAllPages] = useState(null);
@@ -108,13 +107,11 @@ const TemplatePlaceholder = () => {
     message: t("loading-mssg")
   });
   const [handleError, setHandleError] = useState();
-  const [pdfNewWidth, setPdfNewWidth] = useState();
   const [templateTour, setTemplateTour] = useState(false);
   const [checkTourStatus, setCheckTourStatus] = useState(false);
   const [tourStatus, setTourStatus] = useState([]);
   const [signerUserId, setSignerUserId] = useState();
   const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
-  const [containerWH, setContainerWH] = useState({ width: 0, height: 0 });
   const [isShowEmail, setIsShowEmail] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState(false);
   const [isResize, setIsResize] = useState(false);
@@ -183,25 +180,13 @@ const TemplatePlaceholder = () => {
 
 
   useEffect(() => {
-    const updateSize = () => {
-      if (divRef.current) {
-        const pdfWidth = pdfNewWidthFun(divRef);
-        setPdfNewWidth(pdfWidth);
-        setContainerWH({
-          width: divRef.current.offsetWidth,
-          height: divRef.current.offsetHeight
-        });
-        setScale(1);
-        setZoomPercent(0);
-      }
-    };
-
-    // Use setTimeout to wait for the transition to complete
-    const timer = setTimeout(updateSize, 150); // match the transition duration
-
+    if (!windowSize?.width) return;
+    const timer = setTimeout(() => {
+      setScale(1);
+      setZoomPercent(0);
+    }, 320);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [divRef.current, isSidebar, windowSize?.width]);
+  }, [windowSize?.width]);
 
 
   //function to fetch tenant Details
@@ -1852,7 +1837,7 @@ const TemplatePlaceholder = () => {
       ) : handleError ? (
         <HandleError handleError={handleError} />
       ) : (
-        <div className="relative op-card overflow-hidden flex flex-col md:flex-row justify-between bg-base-300">
+        <div className="relative op-card rounded-none border-0 shadow-none overflow-hidden flex flex-col md:flex-row justify-between bg-base-300 h-full min-h-0">
           {isUiLoading && (
             <div className="absolute h-full w-full flex flex-col justify-center items-center z-[999] bg-[#e6f2f2]/80">
               <Loader />
@@ -1914,25 +1899,8 @@ const TemplatePlaceholder = () => {
           />
 
           {/* pdf render view */}
-          <div className="w-full md:w-[57%] flex mr-4">
-            <PdfTools
-              clickOnZoomIn={clickOnZoomIn}
-              clickOnZoomOut={clickOnZoomOut}
-              handleRotationFun={handleRotationFun}
-              pdfArrayBuffer={pdfArrayBuffer}
-              pageNumber={pageNumber}
-              setPdfBase64Url={setPdfBase64Url}
-              setPdfArrayBuffer={setPdfArrayBuffer}
-              setIsUploadPdf={setIsUploadPdf}
-              setSignerPos={setSignerPos}
-              signerPos={signerPos}
-              userId={uniqueId}
-              allPages={allPages}
-              setAllPages={setAllPages}
-              setPageNumber={setPageNumber}
-              pdfDetails={pdfDetails}
-            />
-            <div className="w-full md:w-[95%]">
+          <div className="w-full md:w-[57%] flex min-h-0 h-full overflow-hidden">
+            <div className="w-full min-h-0 flex flex-col flex-1 overflow-hidden">
               <ModalUi
                 isOpen={!IsReceipent}
                 title={t("roles")}
@@ -2070,9 +2038,15 @@ const TemplatePlaceholder = () => {
                 setPdfBase64Url={setPdfBase64Url}
                 userId={uniqueId}
                 pdfBase64={pdfBase64Url}
+                setAllPages={setAllPages}
+                setPageNumber={setPageNumber}
               />
-              <div ref={divRef} data-tut="reactourThird" className="h-fit">
-                {containerWH?.width && (
+              <div
+                ref={containerRef}
+                data-tut="reactourThird"
+                className="flex-1 min-h-0 overflow-hidden"
+              >
+                {containerWH?.width > 0 && (
                   <RenderPdf
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
@@ -2167,7 +2141,7 @@ const TemplatePlaceholder = () => {
               />
             </div>
           ) : (
-            <div className="w-[23%] bg-base-100 min-h-screen overflow-y-auto hide-scrollbar">
+            <div className="w-[23%] bg-base-100 h-full min-h-0 overflow-y-auto hide-scrollbar border-l border-base-300">
               <div className="max-h-screen">
                 <SignerListPlace
                   signerPos={signerPos}
