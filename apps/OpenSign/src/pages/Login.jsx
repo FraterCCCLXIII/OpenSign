@@ -3,8 +3,6 @@ import Parse from "parse";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { NavLink, useNavigate, useLocation } from "react-router";
-import login_img from "../assets/images/login_img.svg";
-import { useWindowSize } from "../hook/useWindowSize";
 import ModalUi from "../primitives/ModalUi";
 import {
   emailRegex,
@@ -29,7 +27,6 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { width } = useWindowSize();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -44,7 +41,6 @@ function Login() {
     Destination: ""
   });
   const [isModal, setIsModal] = useState(false);
-  const [image, setImage] = useState();
   const [errMsg, setErrMsg] = useState();
   useEffect(() => {
     handleUserExist();
@@ -80,11 +76,6 @@ function Login() {
       app?.user === "not_exist"
     ) {
       navigate("/addadmin");
-    }
-    if (app?.logo) {
-      setImage(app?.logo);
-    } else {
-      setImage(appInfo?.applogo || undefined);
     }
     dispatch(fetchAppInfo());
     if (localStorage.getItem("accesstoken")) {
@@ -426,22 +417,12 @@ function Login() {
           <div
             aria-labelledby="loginHeading"
             role="region"
-            className="pb-1 md:pb-4 pt-10 md:px-10 lg:px-16 h-full"
+            className="min-h-screen w-full bg-base-100 text-base-content"
           >
-            <div className="md:p-4 lg:p-10 p-4 bg-base-100 text-base-content op-card">
-              <div className="w-[250px] h-[66px] inline-block overflow-hidden">
-                {image && (
-                  <img
-                    src={image}
-                    className="object-contain h-full"
-                    alt="applogo"
-                  />
-                )}
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2">
-                <div>
+            <div className="min-h-screen w-full p-4 md:p-10 lg:p-16 flex flex-col">
+              <div className="w-full max-w-md">
                   <form onSubmit={handleLoginBtn} aria-label="Login Form">
-                    <h1 className="text-[30px] mt-6">{t("welcome")}</h1>
+                    <h1 className="text-[30px] mt-2 md:mt-6">{t("welcome")}</h1>
                     <fieldset>
                       <legend className="text-[12px] text-[#878787]">
                         {t("Login-to-your-account")}
@@ -518,24 +499,12 @@ function Login() {
                       </button>
                     </div>
                   </form>
-                </div>
-                {width >= 768 && (
-                  <div className="place-self-center">
-                    <div className="mx-auto md:w-[300px] lg:w-[400px] xl:w-[500px]">
-                      <img
-                        src={login_img}
-                        alt="The image illustrates a person from behind, seated at a desk with a four-monitor computer setup, in an environment with a light blue and white color scheme, featuring a potted plant to the right."
-                        width="100%"
-                      />
-                    </div>
-                  </div>
-                )}
               </div>
-            </div>
             <SelectLanguage />
             {state.alertMsg && (
               <Alert type={state.alertType}>{state.alertMsg}</Alert>
             )}
+            </div>
           </div>
           <ModalUi
             isOpen={isModal}

@@ -1,0 +1,94 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+      start_period: 20s
+    networks:
+      - opensign
+
+  server:
+    image: opensign/opensignserver:main
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - opensign-files:/usr/src/app/files
+    env_file:
+      - .env.prod
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/OpenSignDB
+      PARSE_MOUNT: /app
+      APP_ID: opensign
+      USE_LOCAL: "true"
+      SERVER_URL: ${HOST_URL}/api/app
+      PUBLIC_URL: ${HOST_URL}
+    networks:
+      - opensign
+
+  client:
+    build:
+      context: ../..
+      dockerfile: deploy/coolify/Dockerfile.client
+    image: molecule/opensign-client:custom
+    restart: unless-stopped
+    depends_on:
+      - server
+    env_file:
+      - .env.prod
+    environment:
+      REACT_APP_APPID: opensign
+      REACT_APP_SERVERURL: ${HOST_URL}/api/app
+      PUBLIC_URL: ${HOST_URL}
+    networks:
+      - opensign
+
+  public-sign:
+    build:
+      context: ./public-sign
+    restart: unless-stopped
+    depends_on:
+      - server
+    env_file:
+      - .env.prod
+    environment:
+      PARSE_APP_ID: opensign
+      PARSE_SERVER_URL: http://server:8080/app
+      PUBLIC_URL: ${HOST_URL}
+      PUBLIC_TEMPLATE_ID: GLZFhKgcY8
+      PUBLIC_SIGN_ROLE: Affiliate
+      PORT: 3001
+    networks:
+      - opensign
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - client
+      - server
+      - public-sign
+    expose:
+      - "80"
+    volumes:
+      - type: bind
+        source: ./Caddyfile
+        target: /etc/caddy/Caddyfile
+    networks:
+      - opensign
+
+volumes:
+  mongo-data:
+  opensign-files:
+
+networks:
+  opensign:
+    driver: bridge

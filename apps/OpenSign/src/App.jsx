@@ -58,7 +58,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-base-200">
+    <div className="bg-base-200 min-h-screen">
       {isloading ? (
         <AppLoader />
       ) : (

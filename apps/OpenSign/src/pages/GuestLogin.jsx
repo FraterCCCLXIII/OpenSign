@@ -8,7 +8,6 @@ import {
   contractUsers,
   saveLanguageInLocal
 } from "../constant/Utils";
-import logo from "../assets/images/logo.png";
 import { appInfo } from "../constant/appinfo";
 import Parse from "parse";
 import { useTranslation } from "react-i18next";
@@ -31,7 +30,6 @@ function GuestLogin() {
     isLoad: true,
     message: t("loading-mssg")
   });
-  const [appLogo, setAppLogo] = useState("");
   const [documentId, setDocumentId] = useState(id);
   const [contactId, setContactId] = useState(contactBookId);
   const [sendmail, setSendmail] = useState();
@@ -76,7 +74,6 @@ function GuestLogin() {
 
   //function generate serverUrl and parseAppId from url and save it in local storage
   const handleServerUrl = async () => {
-      setAppLogo(logo);
     const favicon = localStorage.getItem("favicon");
 
     localStorage.clear(); // Clears everything
@@ -309,17 +306,7 @@ function GuestLogin() {
       {isLoading.isLoad ? (
         <LoaderWithMsg isLoading={isLoading} />
       ) : (
-        <div className="pb-1 md:pb-4 pt-10 md:px-10 lg:px-16">
-          <div className="md:p-4 lg:p-10 p-4 text-base-content bg-base-100 op-card shadow-md">
-            <div className="w-[250px] h-[66px] inline-block overflow-hidden mb-6">
-              {appLogo && (
-                <img
-                  src={appLogo}
-                  className="object-contain h-full"
-                  alt="logo"
-                />
-              )}
-            </div>
+        <div className="min-h-screen w-full bg-base-100 text-base-content p-4 md:p-10 lg:p-16">
             {contactId ? (
               <div className="w-full md:w-[50%] text-base-content">
                 <h1 className="text-2xl md:text-[30px]">{t("welcome")}</h1>
@@ -481,7 +468,6 @@ function GuestLogin() {
                 </form>
               </div>
             )}
-          </div>
           <SelectLanguage />
         </div>
       )}

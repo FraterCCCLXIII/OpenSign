@@ -1,0 +1,14 @@
+:80 {
+    handle /publicsign* {
+        uri strip_prefix /publicsign
+        reverse_proxy public-sign:3001
+    }
+    @affiliate path /affiliate-sign /affiliate-sign/
+    handle @affiliate {
+        redir /publicsign?{query} permanent
+    }
+    handle_path /api/* {
+        reverse_proxy server:8080
+    }
+    reverse_proxy client:3000
+}
