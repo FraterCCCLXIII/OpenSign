@@ -27,10 +27,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const Preferences = () => {
-  const appName =
-    "OpenSign™";
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  // Used only inside help copy that still interpolates {{appName}}
+  const appName = "";
   const { isLoader, isTopLoader, alertInfo } = useSelector(
     (state) => state.user
   );
@@ -255,43 +255,41 @@ const Preferences = () => {
               {errMsg}
             </div>
           ) : (
-            <div className="relative bg-base-100 text-base-content flex flex-col justify-center shadow-md rounded-box mb-3">
+            <div className="relative bg-base-100 text-base-content flex flex-col op-card mb-3 overflow-hidden">
               {isLoader && (
                 <div className="flex z-[100] justify-center items-center absolute w-full h-full rounded-box bg-black/30">
                   <Loader />
                 </div>
               )}
-              <h1 className="ml-4 mt-3 text-lg mb-2 font-semibold text-base-content">
-                {appName} {t("Preferences")}
-              </h1>
-              <div className="flex justify-center items-center mt-2">
+              <div className="flex flex-col gap-3 px-4 pt-4 pb-0 border-b border-base-300">
+                <h1 className="text-lg font-semibold tracking-tight text-base-content">
+                  {t("Preferences")}
+                </h1>
                 <div
                   role="tablist"
-                  className="op-tabs op-tabs-bordered op-tabs-sm md:op-tabs-md"
+                  className="op-tabs op-tabs-bordered op-tabs-sm"
                 >
                   {tab.map((tabData, ind) => (
-                    <div
+                    <button
+                      type="button"
                       onClick={() => setactiveTab(ind)}
                       key={ind}
                       role="tab"
-                      className={` op-tab text-xs md:text-base pb-2 md:pb-0 transition-all`}
+                      className={`op-tab gap-1.5 ${
+                        activeTab === ind ? "op-tab-active" : ""
+                      }`}
                       aria-selected={activeTab === ind}
                       aria-controls={`panel-${tabData.title}`}
                     >
-                      <i className={tabData.icon}></i>
-                      <span
-                        className={`${activeTab === ind ? "block" : "hidden"} md:block ml-1`}
-                        title={tabData?.title}
-                      >
-                        {tabData.title}
-                      </span>
-                    </div>
+                      <i className={tabData.icon} aria-hidden="true" />
+                      <span title={tabData?.title}>{tabData.title}</span>
+                    </button>
                   ))}
                 </div>
               </div>
               <div
                 id={`panel-${activeTab}`}
-                className="px-6 pt-4 pb-6"
+                className="px-4 md:px-6 pt-5 pb-6"
                 aria-labelledby={`tab-${activeTab}`}
                 role="tabpanel"
               >

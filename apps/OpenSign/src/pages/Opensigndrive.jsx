@@ -15,6 +15,7 @@ import Tour from "../primitives/Tour";
 import axios from "axios";
 import Loader from "../primitives/Loader";
 import { useTranslation } from "react-i18next";
+import { Plus } from "lucide-react";
 
 const DriveBody = lazyWithRetry(
   () => import("../components/opensigndrive/DriveBody")
@@ -29,10 +30,8 @@ const AppLoader = () => {
   );
 };
 function Opensigndrive() {
-  const appName =
-    "OpenSign™";
-  const drivename = appName === "OpenSign™" ? "OpenSign™" : "";
   const { t } = useTranslation();
+  const driveLabel = t("Drive");
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   // Create a ref for the "sentinel" element at the bottom of the list
@@ -209,7 +208,7 @@ function Opensigndrive() {
       }
       if (!docId) {
         setFolderName([
-          { name: t("OpenSign-drive", { appName: drivename }), objectId: "" }
+          { name: driveLabel, objectId: "" }
         ]);
       }
     } catch (e) {
@@ -704,16 +703,17 @@ function Opensigndrive() {
               </button>
               <div
                 id="folder-menu"
-                className={`${isOptions ? "dropdown show dropDownStyle" : "dropdown"} hidden md:block cursor-pointer hover:bg-base-300 p-2 rounded-md`}
+                className={`${isOptions ? "dropdown show dropDownStyle" : "dropdown"} hidden md:block relative`}
                 onClick={handleFolderOptions}
               >
-                <div data-tut="reactourSecond">
-                  <i
-                    className="fa-light fa-plus-square text-[24px]"
-                    aria-hidden="true"
-                    style={{ color: `${getThemeIconColor()}` }}
-                  ></i>
-                </div>
+                <button
+                  type="button"
+                  data-tut="reactourSecond"
+                  className="op-btn op-btn-sm bg-base-content !text-base-100 hover:bg-base-content hover:!text-base-100 hover:opacity-90 border-0 gap-1.5"
+                >
+                  <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                  {t("new")}
+                </button>
                 <div
                   className={`${isOptions ? "block" : "hidden"} ${dropdowncss}`}
                   aria-labelledby="dropdownMenuButton"

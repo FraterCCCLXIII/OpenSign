@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Menu from "./Menu";
 import Submenu from "./SubMenu";
 import sidebarList, { subSetting } from "../../json/menuJson";
-import { useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Plus } from "lucide-react";
 import { useWindowSize } from "../../hook/useWindowSize";
 import {
   setSelectedMenu,
@@ -11,16 +13,12 @@ import {
 } from "../../redux/reducers/sidebarReducer";
 
 const Sidebar = () => {
+  const { t } = useTranslation();
   const { width } = useWindowSize();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.sidebar.isOpen);
   const [menuList, setmenuList] = useState([]);
   const [submenuOpen, setSubmenuOpen] = useState(false);
-  const username = localStorage.getItem("username");
-  const tenantname = localStorage.getItem("Extand_Class")
-    ? JSON.parse(localStorage.getItem("Extand_Class"))?.[0]?.Company
-    : "";
 
   useEffect(() => {
     if (localStorage.getItem("accesstoken")) {
@@ -68,41 +66,36 @@ const Sidebar = () => {
     closeSidebar();
     setSubmenuOpen({});
   };
-  const handleProfile = () => {
-    closeSidebar();
-    navigate("/profile");
-  };
   return (
     <aside
       className={`absolute max-lg:min-h-screen lg:relative bg-base-100 overflow-y-auto transition-all z-[500] border-r border-base-300 hide-scrollbar
      ${isOpen ? "w-full md:w-64" : "w-0"}`}
     >
-      <div className="flex px-4 py-4 items-center border-b border-base-300">
-        <div className="min-w-0">
-          <p
-            onClick={handleProfile}
-            className="text-sm font-semibold text-base-content cursor-pointer truncate"
-          >
-            {username}
-          </p>
-          <p
-            onClick={handleProfile}
-            className={`cursor-pointer text-xs text-base-content/60 truncate ${
-              tenantname ? "mt-1" : ""
-            }`}
-          >
-            {tenantname}
-          </p>
-        </div>
-      </div>
       <nav
-        className="op-menu op-menu-sm p-2"
-        aria-label="OpenSign Sidebar Navigation"
+        className="op-menu op-menu-sm !flex-nowrap p-2"
+        aria-label="Sidebar Navigation"
       >
+        <NavLink
+          to="/create"
+          onClick={handleMenuItem}
+          className={({ isActive }) =>
+            `!flex w-full basis-full min-w-0 self-stretch box-border items-center justify-start gap-x-3 rounded-md px-3 py-2 mb-1 text-sm font-medium whitespace-nowrap no-underline shadow-none
+             bg-base-content !text-base-100
+             hover:bg-base-content hover:!text-base-100 hover:no-underline hover:opacity-90
+             visited:!text-base-100
+             focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]
+             ${isActive ? "opacity-90" : ""}`
+          }
+        >
+          <span className="w-4 h-4 flex justify-center items-center shrink-0">
+            <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+          </span>
+          <span className="flex items-center mb-0.5">{t("create-new.button")}</span>
+        </NavLink>
         <ul
-          className="text-sm"
+          className="w-full text-sm"
           role="menubar"
-          aria-label="OpenSign Sidebar Navigation"
+          aria-label="Sidebar Navigation"
         >
           {menuList.map((item) =>
             !item.children ? (

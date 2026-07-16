@@ -37,6 +37,7 @@ import { RenderReportCell } from "../../primitives/RenderReportCell";
 import CustomizeMail from "../../components/pdf/CustomizeMail";
 import { useSelector } from "react-redux";
 import EmailEditor from "../../components/emaileditor";
+import ModuleHeader from "../../components/shared/ModuleHeader";
 
 const DocumentsReport = (props) => {
   const copyUrlRef = useRef(null);
@@ -1081,82 +1082,79 @@ const DocumentsReport = (props) => {
         {alertMsg.message && (
           <Alert type={alertMsg.type}>{alertMsg.message}</Alert>
         )}
-        <div
-          ref={titleRef}
-          className="flex flex-row items-center justify-between my-2 mx-3 text-[20px] md:text-[23px]"
-        >
-          <div className="font-light">
-            {t(`report-name.${props.ReportName}`)}{" "}
-            {props.report_help && (
-              <span className="text-xs md:text-[13px] font-normal">
+        <div ref={titleRef}>
+          <ModuleHeader
+            title={t(`report-name.${props.ReportName}`)}
+            help={
+              props.report_help ? (
                 <Tooltip
                   id="report_help"
                   message={t(`report-help.${props.ReportName}`)}
                 />
-              </span>
-            )}
-          </div>
-          <div className="flex flex-row justify-center items-center gap-3 mb-2">
-            {/* Search input for report bigger in width */}
-            {titleElement?.width > 500 && (
-              <div className="flex">
-                <input
-                  type="search"
-                  value={props.searchTerm}
-                  onChange={props.handleSearchChange}
-                  placeholder={t("search-documents")}
-                  onPaste={props.handleSearchPaste}
-                  className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-64 text-xs"
-                />
-              </div>
-            )}
-            {/* search icon/magnifer icon  */}
-            {titleElement?.width < 500 && (
-              <button
-                className="flex justify-center items-center focus:outline-none rounded-md text-[18px]"
-                aria-label="Search"
-                onClick={() =>
-                  props.setMobileSearchOpen(!props.mobileSearchOpen)
-                }
-              >
-                <i className="fa-light fa-magnifying-glass"></i>
-              </button>
-            )}
-            {props.openColumnModal && (
-              <button
-                className="flex justify-center items-center focus:outline-none rounded-md text-[18px]"
-                aria-label="Columns"
-                onClick={props.openColumnModal}
-              >
-                <i className="fa-light fa-table-columns"></i>
-              </button>
-            )}
-            {props?.ReportName === "In-progress documents" && (
-              <div className="op-dropdown op-dropdown-end">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="focus:outline-none rounded-md text-[18px]"
-                >
-                  <i className="fa-light fa-filter"></i>
-                </div>
-                <ul
-                  tabIndex="-1"
-                  className="op-dropdown-content op-menu op-menu-sm shadow-black/20 bg-base-100 text-base-content rounded-box z-[70] w-52 p-2 shadow-sm"
-                >
-                  <li onClick={() => props.handleSignerStatusFilter("all")}>
-                    <a>{t("all-signer-status")}</a>
-                  </li>
-                  <li onClick={() => props.handleSignerStatusFilter("viewed")}>
-                    <a>{t("viewed")}</a>
-                  </li>
-                  <li onClick={() => props.handleSignerStatusFilter("signed")}>
-                    <a>{t("signed")}</a>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
+              ) : null
+            }
+            actions={
+              <>
+                {titleElement?.width > 500 && (
+                  <input
+                    type="search"
+                    value={props.searchTerm}
+                    onChange={props.handleSearchChange}
+                    placeholder={t("search-documents")}
+                    onPaste={props.handleSearchPaste}
+                    className="op-input op-input-bordered op-input-sm focus:outline-none w-56 text-xs"
+                  />
+                )}
+                {titleElement?.width < 500 && (
+                  <button
+                    type="button"
+                    className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    aria-label="Search"
+                    onClick={() =>
+                      props.setMobileSearchOpen(!props.mobileSearchOpen)
+                    }
+                  >
+                    <i className="fa-light fa-magnifying-glass" />
+                  </button>
+                )}
+                {props.openColumnModal && (
+                  <button
+                    type="button"
+                    className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    aria-label="Columns"
+                    onClick={props.openColumnModal}
+                  >
+                    <i className="fa-light fa-table-columns" />
+                  </button>
+                )}
+                {props?.ReportName === "In-progress documents" && (
+                  <div className="op-dropdown op-dropdown-end">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    >
+                      <i className="fa-light fa-filter" />
+                    </div>
+                    <ul
+                      tabIndex="-1"
+                      className="op-dropdown-content op-menu op-menu-sm bg-base-100 text-base-content rounded-box z-[70] w-52 p-2 shadow-sm border border-base-300"
+                    >
+                      <li onClick={() => props.handleSignerStatusFilter("all")}>
+                        <a>{t("all-signer-status")}</a>
+                      </li>
+                      <li onClick={() => props.handleSignerStatusFilter("viewed")}>
+                        <a>{t("viewed")}</a>
+                      </li>
+                      <li onClick={() => props.handleSignerStatusFilter("signed")}>
+                        <a>{t("signed")}</a>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </>
+            }
+          />
         </div>
         {/* Search input for report smalle in width */}
         {titleElement?.width < 500 && props.mobileSearchOpen && (
@@ -1182,32 +1180,32 @@ const DocumentsReport = (props) => {
               : ""
           }`}
         >
-          <table className="op-table border-collapse w-full mb-4">
-            <thead className="text-[14px] text-center">
-              <tr className="border-y-[1px]">
+          <table className="op-table mb-4">
+            <thead>
+              <tr>
                 {props.heading?.map((item, i) => (
-                  <th key={i} className="p-2">
+                  <th key={i}>
                     {props.columnLabels?.[item] ||
                       t(`report-heading.${item}`, { defaultValue: item })}
                   </th>
                 ))}
                 {props.actions?.length > 0 && (
-                  <th className="p-2 w-1 whitespace-nowrap text-transparent pointer-events-none">
+                  <th className="w-1 whitespace-nowrap text-transparent pointer-events-none">
                     {t("action")}
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody className="text-[12px]">
+            <tbody>
               {props.List?.length > 0 &&
                 !props.searchLoader &&
                 currentList.map((item, index) => (
                   <tr
-                    className={`${
+                    className={
                       currentList?.length === props.docPerPage
                         ? "last:border-none"
                         : ""
-                    } border-y-[1px] `}
+                    }
                     key={index}
                   >
                     {props?.heading?.map((col) => (

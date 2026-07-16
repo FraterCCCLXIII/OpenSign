@@ -19,6 +19,7 @@ import {
 import Loader from "../primitives/Loader";
 import { useTranslation } from "react-i18next";
 import SelectLanguage from "../components/pdf/SelectLanguage";
+import DocTransitLogo from "../components/DocTransitLogo";
 
 function Login() {
   const appName =
@@ -420,6 +421,7 @@ function Login() {
             className="min-h-screen w-full bg-base-200 text-base-content flex flex-col items-center justify-center p-4 md:p-10"
           >
             <div className="w-full max-w-md flex flex-col items-center gap-4">
+              <DocTransitLogo className="h-6 w-auto" />
               <form
                 onSubmit={handleLoginBtn}
                 aria-label="Login Form"

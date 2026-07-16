@@ -15,6 +15,8 @@ import axios from "axios";
 import PasswordResetModal from "../primitives/PasswordResetModal";
 import { usersActions } from "../json/ReportJson";
 import { withSessionValidation } from "../utils";
+import ModuleHeader from "../components/shared/ModuleHeader";
+import { Plus } from "lucide-react";
 
 const heading = ["Sr.No", "Name", "Email", "Phone", "Role", "Team", "Active"];
 const UserList = () => {
@@ -300,48 +302,46 @@ const UserList = () => {
                   {isAlert.msg && (
                     <Alert type={isAlert.type}>{isAlert.msg}</Alert>
                   )}
-                  <div className="flex flex-row items-center justify-between my-2 mx-3 text-[20px] md:text-[23px]">
-                    <div className="font-light">
-                      {t("report-name.Users")}{" "}
-                      <span className="text-xs md:text-[13px] font-normal">
-                        <Tooltip message={t("users-from-teams")} />
-                      </span>
-                    </div>
-                    <div className="flex flex-row gap-2 items-center">
-                      <div
-                        className="cursor-pointer"
+                  <ModuleHeader
+                    title={t("report-name.Users")}
+                    help={<Tooltip message={t("users-from-teams")} />}
+                    actions={
+                      <button
+                        type="button"
                         onClick={() => handleModal("form")}
+                        className="op-btn op-btn-sm bg-base-content !text-base-100 hover:bg-base-content hover:!text-base-100 hover:opacity-90 border-0 gap-1.5"
                       >
-                        <i className="fa-light fa-square-plus text-accent text-[30px] md:text-[40px]"></i>
-                      </div>
-                    </div>
-                  </div>
+                        <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                        {t("new")}
+                      </button>
+                    }
+                  />
                   <div className="w-full overflow-x-auto">
-                    <table className="op-table border-collapse w-full mb-[50px]">
-                      <thead className="text-[14px]">
-                        <tr className="border-y-[1px]">
+                    <table className="op-table mb-[50px]">
+                      <thead>
+                        <tr>
                           {heading?.map((item, index) => (
-                            <th key={index} className="px-4 py-2">
+                            <th key={index}>
                               {t(`report-heading.${item}`)}
                             </th>
                           ))}
                           {usersActions?.length > 0 && (
-                            <th className="p-2 text-transparent pointer-events-none">
+                            <th className="text-transparent pointer-events-none">
                               {t("action")}
                             </th>
                           )}
                         </tr>
                       </thead>
                       {userList?.length > 0 && (
-                        <tbody className="text-[12px]">
+                        <tbody>
                           {currentList.map((item, index) => (
-                            <tr className="border-y-[1px]" key={index}>
+                            <tr key={index}>
                               {heading.includes("Sr.No") && (
-                                <th className="px-4 py-2">
+                                <th>
                                   {startIndex + index + 1}
                                 </th>
                               )}
-                              <td className="px-4 py-2 font-semibold">
+                              <td className="font-semibold">
                                 {item?.Name}{" "}
                               </td>
                               <td className="px-4 py-2 ">

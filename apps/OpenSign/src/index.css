@@ -127,7 +127,7 @@ body {
 
 @layer components {
   .op-btn {
-    @apply font-medium shadow-none no-animation;
+    @apply font-medium shadow-none no-animation whitespace-nowrap;
     border-radius: var(--radius);
     height: 2.5rem;
     min-height: 2.5rem;
@@ -256,6 +256,35 @@ body {
     @apply bg-base-100 shadow-sm;
     border: 1px solid var(--border);
     border-radius: var(--radius);
+  }
+
+  .op-table {
+    @apply w-full border-collapse text-left;
+  }
+
+  .op-table thead tr {
+    @apply border-b border-base-300;
+  }
+
+  .op-table thead th {
+    @apply px-3 py-2.5 text-left text-xs font-medium uppercase tracking-wide text-base-content/60 whitespace-nowrap;
+  }
+
+  .op-table tbody tr {
+    @apply border-b border-base-300/80 transition-colors;
+  }
+
+  .op-table tbody tr:hover {
+    @apply bg-base-200/50;
+  }
+
+  .op-table tbody td,
+  .op-table tbody th {
+    @apply px-3 py-2.5 text-sm text-base-content align-middle;
+  }
+
+  .op-table tbody th {
+    @apply font-medium;
   }
 
   .op-modal-box {

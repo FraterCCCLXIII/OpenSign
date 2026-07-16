@@ -33,6 +33,8 @@ import { RenderReportCell } from "../../primitives/RenderReportCell";
 import CustomizeMail from "../../components/pdf/CustomizeMail";
 import { resetWidgetState } from "../../redux/reducers/widgetSlice";
 import EmailEditor from "../../components/emaileditor";
+import ModuleHeader from "../../components/shared/ModuleHeader";
+import { Plus } from "lucide-react";
 
 const isSignExist = (placeholders = []) => {
   const isSignature =
@@ -1086,60 +1088,65 @@ const TemplatesReport = (props) => {
             />
           </>
         )}
-        <div
-          ref={titleRef}
-          className="flex flex-row items-center justify-between my-2 mx-3 text-[20px] md:text-[23px]"
-        >
-          <div className="font-light">
-            {t(`report-name.${props.ReportName}`)}{" "}
-            <sup className="cursor-pointer" onClick={() => setIsTour(true)}>
-              <i className="border-[#33bbff] text-[#33bbff] fa-light fa-question rounded-full border-[1px] py-[1.5px] px-[4px] text-[13px]"></i>
-            </sup>
-          </div>
-          <div className="flex flex-row justify-center items-center gap-3 mb-2">
-            {/* Search input for report bigger in width */}
-            {titleElement?.width > 500 && (
-              <div className="flex">
-                <input
-                  type="search"
-                  value={props.searchTerm}
-                  onChange={props.handleSearchChange}
-                  placeholder={t("search-templates")}
-                  onPaste={props.handleSearchPaste}
-                  className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-64 text-xs"
-                />
-              </div>
-            )}
-            {/* create template form  */}
-            <div
-              data-tut="reactourFirst"
-              className="cursor-pointer flex"
-              onClick={() => navigate("/form/template")}
-            >
-              <i className="cursor-pointer fa-light fa-square-plus text-accent text-[30px] md:text-[32px]"></i>
-            </div>
-            {/* search icon/magnifer icon  */}
-            {titleElement?.width < 500 && (
+        <div ref={titleRef}>
+          <ModuleHeader
+            title={t(`report-name.${props.ReportName}`)}
+            help={
               <button
-                className="flex justify-center items-center focus:outline-none rounded-md text-[18px]"
-                aria-label="Search"
-                onClick={() =>
-                  props.setMobileSearchOpen(!props.mobileSearchOpen)
-                }
+                type="button"
+                className="text-base-content/50 hover:text-base-content"
+                onClick={() => setIsTour(true)}
+                aria-label="Help"
               >
-                <i className="fa-light fa-magnifying-glass"></i>
+                <i className="fa-light fa-circle-question text-sm" />
               </button>
-            )}
-            {props.openColumnModal && (
-              <button
-                className="flex justify-center items-center focus:outline-none rounded-md text-[18px]"
-                aria-label="Columns"
-                onClick={props.openColumnModal}
-              >
-                <i className="fa-light fa-table-columns"></i>
-              </button>
-            )}
-          </div>
+            }
+            actions={
+              <>
+                {titleElement?.width > 500 && (
+                  <input
+                    type="search"
+                    value={props.searchTerm}
+                    onChange={props.handleSearchChange}
+                    placeholder={t("search-templates")}
+                    onPaste={props.handleSearchPaste}
+                    className="op-input op-input-bordered op-input-sm focus:outline-none w-56 text-xs"
+                  />
+                )}
+                <button
+                  type="button"
+                  data-tut="reactourFirst"
+                  onClick={() => navigate("/form/template")}
+                  className="op-btn op-btn-sm bg-base-content !text-base-100 hover:bg-base-content hover:!text-base-100 hover:opacity-90 border-0 gap-1.5"
+                >
+                  <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                  {t("new")}
+                </button>
+                {titleElement?.width < 500 && (
+                  <button
+                    type="button"
+                    className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    aria-label="Search"
+                    onClick={() =>
+                      props.setMobileSearchOpen(!props.mobileSearchOpen)
+                    }
+                  >
+                    <i className="fa-light fa-magnifying-glass" />
+                  </button>
+                )}
+                {props.openColumnModal && (
+                  <button
+                    type="button"
+                    className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    aria-label="Columns"
+                    onClick={props.openColumnModal}
+                  >
+                    <i className="fa-light fa-table-columns" />
+                  </button>
+                )}
+              </>
+            }
+          />
         </div>
         {/* Search input for report smalle in width */}
         {titleElement?.width < 500 && props.mobileSearchOpen && (
@@ -1165,32 +1172,32 @@ const TemplatesReport = (props) => {
               : ""
           }`}
         >
-          <table className="op-table border-collapse w-full mb-4">
-            <thead className="text-[14px] text-center">
-              <tr className="border-y-[1px]">
+          <table className="op-table mb-4">
+            <thead>
+              <tr>
                 {props.heading?.map((item, i) => (
-                  <th key={i} className="p-2">
+                  <th key={i}>
                     {props.columnLabels?.[item] ||
                       t(`report-heading.${item}`, { defaultValue: item })}
                   </th>
                 ))}
                 {props.actions?.length > 0 && (
-                  <th className="p-2 w-1 whitespace-nowrap text-transparent pointer-events-none">
+                  <th className="w-1 whitespace-nowrap text-transparent pointer-events-none">
                     {t("action")}
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody className="text-[12px]">
+            <tbody>
               {props.List?.length > 0 &&
                 !props.searchLoader &&
                 currentList.map((item, index) => (
                   <tr
-                    className={`${
+                    className={
                       currentList?.length === props.docPerPage
                         ? "last:border-none"
                         : ""
-                    } border-y-[1px] `}
+                    }
                     key={index}
                   >
                     {props?.heading?.map((col) => (

@@ -7,6 +7,7 @@ const TITLE_MAP = {
   "/": "login",
   // Homelayout
   "/dashboard/35KBoSgoAK": "Dashboard",
+  "/create": "create-new.title",
   "/form/sHAnZphf69": "Sign Yourself",
   "/form/8mZzFxbG1z": "Request Signatures",
   "/form/template": "New Template",

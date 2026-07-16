@@ -100,7 +100,8 @@
       "Manage templates": "Manage templates",
       "Embedding": "Embedding"
     },
-    "OpenSign™ Drive": "{{appName}} Drive",
+    "OpenSign™ Drive": "Drive",
+    "Drive": "Drive",
     "Reports": "Reports",
     "Documents": "Documents",
     "Documents-Children": {
@@ -243,7 +244,10 @@
   "auto-reminder": "Auto reminder",
   "remind-once": " Remind once in every (Days)",
   "next": "Next",
-  "OpenSign-drive": "{{appName}} Drive",
+  "OpenSign-drive": "Drive",
+  "Drive": "Drive",
+  "new": "New",
+  "import": "Import",
   "drive-document-status": {
     "Completed": "Completed",
     "Declined": "Declined",
@@ -259,6 +263,13 @@
   "create-folder": "Create folder",
   "parent-folder": "Parent folder",
   "create": "Create",
+  "create-new": {
+    "button": "Create new",
+    "title": "Create new",
+    "subtitle": "Choose what you'd like to create to get started.",
+    "create-template-description": "Build a reusable template you can send again and again.",
+    "add-contact-description": "Save a person you can add as a signer later."
+  },
   "signers": "Signers",
   "signers-help": "Begin typing a contact's name to see suggested signers from your saved contacts or add new ones. Arrange the signing order by adding signers in the desired sequence. Use the '+' button to include signers and the 'x' to remove them. Each signer will receive an email prompt to sign the document in the order listed.",
   "bcc-help": "Start typing a contact's name to see suggestions from your saved contacts or add new ones. Use the '+' button to add a user and the 'x' to remove them. The selected user's email will be added as a Bcc (blind carbon copy). Each user will receive an email notification once the document is completed.",

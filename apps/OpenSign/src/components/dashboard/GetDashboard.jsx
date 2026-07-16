@@ -112,7 +112,7 @@ const GetDashboard = (props) => {
       <div className="mb-3">
         <div
           data-tut={"tourbutton"}
-          className="flex flex-col md:flex-row gap-4"
+          className="grid gap-3 sm:grid-cols-2"
         >
           {buttonList.map((btn) => (
             <Button

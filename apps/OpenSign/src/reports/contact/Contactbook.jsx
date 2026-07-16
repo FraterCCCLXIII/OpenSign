@@ -12,6 +12,8 @@ import { useElSize } from "../../hook/useElSize";
 import ImportContact from "./ImportContact";
 import AddContact from "../../primitives/AddContact";
 import { withSessionValidation } from "../../utils";
+import ModuleHeader from "../../components/shared/ModuleHeader";
+import { Plus, Upload } from "lucide-react";
 
 const Contactbook = (props) => {
   const titleRef = useRef(null);
@@ -225,62 +227,60 @@ const Contactbook = (props) => {
         {alertMsg.message && (
           <Alert type={alertMsg.type}>{alertMsg.message}</Alert>
         )}
-        <div
-          ref={titleRef}
-          className="flex flex-row items-center justify-between my-2 mx-3 text-[20px] md:text-[23px]"
-        >
-          <div className="font-light">
-            {t(`report-name.Contactbook`)}{" "}
-            {props.report_help && (
-              <span className="text-xs md:text-[13px] font-normal">
+        <div ref={titleRef}>
+          <ModuleHeader
+            title={t(`report-name.Contactbook`)}
+            help={
+              props.report_help ? (
                 <Tooltip
                   id="report_help"
                   message="t(`report-help.Contactbook`)"
                 />
-              </span>
-            )}
-          </div>
-          <div className="flex flex-row justify-center items-center gap-3 mb-2">
-            {/* Search input for report bigger in width */}
-            {titleElement?.width > 500 && (
-              <div className="flex">
-                <input
-                  type="search"
-                  value={props.searchTerm}
-                  onChange={props.handleSearchChange}
-                  placeholder={t("search-contacts")}
-                  onPaste={props.handleSearchPaste}
-                  className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-64 text-xs"
-                />
-              </div>
-            )}
-            {/* import contact icon */}
-            <div
-              className="cursor-pointer flex"
-              onClick={() => handleImportBtn()}
-            >
-              <i className="fa-light fa-upload text-[23px] md:text-[25px]"></i>
-            </div>
-            {/* add contact icon*/}
-            <div
-              className="cursor-pointer flex"
-              onClick={() => handleContactFormModal()}
-            >
-              <i className="fa-light fa-square-plus text-accent text-[30px] md:text-[32px]"></i>
-            </div>
-            {/* search icon/magnifer icon */}
-            {titleElement?.width < 500 && (
-              <button
-                className="flex justify-center items-center focus:outline-none rounded-md text-[18px]"
-                aria-label="Search"
-                onClick={() =>
-                  props.setMobileSearchOpen(!props.mobileSearchOpen)
-                }
-              >
-                <i className="fa-light fa-magnifying-glass"></i>
-              </button>
-            )}
-          </div>
+              ) : null
+            }
+            actions={
+              <>
+                {titleElement?.width > 500 && (
+                  <input
+                    type="search"
+                    value={props.searchTerm}
+                    onChange={props.handleSearchChange}
+                    placeholder={t("search-contacts")}
+                    onPaste={props.handleSearchPaste}
+                    className="op-input op-input-bordered op-input-sm focus:outline-none w-56 text-xs"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleImportBtn()}
+                  className="op-btn op-btn-sm op-btn-outline gap-1.5"
+                >
+                  <Upload className="h-3.5 w-3.5" aria-hidden="true" />
+                  {t("import")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleContactFormModal()}
+                  className="op-btn op-btn-sm bg-base-content !text-base-100 hover:bg-base-content hover:!text-base-100 hover:opacity-90 border-0 gap-1.5"
+                >
+                  <Plus className="h-3.5 w-3.5" aria-hidden="true" />
+                  {t("new")}
+                </button>
+                {titleElement?.width < 500 && (
+                  <button
+                    type="button"
+                    className="op-btn op-btn-ghost op-btn-sm op-btn-square"
+                    aria-label="Search"
+                    onClick={() =>
+                      props.setMobileSearchOpen(!props.mobileSearchOpen)
+                    }
+                  >
+                    <i className="fa-light fa-magnifying-glass" />
+                  </button>
+                )}
+              </>
+            }
+          />
         </div>
         {/* Search input for report smalle in width */}
         {titleElement?.width < 500 && props.mobileSearchOpen && (
@@ -304,12 +304,12 @@ const Contactbook = (props) => {
                 : "h-screen"
           }`}
         >
-          <table className="op-table border-collapse w-full mb-4">
-            <thead className="text-[14px] text-center">
-              <tr className="border-y-[1px]">
+          <table className="op-table mb-4">
+            <thead>
+              <tr>
                 {props.heading?.map((item, index) => (
                   <React.Fragment key={index}>
-                    <th className="text-left p-2">
+                    <th>
                       {t(`report-heading.${item}`)}
                       {item === "Name" && (
                         <button
@@ -336,18 +336,18 @@ const Contactbook = (props) => {
                 )}
               </tr>
             </thead>
-            <tbody className="text-[12px]">
+            <tbody>
               {props.List?.length > 0 &&
                 !props.searchLoader &&
                 currentList.map((item, index) => (
-                  <tr className="last:border-none border-y-[1px]" key={index}>
+                  <tr className="last:border-none" key={index}>
                     {props.heading.includes("Sr.No") && (
-                      <td className="p-2 text-left font-semibold">
+                      <td className="font-semibold">
                         {startIndex + index + 1}
                       </td>
                     )}
                     {props.heading.includes("Name") && (
-                      <td className="p-2 text-left font-semibold">
+                      <td className="font-semibold">
                         {item?.Name}
                       </td>
                     )}

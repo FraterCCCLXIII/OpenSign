@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../redux/reducers/sidebarReducer";
 import { sessionStatus } from "../redux/reducers/userReducer";
+import DocTransitLogo from "./DocTransitLogo";
 
 const Header = ({ isConsole, setIsLoggingOut }) => {
   const { t, i18n } = useTranslation();
@@ -101,11 +102,14 @@ const Header = ({ isConsole, setIsLoggingOut }) => {
           </button>
         </div>
         <div className="flex-1 ml-2">
-          <div
+          <button
+            type="button"
             onClick={() => navigate("/dashboard/35KBoSgoAK")}
-            className="h-[25px] md:h-[40px] w-auto cursor-pointer"
-            aria-label="Home"
-          />
+            className="flex items-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] rounded-sm"
+            aria-label="DocTransit home"
+          >
+            <DocTransitLogo className="h-3.5 md:h-4 w-auto" />
+          </button>
         </div>
         <div id="profile-menu" className="relative flex-none">
           <button

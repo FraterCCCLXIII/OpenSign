@@ -3,9 +3,6 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router";
 
 const Submenu = ({ item, closeSidebar, toggleSubmenu, submenuOpen }) => {
-  const appName =
-    "OpenSign™";
-  const drivename = appName === "OpenSign™" ? "OpenSign™" : "";
   const { t } = useTranslation();
   const { title, icon, children } = item;
   const { selectedMenu } = useSelector((state) => state.sidebar);
@@ -24,7 +21,7 @@ const Submenu = ({ item, closeSidebar, toggleSubmenu, submenuOpen }) => {
         </span>
         <div className="flex justify-between items-center w-full">
           <span className="flex items-center mb-0.5">
-            {t(`sidebar.${item.title}`, { appName })}
+            {t(`sidebar.${item.title}`)}
           </span>
           <i
             className={`${
@@ -64,9 +61,7 @@ const Submenu = ({ item, closeSidebar, toggleSubmenu, submenuOpen }) => {
                   ></i>
                 </span>
                 <span className="mb-0.5">
-                  {t(`sidebar.${item.title}-Children.${childItem.title}`, {
-                    appName: drivename
-                  })}
+                  {t(`sidebar.${item.title}-Children.${childItem.title}`)}
                 </span>
               </NavLink>
             </li>
