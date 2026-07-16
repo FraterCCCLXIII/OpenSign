@@ -11,7 +11,13 @@ export function serverUrl_fn() {
 }
 export const appInfo = {
   applogo: logo,
-  appId: process.env.REACT_APP_APPID ? process.env.REACT_APP_APPID : "opensign",
+  get appId() {
+    return (
+      getEnv()?.REACT_APP_APPID ||
+      process.env.REACT_APP_APPID ||
+      "opensign"
+    );
+  },
   baseUrl: serverUrl_fn(),
   defaultRole: "contracts_User",
   fev_Icon:
