@@ -1,11 +1,13 @@
 /**
- * Local email design review gallery.
+ * Local email design review gallery (Vite DEV only).
  *
  * Standalone (no auth shell) page that renders every OpenSign system email
  * with mock data in an iframe, so design can be reviewed without sending mail.
+ * Production builds omit the /email-preview route entirely.
  */
 
 import { useMemo, useState } from "react";
+import { Navigate } from "react-router";
 import {
   EMAIL_CATEGORIES,
   EMAIL_TEMPLATES
@@ -18,9 +20,9 @@ const VIEWPORTS = [
 ];
 
 /**
- * EmailPreview — sidebar picker + subject chrome + iframe HTML preview.
+ * EmailPreviewGallery — sidebar picker + subject chrome + iframe HTML preview.
  */
-const EmailPreview = () => {
+const EmailPreviewGallery = () => {
   const [selectedId, setSelectedId] = useState(EMAIL_TEMPLATES[0].id);
   const [viewport, setViewport] = useState("desktop");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -145,6 +147,14 @@ const EmailPreview = () => {
       </div>
     </div>
   );
+};
+
+/** Dev-only entry: refuse to render outside Vite development. */
+const EmailPreview = () => {
+  if (!import.meta.env.DEV) {
+    return <Navigate to="/" replace />;
+  }
+  return <EmailPreviewGallery />;
 };
 
 export default EmailPreview;

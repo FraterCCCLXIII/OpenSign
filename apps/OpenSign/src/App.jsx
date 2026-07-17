@@ -38,7 +38,10 @@ const Login = lazyWithRetry(() => import("./pages/Login"));
 const PublicSign = lazyWithRetry(() => import("./pages/PublicSign"));
 const VerifyDocument = lazyWithRetry(() => import("./pages/VerifyDocument"));
 const EmailBuilder = lazyWithRetry(() => import("./pages/EmailBuilder"));
-const EmailPreview = lazyWithRetry(() => import("./pages/EmailPreview"));
+// Dev-only design gallery — never register in production builds.
+const EmailPreview = import.meta.env.DEV
+  ? lazyWithRetry(() => import("./pages/EmailPreview"))
+  : null;
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.mjs`;
 const AppLoader = () => {
@@ -149,10 +152,12 @@ function App() {
             </Route>
             <Route path="/success" element={<DocSuccessPage />} />
             <Route path="/emailbuilder" element={<EmailBuilder />} />
-            <Route
-              path="/email-preview"
-              element={<Lazy Page={EmailPreview} />}
-            />
+            {EmailPreview && (
+              <Route
+                path="/email-preview"
+                element={<Lazy Page={EmailPreview} />}
+              />
+            )}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
