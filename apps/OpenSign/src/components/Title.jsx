@@ -37,6 +37,7 @@ const TITLE_MAP = {
 
   // alone
   "/debugpdf": "Debug Pdf",
+  "/email-preview": "Email design review",
   "/forgetpassword": "forgot-password",
   "/success": "success",
   "/addadmin": "add-admin",
